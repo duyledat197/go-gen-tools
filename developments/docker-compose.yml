@@ -34,9 +34,6 @@ services:
       DATABASE_HOST: localhost
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    volumes:
-       - postgres:/data/postgres
-       - "./groonga-build.sh:/groonga-build.sh"
     ports:
       - "5432:5432"
     networks:

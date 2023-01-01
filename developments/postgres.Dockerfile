@@ -24,3 +24,6 @@ RUN \
     clang \
     clang-dev \
     llvm15
+
+EXPOSE 5432
+CMD ["postgres"]
