@@ -12,7 +12,7 @@ test:
 install:
 	@go install ./cmd/server/.
 gen-proto:
-	docker compose up -d -f ./developments/proto.docker-compose.yml
+	docker compose -f ./developments/proto.docker-compose.yml up --build
 
 build:
 	@echo "building..."

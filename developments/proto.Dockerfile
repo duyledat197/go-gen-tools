@@ -13,7 +13,9 @@ RUN mv protoc3/bin/* /usr/local/bin/
 RUN mv protoc3/include/* /usr/local/include/
 
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.25.0
-RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.0.1
+RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
+RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 RUN go install github.com/envoyproxy/protoc-gen-validate@v0.9.1
 RUN go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 RUN go install github.com/bold-commerce/protoc-gen-struct-transformer@v1.0.7    
@@ -24,3 +26,8 @@ RUN go mod download github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f49
 ENV MOD=$GOPATH/pkg/mod
 RUN mv $MOD/github.com/envoyproxy/protoc-gen-validate@v0.9.1/validate /usr/local/include/
 RUN mv $MOD/github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa/google/* /usr/local/include/google/
+
+WORKDIR /app
+COPY /.. /app
+
+RUN go install /app/cmd/protoc-gen-custom/.

@@ -8,6 +8,13 @@ import (
 	"database/sql"
 )
 
+type Hub struct {
+	ID    int64
+	Name  string
+	Bio   sql.NullString
+	Email sql.NullString
+}
+
 type User struct {
 	ID   int64
 	Name string

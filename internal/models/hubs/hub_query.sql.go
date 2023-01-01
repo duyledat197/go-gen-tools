@@ -7,16 +7,67 @@ package hubs
 
 import (
 	"context"
+	"database/sql"
 )
 
 const getHub = `-- name: GetHub :one
-SELECT id, name, bio FROM hubs
+SELECT id, name, bio, email FROM hubs
 WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetHub(ctx context.Context, id int64) (Hub, error) {
 	row := q.db.QueryRowContext(ctx, getHub, id)
 	var i Hub
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Bio,
+		&i.Email,
+	)
 	return i, err
+}
+
+const getUserHub = `-- name: GetUserHub :many
+Select hubs.id, hubs.name, hubs.bio, email, users.id, users.name, users.bio from hubs join users using(id)
+`
+
+type GetUserHubRow struct {
+	ID     int64
+	Name   string
+	Bio    sql.NullString
+	Email  sql.NullString
+	ID_2   int64
+	Name_2 string
+	Bio_2  sql.NullString
+}
+
+func (q *Queries) GetUserHub(ctx context.Context) ([]GetUserHubRow, error) {
+	rows, err := q.db.QueryContext(ctx, getUserHub)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetUserHubRow
+	for rows.Next() {
+		var i GetUserHubRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Bio,
+			&i.Email,
+			&i.ID_2,
+			&i.Name_2,
+			&i.Bio_2,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

@@ -89,6 +89,7 @@ func (m *CreateTeamRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return CreateTeamRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -192,6 +193,7 @@ func (m *CreateTeamResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return CreateTeamResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -295,6 +297,7 @@ func (m *AddUsersToTeamRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return AddUsersToTeamRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -398,6 +401,7 @@ func (m *AddUsersToTeamResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return AddUsersToTeamResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -508,6 +512,7 @@ func (m *Team) validate(all bool) error {
 	if len(errors) > 0 {
 		return TeamMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -610,6 +615,7 @@ func (m *GetTeamsRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetTeamsRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -745,6 +751,7 @@ func (m *GetTeamsResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetTeamsResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -846,6 +853,7 @@ func (m *GetTeamByIDRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetTeamByIDRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -976,6 +984,7 @@ func (m *GetTeamByIDResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetTeamByIDResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1106,6 +1115,7 @@ func (m *UpdateTeamRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return UpdateTeamRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1209,6 +1219,7 @@ func (m *UpdateTeamResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return UpdateTeamResponseMultiError(errors)
 	}
+
 	return nil
 }
 
