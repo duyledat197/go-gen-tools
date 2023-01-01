@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lalaland/backend/internal/models"
-	"github.com/lalaland/backend/internal/repositories"
-	"github.com/lalaland/backend/pb"
-	"github.com/lalaland/backend/utils/metadata"
+	"github.com/duyledat197/interview-hao/internal/models"
+	"github.com/duyledat197/interview-hao/internal/repositories"
+	"github.com/duyledat197/interview-hao/pb"
+	"github.com/duyledat197/interview-hao/utils/metadata"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/exp/slices"
 )

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lalaland/backend/internal/models"
-	"github.com/lalaland/backend/internal/services"
-	"github.com/lalaland/backend/pb"
+	"github.com/duyledat197/interview-hao/internal/models"
+	"github.com/duyledat197/interview-hao/internal/services"
+	"github.com/duyledat197/interview-hao/pb"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

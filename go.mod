@@ -1,4 +1,4 @@
-module github.com/lalaland/backend
+module github.com/duyledat197/interview-hao
 
 go 1.19
 

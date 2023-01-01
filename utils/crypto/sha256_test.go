@@ -3,7 +3,7 @@ package crypto
 import (
 	"testing"
 
-	"github.com/lalaland/backend/utils/helper"
+	"github.com/duyledat197/interview-hao/utils/helper"
 	"github.com/stretchr/testify/assert"
 )
 

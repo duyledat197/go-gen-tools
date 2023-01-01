@@ -7,12 +7,12 @@ import (
 	"net/http"
 	"os"
 
-	deliveries "github.com/lalaland/backend/internal/deliveries/grpc"
-	mongoC "github.com/lalaland/backend/internal/mongo"
-	"github.com/lalaland/backend/internal/repositories"
-	"github.com/lalaland/backend/internal/services"
-	"github.com/lalaland/backend/pb"
-	"github.com/lalaland/backend/utils/metadata"
+	deliveries "github.com/duyledat197/interview-hao/internal/deliveries/grpc"
+	mongoC "github.com/duyledat197/interview-hao/internal/mongo"
+	"github.com/duyledat197/interview-hao/internal/repositories"
+	"github.com/duyledat197/interview-hao/internal/services"
+	"github.com/duyledat197/interview-hao/pb"
+	"github.com/duyledat197/interview-hao/utils/metadata"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/rs/cors"

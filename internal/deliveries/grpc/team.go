@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lalaland/backend/internal/services"
-	"github.com/lalaland/backend/pb"
-	"github.com/lalaland/backend/transform"
+	"github.com/duyledat197/interview-hao/internal/services"
+	"github.com/duyledat197/interview-hao/pb"
+	"github.com/duyledat197/interview-hao/transform"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

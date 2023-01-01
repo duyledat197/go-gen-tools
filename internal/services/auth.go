@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lalaland/backend/internal/models"
-	"github.com/lalaland/backend/internal/repositories"
-	"github.com/lalaland/backend/utils"
-	"github.com/lalaland/backend/utils/helper"
+	"github.com/duyledat197/interview-hao/internal/models"
+	"github.com/duyledat197/interview-hao/internal/repositories"
+	"github.com/duyledat197/interview-hao/utils"
+	"github.com/duyledat197/interview-hao/utils/helper"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

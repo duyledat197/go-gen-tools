@@ -3,7 +3,7 @@ package repositories
 import (
 	"context"
 
-	"github.com/lalaland/backend/internal/models"
+	"github.com/duyledat197/interview-hao/internal/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

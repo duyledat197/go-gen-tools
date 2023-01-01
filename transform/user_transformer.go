@@ -5,8 +5,8 @@
 package transform
 
 import (
-	"github.com/lalaland/backend/internal/models"
-	"github.com/lalaland/backend/pb"
+	"github.com/duyledat197/interview-hao/internal/models"
+	"github.com/duyledat197/interview-hao/pb"
 )
 
 // "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""

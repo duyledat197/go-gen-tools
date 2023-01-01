@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lalaland/backend/internal/services"
-	"github.com/lalaland/backend/pb"
+	"github.com/duyledat197/interview-hao/internal/services"
+	"github.com/duyledat197/interview-hao/pb"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/lalaland/backend/internal/models"
-	"github.com/lalaland/backend/internal/repositories"
-	"github.com/lalaland/backend/pb"
+	"github.com/duyledat197/interview-hao/internal/models"
+	"github.com/duyledat197/interview-hao/internal/repositories"
+	"github.com/duyledat197/interview-hao/pb"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

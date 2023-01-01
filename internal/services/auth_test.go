@@ -4,7 +4,7 @@ package services
 // 	"context"
 // 	"testing"
 
-// 	"github.com/lalaland/backend/models"
+// 	"github.com/duyledat197/interview-hao/models"
 
 // 	"github.com/stretchr/testify/assert"
 // 	"github.com/stretchr/testify/mock"
