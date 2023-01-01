@@ -83,6 +83,7 @@ func (m *LoginRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return LoginRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -255,6 +256,7 @@ func (m *LoginResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return LoginResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -356,6 +358,7 @@ func (m *ForgotPasswordRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return ForgotPasswordRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -459,6 +462,7 @@ func (m *ForgotPasswordResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return ForgotPasswordResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -564,6 +568,7 @@ func (m *VerifyOTPRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return VerifyOTPRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -663,6 +668,7 @@ func (m *VerifyOTPResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return VerifyOTPResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -779,6 +785,7 @@ func (m *ResetPasswordRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return ResetPasswordRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -880,6 +887,7 @@ func (m *ResetPasswordResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return ResetPasswordResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1005,6 +1013,7 @@ func (m *ChangePasswordRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return ChangePasswordRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1106,6 +1115,7 @@ func (m *ChangePasswordResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return ChangePasswordResponseMultiError(errors)
 	}
+
 	return nil
 }
 

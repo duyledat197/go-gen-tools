@@ -2,14 +2,15 @@ version: "3.4"
 
 services:
   generate_go:
-    image: v20221224-go
+    image: gen-go
     build:
-      context: .
+      context: ../
       target: protoc_gen_go
-      dockerfile: ./proto.Dockerfile
-    working_dir: /proto/
+      dockerfile: ./developments/proto.Dockerfile
     volumes:
       - "../proto/:/proto/"
-      - "../pkg/:/pkg/"
-    entrypoint: /proto/gen_go.sh
-    
+      - "../pb/:/pb/"
+      - "../docs/:/go/docs/"
+      - "./gen-go.sh:/gen-go.sh"
+      - "../internal/models:/go/internal/models"
+    entrypoint: /gen-go.sh

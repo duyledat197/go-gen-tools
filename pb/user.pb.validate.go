@@ -62,6 +62,7 @@ func (m *GetUserByIDRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetUserByIDRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -186,6 +187,7 @@ func (m *User) validate(all bool) error {
 	if len(errors) > 0 {
 		return UserMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -313,6 +315,7 @@ func (m *CreateUserRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return CreateUserRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -420,6 +423,7 @@ func (m *CreateUserResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return CreateUserResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -525,6 +529,7 @@ func (m *GetListRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetListRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -660,6 +665,7 @@ func (m *GetListResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return GetListResponseMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -788,6 +794,7 @@ func (m *UpdateUserRequest) validate(all bool) error {
 	if len(errors) > 0 {
 		return UpdateUserRequestMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -891,6 +898,7 @@ func (m *UpdateUserResponse) validate(all bool) error {
 	if len(errors) > 0 {
 		return UpdateUserResponseMultiError(errors)
 	}
+
 	return nil
 }
 
