@@ -29,9 +29,10 @@ services:
     image: postgres
     environment:
       PGDATA: /data/postgres
-      POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: testdb
       DATABASE_HOST: localhost
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
        - postgres:/data/postgres
     ports:
@@ -46,7 +47,9 @@ services:
       dockerfile: ./migrate.Dockerfile
     volumes:
       - "../database/migrations:/migrations/"
-    command: ["migrate", "-source","/migrations", "-database", "postgres://postgres:5432/database", "up"]
+    networks:
+      - postgres
+    command: ["migrate", "-path","/migrations", "-database", "postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable", "up"]
 networks:
   postgres:
     driver: bridge
