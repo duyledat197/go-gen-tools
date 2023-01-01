@@ -8,6 +8,8 @@ package models
 import (
 	"context"
 	"database/sql"
+
+	"github.com/jackc/pgtype"
 )
 
 const getHub = `-- name: GetHub :one
@@ -16,7 +18,7 @@ WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetHub(ctx context.Context, id int64) (Hub, error) {
-	row := q.db.QueryRowContext(ctx, getHub, id)
+	row := q.db.QueryRow(ctx, getHub, id)
 	var i Hub
 	err := row.Scan(&i.ID, &i.Name, &i.Bio)
 	return i, err
@@ -27,16 +29,16 @@ Select hubs.id, hubs.name, hubs.bio, users.id, users.name, users.bio from hubs j
 `
 
 type GetUserHubRow struct {
-	ID     int64          `json:"id"`
-	Name   string         `json:"name"`
-	Bio    sql.NullString `json:"bio"`
-	ID_2   int64          `json:"id_2"`
-	Name_2 string         `json:"name_2"`
-	Bio_2  sql.NullString `json:"bio_2"`
+	ID     int64          `db:"id" json:"id"`
+	Name   pgtype.Text    `db:"name" json:"name"`
+	Bio    sql.NullString `db:"bio" json:"bio"`
+	ID_2   int64          `db:"id_2" json:"id_2"`
+	Name_2 pgtype.Text    `db:"name_2" json:"name_2"`
+	Bio_2  sql.NullString `db:"bio_2" json:"bio_2"`
 }
 
 func (q *Queries) GetUserHub(ctx context.Context) ([]GetUserHubRow, error) {
-	rows, err := q.db.QueryContext(ctx, getUserHub)
+	rows, err := q.db.Query(ctx, getUserHub)
 	if err != nil {
 		return nil, err
 	}
@@ -55,9 +57,6 @@ func (q *Queries) GetUserHub(ctx context.Context) ([]GetUserHubRow, error) {
 			return nil, err
 		}
 		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

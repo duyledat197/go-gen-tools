@@ -8,7 +8,6 @@ import (
 	"os"
 
 	deliveries "github.com/duyledat197/interview-hao/internal/deliveries/grpc"
-	mongoC "github.com/duyledat197/interview-hao/internal/mongo"
 	"github.com/duyledat197/interview-hao/internal/repositories"
 	"github.com/duyledat197/interview-hao/internal/services"
 	"github.com/duyledat197/interview-hao/pb"
@@ -98,8 +97,8 @@ func (s *server) loadRedis() error {
 }
 
 func (s *server) loadRepositories() error {
-	s.userRepo = mongoC.NewUserRepository(s.mgoDB.Collection("user"))
-	s.teamRepo = mongoC.NewTeamRepository(s.mgoDB.Collection("team"))
+	// s.userRepo = mongoC.NewUserRepository(s.mgoDB.Collection("user"))
+	// s.teamRepo = mongoC.NewTeamRepository(s.mgoDB.Collection("team"))
 	return nil
 }
 

@@ -6,16 +6,18 @@ package models
 
 import (
 	"database/sql"
+
+	"github.com/jackc/pgtype"
 )
 
 type Hub struct {
-	ID   int64          `json:"id"`
-	Name string         `json:"name"`
-	Bio  sql.NullString `json:"bio"`
+	ID   int64          `db:"id" json:"id"`
+	Name pgtype.Text    `db:"name" json:"name"`
+	Bio  sql.NullString `db:"bio" json:"bio"`
 }
 
 type User struct {
-	ID   int64          `json:"id"`
-	Name string         `json:"name"`
-	Bio  sql.NullString `json:"bio"`
+	ID   int64          `db:"id" json:"id"`
+	Name pgtype.Text    `db:"name" json:"name"`
+	Bio  sql.NullString `db:"bio" json:"bio"`
 }
