@@ -25,7 +25,9 @@ services:
 
   postgres:
     container_name: postgres_container
-    image: postgres
+    build:
+      context: .
+      dockerfile: ./postgres.Dockerfile
     environment:
       PGDATA: /data/postgres
       POSTGRES_DB: testdb
@@ -34,6 +36,7 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
        - postgres:/data/postgres
+       - "./groonga-build.sh:/groonga-build.sh"
     ports:
       - "5432:5432"
     networks:

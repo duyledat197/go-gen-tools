@@ -16,7 +16,7 @@ gen-sql:
 gen-proto:
 	docker compose -f ${COMPOSE_FILE} up generate_pb_go --build
 start-postgres:
-	docker compose -f ${COMPOSE_FILE} up postgres -d --build
+	docker compose -f ${COMPOSE_FILE} up postgres -d 
 migrate:
 	docker compose -f ${COMPOSE_FILE} up migrate
 build:
