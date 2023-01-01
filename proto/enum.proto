@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package enum_pb;
+option go_package = "pb/;pb";
+
+enum UserRole {
+  USER_UNKNOWN = 0;
+  SUPER_ADMIN = 1;
+  ADMIN = 2;
+  SELLER = 3;
+  MANAGER = 4;
+}
+
+enum ProjectStatus {
+  ProjectStatus_NONE = 0;
+  ProjectStatus_IN_PROGRESS = 1;
+  ProjectStatus_PAUSE = 2;
+  ProjectStatus_CLOSE = 3;
+  ProjectStatus_DRAFT = 4;
+}

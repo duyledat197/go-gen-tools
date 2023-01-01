@@ -1,0 +1,17 @@
+# Start from golang v1.11 base image
+FROM golang:1.13
+
+# Add Maintainer Info
+LABEL maintainer="Myth <duyledat197@gmail.com>"
+
+RUN apt-get update
+
+# RUN curl https://glide.sh/get | sh
+
+WORKDIR $GOPATH/src/github.com/lalaland/backend
+
+COPY . .
+
+# RUN glide install
+
+RUN make install

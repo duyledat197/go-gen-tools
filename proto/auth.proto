@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package auth;
+option go_package = "pb/;pb";
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "enum.proto";
+
+service AuthService {
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post : "/v1/auth/login",
+      body : "*"
+    };
+  };
+  rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse) {
+    option (google.api.http) = {
+      post : "/v1/auth/forgot-password",
+      body : "*"
+    };
+  };
+  rpc VerifyOTP(VerifyOTPRequest) returns (VerifyOTPResponse) {
+    option (google.api.http) = {
+      post : "/v1/auth/otp",
+      body : "*"
+    };
+  };
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
+    option (google.api.http) = {
+      post : "/v1/auth/reset-password",
+      body : "*"
+    };
+  }
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse) {
+    option (google.api.http) = {
+      put : "/v1/auth",
+      body : "*"
+    };
+  };
+}
+
+message LoginRequest {
+  string email = 1 [(validate.rules).string.email = true];
+  string password = 2 [ (validate.rules).string = {min_len : 6, max_len : 20} ];
+}
+
+message LoginResponse {
+  string name = 1;
+  string phone = 2;
+  string token = 3;
+  int32 age = 4;
+  enum_pb.UserRole role = 5;
+  string card_id = 6;
+  string user_id = 7;
+  string gender = 8;
+  string birth_day = 9;
+  string address = 10;
+  string created_at = 11;
+  string email = 12;
+}
+
+// message RegisterRequest {
+//   string fullname = 1 [ (validate.rules).string = {min_len : 6, max_len : 20} ];
+//   string phone = 3 [ (validate.rules).string = {min_len : 10, max_len : 11} ];
+//   string password = 4 [ (validate.rules).string = {min_len : 6, max_len : 20} ];
+//   int32 age = 5;
+//   string identity_card = 6;
+//   string job = 7;
+
+//   enum_pb.UserRole role = 8 [ (validate.rules).enum.defined_only = true ];
+//   enum_pb.UserSex sex = 9 [ (validate.rules).enum.defined_only = true ];
+
+//   int32 provinceID = 10;
+//   int32 districtID = 11;
+//   int32 wardID = 12;
+//   int64 locationScore = 13;
+
+//   string createdAt = 14;
+//   string updatedAt = 15;
+
+//   repeated string blockedUserIDs = 16;
+// }
+
+// message RegisterResponse {}
+
+message ForgotPasswordRequest {
+  string email = 1;
+}
+
+message ForgotPasswordResponse { string token = 1; }
+
+message VerifyOTPRequest {
+  string email = 1;
+  string otp = 2;
+}
+
+message VerifyOTPResponse {}
+
+message ResetPasswordRequest {
+  string email = 1;
+  string token = 2;
+  string new_password = 3
+      [ (validate.rules).string = {min_len : 6, max_len : 20} ];
+}
+
+message ResetPasswordResponse {}
+
+message ChangePasswordRequest {
+  string email = 1;
+  string password = 2 [ (validate.rules).string = {min_len : 6, max_len : 20} ];
+  string new_password = 3
+      [ (validate.rules).string = {min_len : 6, max_len : 20} ];
+}
+
+message ChangePasswordResponse {}

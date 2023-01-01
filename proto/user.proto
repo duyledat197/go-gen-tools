@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package user;
+option go_package = "pb/;pb";
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "enum.proto";
+import "options/annotations.proto";
+
+// // Go package name which contains business logic structures.
+option (transformer.go_repo_package) = "models";
+// // Go package name with protobuf generated srtuctures. Could be equal to
+// // options go_package.
+option (transformer.go_protobuf_package) = "pb";
+// // Path to source file with Go structures which will be used asdestination.
+option (transformer.go_models_file_path) = "internal/models/user.go";
+
+service UserService {
+  rpc GetUserByID(GetUserByIDRequest) returns (User) {
+    option (google.api.http) = {
+      get : "/v1/users/{userID}"
+    };
+  };
+
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/users",
+      body : "*"
+    };
+  };
+
+  rpc GetList(GetListRequest) returns (GetListResponse) {
+    option (google.api.http) = {
+      get : "/v1/users"
+    };
+  };
+
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      put : "/v1/users",
+      body : "*"
+    };
+  };
+}
+
+message GetUserByIDRequest { string userID = 1; }
+
+message User {
+  option (transformer.go_struct) = "User";
+  string name = 1;
+  string phone = 2;
+  int32 age = 3;
+  enum_pb.UserRole role = 5 [ (transformer.skip) = true ];
+  string card_id = 6;
+  string user_id = 7 [ (transformer.skip) = true ];
+  string gender = 8;
+  string birth_day = 9;
+  string email = 10;
+  string address = 11;
+  string created_at = 12;
+  string deleted_at = 13;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string phone = 2;
+  int32 age = 3;
+  enum_pb.UserRole role = 5 [ (validate.rules).enum = {not_in : [ 1 ]} ];
+  string card_id = 6;
+  string gender = 8;
+  string birth_day = 9;
+  string password = 10;
+  string email = 11;
+  string address = 12;
+}
+
+message CreateUserResponse { bool success = 1; }
+
+message GetListRequest {
+  int32 offset = 1;
+  int32 limit = 2;
+}
+
+message GetListResponse {
+  repeated User data = 1;
+  int32 total = 2;
+}
+
+message UpdateUserRequest { User user = 1; }
+
+message UpdateUserResponse { bool success = 1; }
