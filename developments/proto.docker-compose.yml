@@ -1,15 +1,23 @@
 version: "3.4"
 
 services:
-  generate_go:
-    image: v20221224-go
-    build:
-      context: .
-      target: protoc_gen_go
-      dockerfile: ./proto.Dockerfile
-    working_dir: /proto/
+  # generate_go:
+  #   image: v20221224-go
+  #   build:
+  #     context: .
+  #     target: protoc_gen_go
+  #     dockerfile: ./proto.Dockerfile
+  #   working_dir: /proto/
+  #   volumes:
+  #     - "../proto/:/proto/"
+  #     - "../pkg/:/pkg/"
+  #   entrypoint: /proto/gen_go.sh
+
+  generate_sqlc:
+    image: kjconroy/sqlc
+    working_dir: /src/
     volumes:
-      - "../proto/:/proto/"
-      - "../pkg/:/pkg/"
-    entrypoint: /proto/gen_go.sh
+      - "../migrations/:/src/"
+      - "../internal/models/:/models/"
+    cmd: ["generate"]
     

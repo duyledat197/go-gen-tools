@@ -1,0 +1,19 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "user_query.sql"
+    schema: "user_schema.sql"
+    gen:
+      go:
+        package: "users"
+        out: "../models/users"
+  - engine: "postgresql"
+    queries: "hub_query.sql"
+    schema: "hub_schema.sql"
+    gen:
+      go:
+        package: "hubs"
+        out: "../models/hubs"
+
+
+
