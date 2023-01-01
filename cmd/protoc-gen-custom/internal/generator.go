@@ -2,7 +2,6 @@ package internal
 
 import (
 	"fmt"
-	"log"
 	"runtime/debug"
 	"strings"
 
@@ -24,7 +23,6 @@ func normalizeFullname(fn protoreflect.FullName) string {
 func (g *generator) GenerateMethods() {
 	req := g.p.Request
 	filename := g.f.GeneratedFilenamePrefix + "_methods.pb.go"
-	log.Println(filename)
 	genFile := g.p.NewGeneratedFile(filename, g.f.GoImportPath)
 	fName := string(g.f.Desc.Name())
 	custom := figure.NewFigure("custom", "", true)

@@ -21,4 +21,5 @@ services:
     volumes:
       - "../database/:/src/"
       - "../internal/models/:/models/"
+      - "./sqlc.yaml:/src/sqlc.yaml"
     command: ["generate"]

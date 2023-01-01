@@ -1,0 +1,19 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: 
+    - "./queries/hub.sql"
+    - "./queries/user.sql"
+    schema: 
+    - "./schema/hub.sql"
+    - "./schema/user.sql"
+    gen:
+      go:
+        package: "models"
+        out: "../models"
+        sql_package: "pgx5"
+        emit_json_tags: true
+        emit_interface: true
+
+
+
