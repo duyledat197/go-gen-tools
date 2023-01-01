@@ -24,5 +24,3 @@ RUN go mod download github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f49
 ENV MOD=$GOPATH/pkg/mod
 RUN mv $MOD/github.com/envoyproxy/protoc-gen-validate@v0.9.1/validate /usr/local/include/
 RUN mv $MOD/github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa/google/* /usr/local/include/google/
-
-COPY ./protoc-gen-syllabus/protoc-gen-syllabus /usr/local/bin/

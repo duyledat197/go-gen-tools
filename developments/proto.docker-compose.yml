@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  generate_go:
+    image: v20221224-go
+    build:
+      context: .
+      target: protoc_gen_go
+      dockerfile: ./proto.Dockerfile
+    working_dir: /proto/
+    volumes:
+      - "../proto/:/proto/"
+      - "../pkg/:/pkg/"
+    entrypoint: /proto/gen_go.sh
+    
