@@ -160,29 +160,11 @@ func (m *User) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
 	// no validation rules for Name
 
-	// no validation rules for Phone
-
-	// no validation rules for Age
-
-	// no validation rules for Role
-
-	// no validation rules for CardId
-
-	// no validation rules for UserId
-
-	// no validation rules for Gender
-
-	// no validation rules for BirthDay
-
-	// no validation rules for Email
-
-	// no validation rules for Address
-
-	// no validation rules for CreatedAt
-
-	// no validation rules for DeletedAt
+	// no validation rules for Bio
 
 	if len(errors) > 0 {
 		return UserMultiError(errors)

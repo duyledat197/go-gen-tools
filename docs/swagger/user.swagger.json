@@ -262,41 +262,13 @@
     "userUser": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
-        "phone": {
-          "type": "string"
-        },
-        "age": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "role": {
-          "$ref": "#/definitions/enum_pbUserRole"
-        },
-        "cardId": {
-          "type": "string"
-        },
-        "userId": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "birthDay": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "deletedAt": {
+        "bio": {
           "type": "string"
         }
       }

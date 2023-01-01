@@ -9,145 +9,91 @@ import (
 	"github.com/duyledat197/interview-hao/pb"
 )
 
-// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
-// "user.User": target: "User", Omitted: false, OneofDecl: ""
-// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "auth.ForgotPasswordResponse": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
-// "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
-// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.ChangePasswordResponse": target: "", Omitted: true, OneofDecl: ""
-// "team.AddUsersToTeamResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.DurationRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.VerifyOTPResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
-// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
-// "team.GetTeamsResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "team.CreateTeamResponse": target: "", Omitted: true, OneofDecl: ""
-// "team.GetTeamByIDResponse": target: "", Omitted: true, OneofDecl: ""
-// "validate.UInt64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
-// "team.GetTeamByIDRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.ChangePasswordRequest": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
 // "auth.LoginRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
-// "auth.ForgotPasswordRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
-// "team.Team": target: "Team", Omitted: false, OneofDecl: ""
-// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "user.User": target: "User", Omitted: false, OneofDecl: ""
+// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.GeneratedCodeInfo": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "auth.LoginResponse": target: "", Omitted: true, OneofDecl: ""
-// "auth.ResetPasswordResponse": target: "", Omitted: true, OneofDecl: ""
-// "team.UpdateTeamResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
-// "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
-// "team.GetTeamsRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.UInt64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.DurationRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ChangePasswordRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.GetListRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "auth.VerifyOTPRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ResetPasswordResponse": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
+// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
 // "auth.ResetPasswordRequest": target: "", Omitted: true, OneofDecl: ""
 // "user.CreateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "team.UpdateTeamRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
+// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ForgotPasswordResponse": target: "", Omitted: true, OneofDecl: ""
+// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
+// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
+// "auth.LoginResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "auth.VerifyOTPRequest": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
 // "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
-// "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListRequest": target: "", Omitted: true, OneofDecl: ""
-// "team.CreateTeamRequest": target: "", Omitted: true, OneofDecl: ""
-// "team.AddUsersToTeamRequest": target: "", Omitted: true, OneofDecl: ""
+// "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
 // "google.api.Http": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
+// "auth.ForgotPasswordRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
+// "auth.VerifyOTPResponse": target: "", Omitted: true, OneofDecl: ""
+// "auth.ChangePasswordResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
 // message "GetUserByIDRequest" has no option "transformer.go_struct", skipped...
 
 // Target struct fields:
-// Field: "CardID", Type: "string", isPointer: false
-// Field: "Gender", Type: "string", isPointer: false
-// Field: "UpdatedAt", Type: "time.Time", isPointer: false
-// Field: "DeletedAt", Type: "time.Time", isPointer: false
-// Field: "ID", Type: "primitive.ObjectID", isPointer: false
-// Field: "Name", Type: "string", isPointer: false
-// Field: "HashedPassword", Type: "string", isPointer: false
-// Field: "Role", Type: "string", isPointer: false
-// Field: "CreatedAt", Type: "time.Time", isPointer: false
-// Field: "Email", Type: "string", isPointer: false
-// Field: "Age", Type: "int", isPointer: false
-// Field: "BirthDay", Type: "string", isPointer: false
-// Field: "Address", Type: "string", isPointer: false
-// Field: "CreatedBy", Type: "primitive.ObjectID", isPointer: false
-// Field: "Phone", Type: "string", isPointer: false
+// Field: "ID", Type: "int64", isPointer: false
+// Field: "Name", Type: "pgtype.Text", isPointer: false
+// Field: "Bio", Type: "sql.NullString", isPointer: false
+
+// ===============================
+// fdp.Name: "id", mapAs: "", mapTo: ""
+// sf: source.FieldInfo{Type:"Int64", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Id", gname: "ID"
 
 // ===============================
 // fdp.Name: "name", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Name", gname: "Name"
+// sf: source.FieldInfo{Type:"PgtypeText", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Name", gname: "Name"
 
 // ===============================
-// fdp.Name: "phone", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Phone", gname: "Phone"
-
-// ===============================
-// fdp.Name: "age", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"Int", IsPointer:false}, pbType: "int32", goType: "int", ft: "TYPE_INT32", pname: "Age", gname: "Age"
-// sft: int, tpb: int32
-// field skipped: role
-
-// ===============================
-// fdp.Name: "card_id", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "CardId", gname: "CardID"
-// field skipped: user_id
-
-// ===============================
-// fdp.Name: "gender", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Gender", gname: "Gender"
-
-// ===============================
-// fdp.Name: "birth_day", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "BirthDay", gname: "BirthDay"
-
-// ===============================
-// fdp.Name: "email", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Email", gname: "Email"
-
-// ===============================
-// fdp.Name: "address", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"String", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Address", gname: "Address"
-
-// ===============================
-// fdp.Name: "created_at", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"TimeTime", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "CreatedAt", gname: "CreatedAt"
-
-// ===============================
-// fdp.Name: "deleted_at", mapAs: "", mapTo: ""
-// sf: source.FieldInfo{Type:"TimeTime", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "DeletedAt", gname: "DeletedAt"
+// fdp.Name: "bio", mapAs: "", mapTo: ""
+// sf: source.FieldInfo{Type:"SqlNullString", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Bio", gname: "Bio"
 // message "CreateUserRequest" has no option "transformer.go_struct", skipped...
 // message "CreateUserResponse" has no option "transformer.go_struct", skipped...
 // message "GetListRequest" has no option "transformer.go_struct", skipped...
@@ -198,16 +144,9 @@ func PbToUserList(src []*pb.User, opts ...TransformParam) []models.User {
 
 func PbToUser(src pb.User, opts ...TransformParam) models.User {
 	s := models.User{
-		Name:      src.Name,
-		Phone:     src.Phone,
-		Age:       int(src.Age),
-		CardID:    src.CardId,
-		Gender:    src.Gender,
-		BirthDay:  src.BirthDay,
-		Email:     src.Email,
-		Address:   src.Address,
-		CreatedAt: StringToTimeTime(src.CreatedAt),
-		DeletedAt: StringToTimeTime(src.DeletedAt),
+		ID:   StringToInt64(src.Id),
+		Name: StringToPgtypeText(src.Name),
+		Bio:  StringToSqlNullString(src.Bio),
 	}
 
 	applyOptions(opts...)
@@ -275,16 +214,9 @@ func UserToPbList(src []models.User, opts ...TransformParam) []*pb.User {
 
 func UserToPb(src models.User, opts ...TransformParam) pb.User {
 	s := pb.User{
-		Name:      src.Name,
-		Phone:     src.Phone,
-		Age:       int32(src.Age),
-		CardId:    src.CardID,
-		Gender:    src.Gender,
-		BirthDay:  src.BirthDay,
-		Email:     src.Email,
-		Address:   src.Address,
-		CreatedAt: TimeTimeToString(src.CreatedAt),
-		DeletedAt: TimeTimeToString(src.DeletedAt),
+		Id:   Int64ToString(src.ID),
+		Name: PgtypeTextToString(src.Name),
+		Bio:  SqlNullStringToString(src.Bio),
 	}
 
 	applyOptions(opts...)

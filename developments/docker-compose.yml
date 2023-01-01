@@ -9,10 +9,9 @@ services:
       dockerfile: ./developments/proto.Dockerfile
     volumes:
       - "../proto/:/proto/"
-      - "../pb/:/pb/"
+      - "../pb/:/app/pb/"
       - "../docs/:/docs/"
       - "./gen-go.sh:/gen-go.sh"
-      - "../internal/models:/internal/models"
     entrypoint: /gen-go.sh
 
   generate_sqlc:
