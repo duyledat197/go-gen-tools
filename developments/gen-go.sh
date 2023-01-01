@@ -13,5 +13,11 @@ protoc \
 		--custom_out=:. \
 		--doc_out=./docs/html --doc_opt=html,index.html 
 
-cd /pb
+ cd ./proto
 ls
+
+protoc \
+    ./proto/*.proto \
+		--proto_path=./proto \
+		--go_out=:. \
+		--custom_out=:. 

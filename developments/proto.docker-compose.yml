@@ -10,7 +10,7 @@ services:
     volumes:
       - "../proto/:/proto/"
       - "../pb/:/pb/"
-      - "../docs/:/go/docs/"
+      - "../docs/:/docs/"
       - "./gen-go.sh:/gen-go.sh"
-      - "../internal/models:/go/internal/models"
+      - "../internal/models/:/internal/models/"
     entrypoint: /gen-go.sh
