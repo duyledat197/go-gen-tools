@@ -9,11 +9,13 @@ import (
 )
 
 var (
-	Layers  = []string{"all", "delivery", "domain", "repository"}
+	Layers  = []string{"all", "delivery", "service", "repository"}
 	Methods = []string{"all", "create", "update", "delete", "list", "read(one)"}
 
 	LayerMap = map[string]string{
-		"delivery": "deliveries",
+		Layers[1]: "deliveries/grpc",
+		Layers[2]: "services",
+		Layers[3]: "repositories",
 	}
 )
 

@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"log"
 	"os"
 	"path"
 	"runtime"
@@ -42,33 +41,30 @@ func Run() {
 		panic("No caller information")
 	}
 	pkgDir := path.Dir(filename)
-	file, err := os.Create(path.Join(baseDir, "internal", LayerMap[layer], "grpc", strcase.ToKebab(name)+".go"))
-	if err != nil {
-		panic(err)
-	}
-	switch layer {
-	case Layers[1]:
-		// templatePath := path.Join(pkgDir, "..", "templates", layer+".tpl")
-		templatePath := path.Join(pkgDir, "..", "templates", layer+".tpl")
 
-		log.Println("templatePath", templatePath)
-		b, err := os.ReadFile(templatePath)
+	var layers []string
+	if layer == Layers[0] {
+		layers = Layers
+	} else {
+		layers = []string{layer}
+	}
+	for _, l := range layers {
+		if l == Layers[0] {
+			continue
+		}
+		file, err := os.Create(path.Join(baseDir, "internal", LayerMap[l], strcase.ToKebab(name)+".go"))
 		if err != nil {
 			panic(err)
 		}
+		templatePath := path.Join(pkgDir, "..", "templates", l+".tpl")
+		type Name struct {
+			Name string
+		}
 		tmpl := template.
-			Must(template.New(layer).
-				Parse(string(b)))
-			// ParseFiles(templatePath))
-		log.Println(tmpl.DefinedTemplates())
-
-		// if err := tmpl.Execute(os.Stdout, templateModel); err != nil {
-		// 	log.Fatalf("execution failed: %s", err)
-		// }
-		// return
+			Must(template.
+				ParseFiles(templatePath))
 		if err := tmpl.Execute(file, templateModel); err != nil {
 			panic(err)
 		}
-	default:
 	}
 }
