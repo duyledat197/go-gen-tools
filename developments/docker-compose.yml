@@ -23,6 +23,15 @@ services:
       - "./sqlc.yaml:/src/sqlc.yaml"
     command: ["generate"]
 
+  generate_mock:
+    image: vektra/mockery
+    working_dir: /code
+    volumes:
+      - "../:/code:cached"
+
+    command: [ "--all", "--dir", "internal"]
+
+
   postgres:
     container_name: postgres_container
     build:

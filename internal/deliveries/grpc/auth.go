@@ -3,7 +3,6 @@ package deliveries
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"github.com/duyledat197/interview-hao/internal/services"
 	"github.com/duyledat197/interview-hao/pb"
@@ -28,24 +27,11 @@ func (d *authDelivery) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Log
 	if err := req.Validate(); err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, fmt.Errorf("validate failed: %w", err).Error())
 	}
-	u, tkn, err := d.authService.Login(ctx, req.GetEmail(), req.GetPassword())
-	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, err.Error())
-	}
-	res := &pb.LoginResponse{
-		UserId:    u.ID.Hex(),
-		Token:     tkn,
-		Role:      pb.UserRole(pb.UserRole_value[u.Role]),
-		Name:      u.Name,
-		Phone:     u.Phone,
-		Age:       int32(u.Age),
-		CardId:    u.CardID,
-		Gender:    u.Gender,
-		BirthDay:  u.BirthDay,
-		Email:     u.Email,
-		Address:   u.Address,
-		CreatedAt: u.CreatedAt.Format(time.RFC3339),
-	}
+	// u, tkn, err := d.authService.Login(ctx, req.GetEmail(), req.GetPassword())
+	// if err != nil {
+	// 	return nil, status.Errorf(codes.InvalidArgument, err.Error())
+	// }
+	res := &pb.LoginResponse{}
 	return res, nil
 }
 

@@ -14,13 +14,15 @@ install:
 gen-sql:
 	docker compose -f ${COMPOSE_FILE} up generate_sqlc
 gen-proto:
-	docker compose -f ${COMPOSE_FILE} up generate_pb_go --build
+	docker compose -f ${COMPOSE_FILE} up generate_pb_go
 start-postgres:
-	docker compose -f ${COMPOSE_FILE} up postgres -d --build
+	docker compose -f ${COMPOSE_FILE} up postgres -d
 migrate:
 	docker compose -f ${COMPOSE_FILE} up migrate
 gen-layer:
 	go run ./cmd/gen-layer/.
+gen-mock:
+	docker compose -f ${COMPOSE_FILE} up generate_mock
 build:
 	@echo "building..."
 	go build ./cmd/srv/.
