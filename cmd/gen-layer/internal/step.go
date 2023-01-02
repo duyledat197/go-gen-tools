@@ -10,7 +10,7 @@ import (
 
 var (
 	Layers  = []string{"all", "delivery", "service", "repository"}
-	Methods = []string{"all", "create", "update", "delete", "list", "read(one)"}
+	Methods = []string{"all", "create", "update", "delete", "list", "retrieve"}
 
 	LayerMap = map[string]string{
 		Layers[1]: "deliveries/grpc",

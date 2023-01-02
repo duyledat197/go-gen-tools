@@ -7,6 +7,7 @@ import (
 	"text/template"
 
 	"github.com/duyledat197/interview-hao/cmd/gen-layer/models"
+	"github.com/duyledat197/interview-hao/utils/moduleutils"
 	"github.com/iancoleman/strcase"
 )
 
@@ -28,11 +29,12 @@ func Run() {
 	}
 	name := Steps[0].Val
 	layer := Steps[1].Val
-	// method := Steps[2].Val
+	method := Steps[2].Val
 
 	templateModel := &models.Template{
 		CamelCase:  strcase.ToLowerCamel(name),
 		PascalCase: strcase.ToCamel(name),
+		Module:     moduleutils.GetModuleName(),
 	}
 
 	baseDir, _ := os.Getwd()
@@ -48,6 +50,13 @@ func Run() {
 	} else {
 		layers = []string{layer}
 	}
+
+	var methods []string
+	if method == Methods[0] {
+		methods = Methods
+	} else {
+		methods = []string{method}
+	}
 	for _, l := range layers {
 		if l == Layers[0] {
 			continue
@@ -56,15 +65,33 @@ func Run() {
 		if err != nil {
 			panic(err)
 		}
-		templatePath := path.Join(pkgDir, "..", "templates", l+".tpl")
-		type Name struct {
-			Name string
+		paths := []string{
+			path.Join(pkgDir, "..", "templates", l, "default.tpl"), // root path
 		}
+		p := path.Join(pkgDir, "..", "templates", l, "default.tpl")
+		paths = append(paths, p)
+		for _, m := range methods {
+			if m == Methods[0] {
+				continue
+			}
+			p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
+			paths = append(paths, p)
+		}
+
 		tmpl := template.
 			Must(template.
-				ParseFiles(templatePath))
-		if err := tmpl.Execute(file, templateModel); err != nil {
+				ParseFiles(paths...))
+
+		if err := tmpl.ExecuteTemplate(file, "default", templateModel); err != nil {
 			panic(err)
+		}
+		for _, m := range methods {
+			if m == Methods[0] {
+				continue
+			}
+			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+				panic(err)
+			}
 		}
 	}
 }

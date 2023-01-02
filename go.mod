@@ -20,6 +20,7 @@ require (
 	github.com/stretchr/testify v1.8.0
 	go.mongodb.org/mongo-driver v1.11.1
 	golang.org/x/exp v0.0.0-20221205204356-47842c84f3db
+	golang.org/x/mod v0.7.0
 	google.golang.org/genproto v0.0.0-20221207170731-23e4bf6bdc37
 	google.golang.org/grpc v1.51.0
 	google.golang.org/protobuf v1.28.1
