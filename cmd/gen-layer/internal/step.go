@@ -1,0 +1,63 @@
+package internal
+
+import (
+	"fmt"
+
+	"github.com/duyledat197/interview-hao/cmd/gen-layer/models"
+
+	"github.com/manifoldco/promptui"
+)
+
+var (
+	Layers  = []string{"all", "delivery", "domain", "repository"}
+	Methods = []string{"all", "create", "update", "delete", "list", "read(one)"}
+
+	LayerMap = map[string]string{
+		"delivery": "deliveries",
+	}
+)
+
+var Steps = []*models.CliStep{
+	{
+		Name: "Choose Name want to generate for CRUD",
+		Type: models.PROMPT,
+		Prompt: promptui.Prompt{
+			Label: "Name",
+			Templates: &promptui.PromptTemplates{
+				Success: fmt.Sprintf("%s {{ . | green }}%s ", promptui.IconGood, promptui.Styler(promptui.FGGreen)(":")),
+				Valid:   fmt.Sprintf("{{ . | blue }}%s ", promptui.Styler(promptui.FGBlue)(":")),
+				Invalid: fmt.Sprintf("{{ . | blue }}%s ", promptui.Styler(promptui.FGBlue)(":")),
+			},
+			Validate: func(str string) error {
+				return nil
+			},
+		},
+	},
+	{
+		Name: "step 2",
+		Type: models.SELECT,
+		Select: promptui.Select{
+			Label: "Choose layer want to generate for CRUD",
+			Items: Layers,
+			Templates: &promptui.SelectTemplates{
+				Active:   fmt.Sprintf("%s {{ . | underline | green }}", promptui.IconSelect),
+				Label:    fmt.Sprintf("%s {{ . | blue }}: ", promptui.IconInitial),
+				Selected: fmt.Sprintf("%s {{ . | white }}", promptui.IconGood+promptui.Styler(promptui.FGGreen)(" Layer name: ")),
+			},
+		},
+	},
+
+	{
+		Name: "step 3",
+		Type: models.SELECT,
+		Select: promptui.Select{
+			Label: "Choose method want to generate",
+			Items: Methods,
+			Templates: &promptui.SelectTemplates{
+				Active:   fmt.Sprintf("%s {{ . | underline | green }}", promptui.IconSelect),
+				Label:    fmt.Sprintf("%s {{ . | blue }}: ", promptui.IconInitial),
+				Selected: fmt.Sprintf("%s {{ . | white }}", promptui.IconGood+promptui.Styler(promptui.FGGreen)(" Method name: ")),
+			},
+		},
+	},
+}

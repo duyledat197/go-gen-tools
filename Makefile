@@ -19,6 +19,8 @@ start-postgres:
 	docker compose -f ${COMPOSE_FILE} up postgres -d --build
 migrate:
 	docker compose -f ${COMPOSE_FILE} up migrate
+gen-layer:
+	go run ./cmd/gen-layer/.
 build:
 	@echo "building..."
 	go build ./cmd/srv/.
