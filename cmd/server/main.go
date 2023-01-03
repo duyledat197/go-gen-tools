@@ -28,12 +28,10 @@ type server struct {
 	// service
 	userSrv services.UserService
 	authSrv services.AuthService
-	teamSrv services.TeamService
 
 	// deliveries
 	authpb pb.AuthServiceServer
 	userpb pb.UserServiceServer
-	teampb pb.TeamServiceServer
 
 	// other
 	TokenKey string
@@ -105,7 +103,6 @@ func (s *server) loadRepositories() error {
 func (s *server) loadServices() error {
 	s.userSrv = services.NewUserService(s.userRepo)
 	s.authSrv = services.NewAuthService(s.userRepo)
-	s.teamSrv = services.NewTeamService(s.userRepo, s.teamRepo)
 	return nil
 }
 
@@ -136,10 +133,6 @@ func (s *server) startGRPCServer(ctx context.Context) error {
 	}
 
 	if err := pb.RegisterUserServiceHandlerServer(ctx, mux, s.userpb); err != nil {
-		return err
-	}
-
-	if err := pb.RegisterTeamServiceHandlerServer(ctx, mux, s.teampb); err != nil {
 		return err
 	}
 

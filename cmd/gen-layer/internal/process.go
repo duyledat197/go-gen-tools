@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"runtime"
@@ -70,13 +71,14 @@ func Run() {
 		}
 		p := path.Join(pkgDir, "..", "templates", l, "default.tpl")
 		paths = append(paths, p)
-		for _, m := range methods {
-			if m == Methods[0] {
-				continue
-			}
-			p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
-			paths = append(paths, p)
-		}
+		// for _, m := range methods {
+		// 	if m == Methods[0] {
+		// 		continue
+		// 	}
+		// 	p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
+		// 	paths = append(paths, p)
+		// }
+		fmt.Println(methods)
 
 		tmpl := template.
 			Must(template.
@@ -85,13 +87,13 @@ func Run() {
 		if err := tmpl.ExecuteTemplate(file, "default", templateModel); err != nil {
 			panic(err)
 		}
-		for _, m := range methods {
-			if m == Methods[0] {
-				continue
-			}
-			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
-				panic(err)
-			}
-		}
+		// for _, m := range methods {
+		// 	if m == Methods[0] {
+		// 		continue
+		// 	}
+		// 	if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+		// 		panic(err)
+		// 	}
+		// }
 	}
 }
