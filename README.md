@@ -213,13 +213,13 @@ $make migrate
 
 Start server with cmd/terminal:
 
-<h2 align="left">
+<h2 align="center">
 <pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make run</a></i></pre>
 </h2>
 
 Start server with docker:
 
-<h2 align="left">
+<h2 align="center">
 <pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make docker-start</a></i></pre>
 </h2>
 
