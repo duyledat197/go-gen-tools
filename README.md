@@ -1,4 +1,7 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Interview+Hao+Github+source&center=true)](https://git.io/typing-svg)
+<div align="center">
+
+<img height="120" alt="Thanks for visiting me" width="100%" src="https://raw.githubusercontent.com/BrunnerLivio/brunnerlivio/master/images/marquee.svg" />
+<br />
 
 # Interview Hao
 
