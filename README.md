@@ -251,6 +251,8 @@ Generate mock:
 $make gen-mock
 ```
 
+Run all test:
+
 ```sh
 $make test
 ```
