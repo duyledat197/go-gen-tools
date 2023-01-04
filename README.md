@@ -245,6 +245,12 @@ $make gen-layer
 
 ## Unit test:
 
+Generate mock:
+
+```sh
+$make gen-mock
+```
+
 ```sh
 $make test
 ```
