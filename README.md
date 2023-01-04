@@ -240,11 +240,8 @@ Generate sql:
 Generate proto:
 
 <h2 align="center">
-<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-sql</a></i></pre>
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-proto</a></i></pre>
 </h2>
-```sh
-$make gen-proto
-```
 
 Generate layer by DDD (delivery, service, repository):
 
