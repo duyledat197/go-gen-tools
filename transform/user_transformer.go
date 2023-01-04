@@ -9,73 +9,73 @@ import (
 	"github.com/duyledat197/interview-hao/pb"
 )
 
-// "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
 // "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.LoginRequest": target: "", Omitted: true, OneofDecl: ""
 // "user.User": target: "User", Omitted: false, OneofDecl: ""
-// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ForgotPasswordResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.api.Http": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ForgotPasswordRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.CreateUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.GeneratedCodeInfo": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "auth.VerifyOTPRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
 // "validate.UInt64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ResetPasswordRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "auth.VerifyOTPResponse": target: "", Omitted: true, OneofDecl: ""
+// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
+// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
 // "validate.DurationRules": target: "", Omitted: true, OneofDecl: ""
 // "auth.ChangePasswordRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.ResetPasswordResponse": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
-// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.ResetPasswordRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.CreateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
-// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
 // "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
-// "auth.ForgotPasswordResponse": target: "", Omitted: true, OneofDecl: ""
-// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
-// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
-// "auth.LoginResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "auth.VerifyOTPRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.api.Http": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
-// "auth.ForgotPasswordRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
-// "auth.VerifyOTPResponse": target: "", Omitted: true, OneofDecl: ""
+// "user.GetListRequest": target: "", Omitted: true, OneofDecl: ""
 // "auth.ChangePasswordResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
-// "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.ResetPasswordResponse": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
+// "auth.LoginRequest": target: "", Omitted: true, OneofDecl: ""
+// "auth.LoginResponse": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
 // message "GetUserByIDRequest" has no option "transformer.go_struct", skipped...
 
 // Target struct fields:
@@ -144,9 +144,9 @@ func PbToUserList(src []*pb.User, opts ...TransformParam) []models.User {
 
 func PbToUser(src pb.User, opts ...TransformParam) models.User {
 	s := models.User{
-		ID:   StringToInt64(src.Id),
-		Name: StringToPgtypeText(src.Name),
-		Bio:  StringToSqlNullString(src.Bio),
+		ID:   transformhelpers.StringToInt64(src.Id),
+		Name: transformhelpers.StringToPgtypeText(src.Name),
+		Bio:  transformhelpers.StringToSqlNullString(src.Bio),
 	}
 
 	applyOptions(opts...)
@@ -214,9 +214,9 @@ func UserToPbList(src []models.User, opts ...TransformParam) []*pb.User {
 
 func UserToPb(src models.User, opts ...TransformParam) pb.User {
 	s := pb.User{
-		Id:   Int64ToString(src.ID),
-		Name: PgtypeTextToString(src.Name),
-		Bio:  SqlNullStringToString(src.Bio),
+		Id:   transformhelpers.Int64ToString(src.ID),
+		Name: transformhelpers.PgtypeTextToString(src.Name),
+		Bio:  transformhelpers.SqlNullStringToString(src.Bio),
 	}
 
 	applyOptions(opts...)

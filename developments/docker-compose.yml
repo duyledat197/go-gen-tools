@@ -8,11 +8,8 @@ services:
       target: protoc_gen_go
       dockerfile: ./developments/proto.Dockerfile
     volumes:
-      - "../proto/:/proto/"
-      - "../pb/:/app/pb/"
-      - "../docs/:/docs/"
-      - "./gen-go.sh:/gen-go.sh"
-    entrypoint: /gen-go.sh
+      - "../:/app/"
+    entrypoint: /app/gen-go.sh
 
   generate_sqlc:
     image: kjconroy/sqlc
