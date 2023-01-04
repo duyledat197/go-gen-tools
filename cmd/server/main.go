@@ -16,6 +16,8 @@ import (
 	"github.com/duyledat197/interview-hao/utils/metadata"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	_ "github.com/jackc/pgx/v5"
+	_ "github.com/lib/pq"
 	"github.com/rs/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -78,7 +80,7 @@ func (s *server) NewQueries() error {
 }
 
 func (s *server) connectPsql() error {
-	db, err := sql.Open("pgx", os.Getenv("postgres://postgres:password@localhost/cubicasa?sslmode=disable"))
+	db, err := sql.Open("postgres", os.Getenv("postgres://postgres:postgres@localhost/postgres?sslmode=disable"))
 	if err != nil {
 		return err
 	}
