@@ -2,7 +2,7 @@
 
 <img height="120" alt="Thanks for visiting my repository" width="100%" src="https://raw.githubusercontent.com/BrunnerLivio/brunnerlivio/master/images/marquee.svg" />
 
-# Interview Hao
+# Go Gen Tools
 
 <p align="center">
 <a href="https://github.com/harish-sethuraman/readme-components">
@@ -19,7 +19,7 @@
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/idodod/protoc-gen-fieldmask)
 ![GitHub](https://img.shields.io/github/license/idodod/protoc-gen-fieldmask)
 
-<i>A curated list of Interview Hao READMEs</i>
+<i>A curated list of Go Gen Tools READMEs</i>
 
 <a href="https://github.com/duyledat197/go-gen-tools/stargazers"><img src="https://img.shields.io/github/stars/duyledat197/go-gen-tools" alt="Stars Badge"/></a>
 <a href="https://github.com/duyledat197/go-gen-tools/network/members"><img src="https://img.shields.io/github/forks/duyledat197/go-gen-tools" alt="Forks Badge"/></a>
