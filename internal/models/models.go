@@ -5,21 +5,20 @@
 package models
 
 import (
-	"database/sql"
 	"time"
 
 	"github.com/jackc/pgtype"
 )
 
 type Hub struct {
-	ID   int64          `db:"id" json:"id"`
-	Name pgtype.Text    `db:"name" json:"name"`
-	Bio  sql.NullString `db:"bio" json:"bio"`
+	ID   int64       `db:"id" json:"id"`
+	Name pgtype.Text `db:"name" json:"name"`
+	Bio  pgtype.Text `db:"bio" json:"bio"`
 }
 
 type User struct {
-	ID        pgtype.Text    `db:"id" json:"id"`
-	Name      pgtype.Text    `db:"name" json:"name"`
-	Bio       sql.NullString `db:"bio" json:"bio"`
-	UpdatedAt time.Time      `db:"updated_at" json:"updated_at"`
+	ID        pgtype.Text `db:"id" json:"id"`
+	Name      pgtype.Text `db:"name" json:"name"`
+	Bio       pgtype.Text `db:"bio" json:"bio"`
+	UpdatedAt time.Time   `db:"updated_at" json:"updated_at"`
 }

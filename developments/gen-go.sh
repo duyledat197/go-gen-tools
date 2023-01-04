@@ -14,5 +14,3 @@ protoc \
 		--doc_out=./docs/html --doc_opt=html,index.html 
 
 gofumpt -l -w ./transform/*.go
-
-gofumpt --help

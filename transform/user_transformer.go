@@ -7,74 +7,75 @@ package transform
 import (
 	"github.com/duyledat197/interview-hao/internal/models"
 	"github.com/duyledat197/interview-hao/pb"
+	"github.com/duyledat197/interview-hao/utils/transformhelpers"
 )
 
-// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
-// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
-// "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
 // "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
 // "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.GeneratedCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
-// "user.GetUserByIDResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
-// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
-// "google.api.Http": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
-// "user.CreateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
-// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
 // "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
+// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
+// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
 // "validate.DurationRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
 // "user.User": target: "User", Omitted: false, OneofDecl: ""
+// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.UInt64Rules": target: "", Omitted: true, OneofDecl: ""
 // "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
-// "validate.UInt64Rules": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.GeneratedCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "user.CreateUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.api.Http": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
 // "user.GetListRequest": target: "", Omitted: true, OneofDecl: ""
+// "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
+// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "user.GetUserByIDResponse": target: "", Omitted: true, OneofDecl: ""
 // message "GetUserByIDRequest" has no option "transformer.go_struct", skipped...
 // message "GetUserByIDResponse" has no option "transformer.go_struct", skipped...
 
 // Target struct fields:
-// Field: "ID", Type: "pgtype.Text", isPointer: false
 // Field: "Name", Type: "pgtype.Text", isPointer: false
-// Field: "Bio", Type: "sql.NullString", isPointer: false
+// Field: "Bio", Type: "pgtype.Text", isPointer: false
 // Field: "UpdatedAt", Type: "time.Time", isPointer: false
+// Field: "ID", Type: "pgtype.Text", isPointer: false
 
 // ===============================
 // fdp.Name: "id", mapAs: "", mapTo: ""
@@ -88,7 +89,7 @@ import (
 // fdp.Options: &descriptor.FieldOptions{XXX_InternalExtensions: proto.NewUnsafeXXX_InternalExtensions(map[int32]proto.Extension{5303: proto.NewExtension([]byte{0xba, 0xcb, 0x2, 0x3, 0x42, 0x69, 0x6f})}),}
 
 // fdp.Name: "bio", mapAs: "", mapTo: "Bio"
-// sf: source.FieldInfo{Type:"SqlNullString", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Bio", gname: "Bio"
+// sf: source.FieldInfo{Type:"PgtypeText", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Bio", gname: "Bio"
 // message "CreateUserRequest" has no option "transformer.go_struct", skipped...
 // message "CreateUserResponse" has no option "transformer.go_struct", skipped...
 // message "GetListRequest" has no option "transformer.go_struct", skipped...
@@ -141,7 +142,7 @@ func PbToUser(src pb.User, opts ...TransformParam) models.User {
 	s := models.User{
 		ID:   transformhelpers.StringToPgtypeText(src.Id),
 		Name: transformhelpers.StringToPgtypeText(src.Name),
-		Bio:  transformhelpers.StringToSqlNullString(src.Bio),
+		Bio:  transformhelpers.StringToPgtypeText(src.Bio),
 	}
 
 	applyOptions(opts...)
@@ -211,7 +212,7 @@ func UserToPb(src models.User, opts ...TransformParam) pb.User {
 	s := pb.User{
 		Id:   transformhelpers.PgtypeTextToString(src.ID),
 		Name: transformhelpers.PgtypeTextToString(src.Name),
-		Bio:  transformhelpers.SqlNullStringToString(src.Bio),
+		Bio:  transformhelpers.PgtypeTextToString(src.Bio),
 	}
 
 	applyOptions(opts...)

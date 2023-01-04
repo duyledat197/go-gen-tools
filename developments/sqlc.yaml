@@ -1,8 +1,8 @@
 version: "2"
 sql:
   - engine: "postgresql"
-    queries: "./queries"
-    schema: "./migrations"
+    queries: "/src/queries"
+    schema: "/src/migrations"
     gen:
       go:
         package: "models"
@@ -17,3 +17,8 @@ sql:
             go_type:
               import: "github.com/jackc/pgtype"
               type: "Text"
+          - db_type: "text"
+            go_type:
+              import: "github.com/jackc/pgtype"
+              type: "Text"
+            nullable: true

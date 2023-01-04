@@ -13,11 +13,10 @@ services:
 
   generate_sqlc:
     image: kjconroy/sqlc
-    working_dir: /src/
     volumes:
       - "../database/:/src/"
       - "../internal/models/:/models/"
-      - "./sqlc.yaml:/src/sqlc.yaml"
+      - "./sqlc.yaml:/sqlc.yaml"
     command: ["generate"]
 
   generate_mock:
