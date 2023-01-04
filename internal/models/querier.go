@@ -6,12 +6,17 @@ package models
 
 import (
 	"context"
+
+	"github.com/jackc/pgtype"
 )
 
 type Querier interface {
-	GetHub(ctx context.Context, id int64) (Hub, error)
-	GetUser(ctx context.Context, id int64) (User, error)
-	GetUserHub(ctx context.Context) ([]GetUserHubRow, error)
+	CreateUser(ctx context.Context, arg CreateUserParams) (*User, error)
+	DeleteUser(ctx context.Context, id pgtype.Text) (*User, error)
+	FindUserByID(ctx context.Context, id pgtype.Text) (*User, error)
+	GetFunction(ctx context.Context) ([]*GetFunctionRow, error)
+	GetListUser(ctx context.Context, arg GetListUserParams) ([]*User, error)
+	UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error)
 }
 
 var _ Querier = (*Queries)(nil)

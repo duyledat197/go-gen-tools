@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	deliveries "github.com/duyledat197/interview-hao/internal/deliveries/grpc"
+	"github.com/duyledat197/interview-hao/internal/models"
 	"github.com/duyledat197/interview-hao/internal/repositories"
 	"github.com/duyledat197/interview-hao/internal/services"
 	"github.com/duyledat197/interview-hao/pb"
@@ -16,26 +18,24 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/rs/cors"
 	"go.mongodb.org/mongo-driver/mongo"
-	mgoOption "go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type server struct {
 
 	// repo
 	userRepo repositories.UserRepository
-	teamRepo repositories.TeamRepository
 
 	// service
 	userSrv services.UserService
-	authSrv services.AuthService
 
 	// deliveries
-	authpb pb.AuthServiceServer
 	userpb pb.UserServiceServer
 
 	// other
 	TokenKey string
 	mgoDB    *mongo.Database
+	db       *sql.DB
+	queries  *models.Queries
 }
 
 var srv server
@@ -46,7 +46,7 @@ func start() error {
 		return err
 	}
 
-	if err := srv.connectMongo(); err != nil {
+	if err := srv.connectPsql(); err != nil {
 		return err
 	}
 
@@ -72,37 +72,29 @@ func main() {
 	}
 }
 
-func (s *server) connectMongo() error {
-	mgoClientOptions := mgoOption.Client().ApplyURI("mongodb+srv://telesale:9bWnTbbchD3g1cnN@cluster0.s979pip.mongodb.net/?retryWrites=true&w=majority")
-	// Connect to MongoDB
-	var err error
-	mgoClient, err := mongo.Connect(context.TODO(), mgoClientOptions)
-	if err != nil {
-		return err
-	}
-	s.mgoDB = mgoClient.Database("telesale")
-	log.Println("connect mongodb success")
+func (s *server) NewQueries() error {
+	s.queries = models.New(s.db)
 	return nil
 }
 
-func (s *server) loadRedis() error {
-	// c, err := redis.NewRedisClient(s.cfg.Redis.Address, s.cfg.Redis.Username, s.cfg.Redis.Password)
-	// if err != nil {
-	// 	return err
-	// }
-	// s.redisClient = c
+func (s *server) connectPsql() error {
+	db, err := sql.Open("pgx", os.Getenv("postgres://postgres:password@localhost/cubicasa?sslmode=disable"))
+	if err != nil {
+		return err
+	}
+	s.db = db
+	defer db.Close()
+
 	return nil
 }
 
 func (s *server) loadRepositories() error {
-	// s.userRepo = mongoC.NewUserRepository(s.mgoDB.Collection("user"))
-	// s.teamRepo = mongoC.NewTeamRepository(s.mgoDB.Collection("team"))
+	s.userRepo = repositories.NewUserRepository(s.queries)
 	return nil
 }
 
 func (s *server) loadServices() error {
 	s.userSrv = services.NewUserService(s.userRepo)
-	s.authSrv = services.NewAuthService(s.userRepo)
 	return nil
 }
 
@@ -111,7 +103,6 @@ func (s *server) loadPubSubs() (err error) {
 }
 
 func (s *server) loadDeliveries() error {
-	s.authpb = deliveries.NewAuthDelivery(s.authSrv)
 	s.userpb = deliveries.NewUserDelivery(s.userSrv)
 	return nil
 }
@@ -128,9 +119,6 @@ func (s *server) startGRPCServer(ctx context.Context) error {
 	mux := runtime.NewServeMux(
 		runtime.WithMetadata(metadata.Authentication),
 	)
-	if err := pb.RegisterAuthServiceHandlerServer(ctx, mux, s.authpb); err != nil {
-		return err
-	}
 
 	if err := pb.RegisterUserServiceHandlerServer(ctx, mux, s.userpb); err != nil {
 		return err
@@ -139,5 +127,6 @@ func (s *server) startGRPCServer(ctx context.Context) error {
 	port := os.Getenv("PORT")
 	log.Printf("server listen on port: %s\n", port)
 	handler := cors.AllowAll().Handler(mux)
+
 	return http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
 }

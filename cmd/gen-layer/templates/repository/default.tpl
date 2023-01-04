@@ -1,25 +1,27 @@
 {{define "default"}}
-package deliveries
+package repositories
 
 import (
 	"context"
-	"fmt"
-	"time"
 
 	"{{.Module}}/internal/models"
-	"{{.Module}}/internal/services"
-	"{{.Module}}/pb"
 )
 
-type {{.PascalCase}}Delivery struct {
-	{{.CamelCase}}Service services.{{.PascalCase}}Service
-	pb.Unimplemented{{.PascalCase}}ServiceServer
+type {{.PascalCase}}Repository interface {
+	Create(ctx context.Context, {{.CamelCase}} *models.{{.PascalCase}}) error
+	GetByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error)
+	GetList(ctx context.Context, offset, limit int) ([]*models.{{.PascalCase}}, error)
+	Update(ctx context.Context, id string, {{.CamelCase}} *models.{{.PascalCase}}) error
+	Delete(ctx context.Context, id string) error
 }
 
-func New{{.PascalCase}}Delivery({{.CamelCase}}Service services.{{.PascalCase}}Service) pb.{{.PascalCase}}ServiceServer {
-	return &{{.CamelCase}}Delivery{
-		{{.CamelCase}}Service: {{.CamelCase}}Service,
+type {{.CamelCase}}Repository struct {
+	db *models.Queries
+}
+
+func New{{.PascalCase}}Repository(q *models.Queries) {{.PascalCase}}Repository {
+	return &{{.CamelCase}}Repository{
+		db: q,
 	}
 }
-
 {{end}}

@@ -1,6 +1,6 @@
 {{define "retrieve"}}
-func (s *{{.CamelCase}}Service) Get{{.PascalCase}}ByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error) {
-	{{.CamelCase}}, err := s.{{.CamelCase}}Repo.FindBy{{.PascalCase}}ID(ctx, id)
+func (s *{{.CamelCase}}Service) GetByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error) {
+	{{.CamelCase}}, err := s.{{.CamelCase}}Repo.GetByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}

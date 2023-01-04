@@ -10,11 +10,11 @@ import (
 )
 
 type {{.PascalCase}}Service interface {
-	Create{{.PascalCase}}(ctx context.Context, {{.CamelCase}} *models.{{.PascalCase}}) error
-	Get{{.PascalCase}}ByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error)
-	GetList{{.PascalCase}}(ctx context.Context, offset, limit int) ([]*models.{{.PascalCase}}, error)
-	Update{{.PascalCase}}(ctx context.Context, id string, {{.CamelCase}} *models.{{.PascalCase}}) error
-	Delete{{.PascalCase}}(ctx context.Context, id string) error
+	Create(ctx context.Context, {{.CamelCase}} *models.{{.PascalCase}}) error
+	GetByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error)
+	GetList(ctx context.Context, offset, limit int) ([]*models.{{.PascalCase}}, error)
+	Update(ctx context.Context, id string, {{.CamelCase}} *models.{{.PascalCase}}) error
+	Delete(ctx context.Context, id string) error
 }
 
 type {{.CamelCase}}Service struct {
