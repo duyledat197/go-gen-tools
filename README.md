@@ -28,6 +28,7 @@
 <a href="https://github.com/duyledat197/interview-hao/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/duyledat197/interview-hao?color=2b9348"></a>
 <a href="https://github.com/duyledat197/interview-hao/blob/master/LICENSE"><img src="https://img.shields.io/github/license/duyledat197/interview-hao?color=2b9348" alt="License Badge"/></a>
 
+</div>
 ## Features:
 
 - Change method login to POST instead of GET.
