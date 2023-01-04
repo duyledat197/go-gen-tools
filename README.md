@@ -11,7 +11,11 @@
  </a>
 </p>
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![CI](https://github.com/idodod/protoc-gen-fieldmask/actions/workflows/ci.yml/badge.svg)](https://github.com/idodod/protoc-gen-fieldmask/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/idodod/protoc-gen-fieldmask)](https://goreportcard.com/report/github.com/idodod/protoc-gen-fieldmask)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/idodod/protoc-gen-fieldmask)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/idodod/protoc-gen-fieldmask)
+![GitHub](https://img.shields.io/github/license/idodod/protoc-gen-fieldmask)
 
 <i>A curated list of Interview Hao READMEs</i>
 
@@ -22,7 +26,7 @@
 <a href="https://github.com/duyledat197/interview-hao/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/duyledat197/interview-hao?color=2b9348"></a>
 <a href="https://github.com/duyledat197/interview-hao/blob/master/LICENSE"><img src="https://img.shields.io/github/license/duyledat197/interview-hao?color=2b9348" alt="License Badge"/></a>
 
-## Features
+## Features:
 
 - Change method login to POST instead of GET.
 - Add method register (POST /regisger).
@@ -30,7 +34,7 @@
 - Write unit test for the domain layer.
 - Write unit test for the repository/store layer.
 
-## Project Structure
+## Project Structure:
 
 ```sh
 .
@@ -175,7 +179,7 @@
     └── token.go
 ```
 
-## Installation
+## Installation:
 
 Make sure you have Go installed ([download](https://golang.org/dl/)). Version `1.19` or higher is required.
 
@@ -193,7 +197,7 @@ For Macos:
 $brew install make
 ```
 
-## Start server
+## How to start server:
 
 First of all, you must start postgres:
 
