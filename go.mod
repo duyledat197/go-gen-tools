@@ -3,7 +3,9 @@ module github.com/duyledat197/go-gen-tools
 go 1.19
 
 require (
+	github.com/aead/chacha20poly1305 v0.0.0-20201124145622-1a5aba2a8b29
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
+	github.com/bxcodec/faker/v3 v3.8.1
 	github.com/common-nighthawk/go-figure v0.0.0-20210622060536-734e95fb86be
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
@@ -15,6 +17,8 @@ require (
 	github.com/jackc/pgx/v5 v5.2.0
 	github.com/lib/pq v1.10.2
 	github.com/manifoldco/promptui v0.9.0
+	github.com/o1egl/paseto v1.0.0
+	github.com/reddit/jwt-go v3.2.1+incompatible
 	github.com/rs/cors v1.8.2
 	github.com/stretchr/testify v1.8.0
 	go.mongodb.org/mongo-driver v1.11.1
@@ -25,6 +29,8 @@ require (
 )
 
 require (
+	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
+	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
