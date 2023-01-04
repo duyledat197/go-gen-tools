@@ -29,6 +29,7 @@
 <a href="https://github.com/duyledat197/interview-hao/blob/master/LICENSE"><img src="https://img.shields.io/github/license/duyledat197/interview-hao?color=2b9348" alt="License Badge"/></a>
 
 </div>
+
 ## Features:
 
 - Change method login to POST instead of GET.
@@ -192,29 +193,29 @@ Install make for start the server.
 
 For Linux:
 
-```sh
-$sudo apt install make
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">sudo apt install make</a></i></pre>
+</h2>
 
 For Macos:
 
-```sh
-$brew install make
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">brew install make</a></i></pre>
+</h2>
 
 ## How to start server:
 
 First of all, you must start postgres:
 
-```sh
-$make start-postgres
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make start-postgres</a></i></pre>
+</h2>
 
 After that should migrate:
 
-```sh
-$make migrate
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make migrate</a></i></pre>
+</h2>
 
 Start server with cmd/terminal:
 
@@ -232,29 +233,32 @@ Start server with docker:
 
 Generate sql:
 
-```sh
-$make gen-sql
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-sql</a></i></pre>
+</h2>
 
 Generate proto:
 
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-sql</a></i></pre>
+</h2>
 ```sh
 $make gen-proto
 ```
 
 Generate layer by DDD (delivery, service, repository):
 
-```sh
-$make gen-layer
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-layer</a></i></pre>
+</h2>
 
 ## Unit test:
 
 Generate mock:
 
-```sh
-$make gen-mock
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-mock</a></i></pre>
+</h2>
 
 Run all test:
 
