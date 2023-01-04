@@ -32,11 +32,11 @@
 
 ## Features:
 
-🔭 Auto generate protobuf files.
-🔭 Auto generate mock interface for DDD.
-🔭 Auto generate all layer of DDD.
-🔭 Auto generate sql query with struct mapping and entities .
-🔭 Auto migrate with Postgres.
+🔭 Auto generate protobuf files.<br />
+🔭 Auto generate mock interface for DDD. <br />
+🔭 Auto generate all layer of DDD. <br />
+🔭 Auto generate sql query with struct mapping and entities. <br />
+🔭 Auto migrate with Postgres. <br />
 
 ## Project Structure:
 
