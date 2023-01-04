@@ -183,6 +183,10 @@
     └── token.go
 ```
 
+# ARCHITECTURE
+
+![clean architecture](https://raw.githubusercontent.com/phungvandat/clean-architecture/dev/images/clean-arch.png)
+
 <div align="center">
 
 ## Installation:
