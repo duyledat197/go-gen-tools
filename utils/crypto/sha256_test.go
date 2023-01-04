@@ -3,7 +3,7 @@ package crypto
 import (
 	"testing"
 
-	"github.com/duyledat197/interview-hao/utils/helper"
+	"github.com/duyledat197/go-gen-tools/utils/helper"
 	"github.com/stretchr/testify/assert"
 )
 

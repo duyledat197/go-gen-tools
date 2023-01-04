@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 
-	"github.com/duyledat197/interview-hao/cmd/gen-layer/models"
+	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
 
 	"github.com/manifoldco/promptui"
 )

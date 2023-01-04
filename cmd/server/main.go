@@ -8,12 +8,12 @@ import (
 	"net/http"
 	"os"
 
-	deliveries "github.com/duyledat197/interview-hao/internal/deliveries/grpc"
-	"github.com/duyledat197/interview-hao/internal/models"
-	"github.com/duyledat197/interview-hao/internal/repositories"
-	"github.com/duyledat197/interview-hao/internal/services"
-	"github.com/duyledat197/interview-hao/pb"
-	"github.com/duyledat197/interview-hao/utils/metadata"
+	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
+	"github.com/duyledat197/go-gen-tools/internal/models"
+	"github.com/duyledat197/go-gen-tools/internal/repositories"
+	"github.com/duyledat197/go-gen-tools/internal/services"
+	"github.com/duyledat197/go-gen-tools/pb"
+	"github.com/duyledat197/go-gen-tools/utils/metadata"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/jackc/pgx/v5"

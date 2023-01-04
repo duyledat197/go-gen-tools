@@ -5,9 +5,9 @@
 package transform
 
 import (
-	"github.com/duyledat197/interview-hao/internal/models"
-	"github.com/duyledat197/interview-hao/pb"
-	"github.com/duyledat197/interview-hao/utils/transformhelpers"
+	"github.com/duyledat197/go-gen-tools/internal/models"
+	"github.com/duyledat197/go-gen-tools/pb"
+	"github.com/duyledat197/go-gen-tools/utils/transformhelpers"
 )
 
 // "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""

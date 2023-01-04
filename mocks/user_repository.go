@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	models "github.com/duyledat197/interview-hao/internal/models"
+	models "github.com/duyledat197/go-gen-tools/internal/models"
 	mock "github.com/stretchr/testify/mock"
 )
 

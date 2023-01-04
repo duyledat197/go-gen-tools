@@ -1,4 +1,4 @@
-module github.com/duyledat197/interview-hao
+module github.com/duyledat197/go-gen-tools
 
 go 1.19
 

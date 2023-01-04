@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/duyledat197/interview-hao/utils"
+	"github.com/duyledat197/go-gen-tools/utils"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"google.golang.org/grpc/metadata"
 )

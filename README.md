@@ -21,12 +21,12 @@
 
 <i>A curated list of Interview Hao READMEs</i>
 
-<a href="https://github.com/duyledat197/interview-hao/stargazers"><img src="https://img.shields.io/github/stars/duyledat197/interview-hao" alt="Stars Badge"/></a>
-<a href="https://github.com/duyledat197/interview-hao/network/members"><img src="https://img.shields.io/github/forks/duyledat197/interview-hao" alt="Forks Badge"/></a>
-<a href="https://github.com/duyledat197/interview-hao/pulls"><img src="https://img.shields.io/github/issues-pr/duyledat197/interview-hao" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/duyledat197/interview-hao/issues"><img src="https://img.shields.io/github/issues/duyledat197/interview-hao" alt="Issues Badge"/></a>
-<a href="https://github.com/duyledat197/interview-hao/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/duyledat197/interview-hao?color=2b9348"></a>
-<a href="https://github.com/duyledat197/interview-hao/blob/master/LICENSE"><img src="https://img.shields.io/github/license/duyledat197/interview-hao?color=2b9348" alt="License Badge"/></a>
+<a href="https://github.com/duyledat197/go-gen-tools/stargazers"><img src="https://img.shields.io/github/stars/duyledat197/go-gen-tools" alt="Stars Badge"/></a>
+<a href="https://github.com/duyledat197/go-gen-tools/network/members"><img src="https://img.shields.io/github/forks/duyledat197/go-gen-tools" alt="Forks Badge"/></a>
+<a href="https://github.com/duyledat197/go-gen-tools/pulls"><img src="https://img.shields.io/github/issues-pr/duyledat197/go-gen-tools" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/duyledat197/go-gen-tools/issues"><img src="https://img.shields.io/github/issues/duyledat197/go-gen-tools" alt="Issues Badge"/></a>
+<a href="https://github.com/duyledat197/go-gen-tools/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/duyledat197/go-gen-tools?color=2b9348"></a>
+<a href="https://github.com/duyledat197/go-gen-tools/blob/master/LICENSE"><img src="https://img.shields.io/github/license/duyledat197/go-gen-tools?color=2b9348" alt="License Badge"/></a>
 
 </div>
 

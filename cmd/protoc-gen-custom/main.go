@@ -2,7 +2,7 @@ package main
 
 import (
 	//nolint
-	"github.com/duyledat197/interview-hao/cmd/protoc-gen-custom/internal"
+	"github.com/duyledat197/go-gen-tools/cmd/protoc-gen-custom/internal"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 

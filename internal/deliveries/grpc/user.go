@@ -1,13 +1,12 @@
-
 package deliveries
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/duyledat197/interview-hao/internal/services"
-	"github.com/duyledat197/interview-hao/pb"
-	"github.com/duyledat197/interview-hao/transform"
+	"github.com/duyledat197/go-gen-tools/internal/services"
+	"github.com/duyledat197/go-gen-tools/pb"
+	"github.com/duyledat197/go-gen-tools/transform"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -41,7 +40,6 @@ func (d *userDelivery) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest
 		Success: true,
 	}, nil
 }
-
 
 func (d *userDelivery) GetList(ctx context.Context, req *pb.GetListRequest) (*pb.GetListResponse, error) {
 	users, err := d.userService.GetList(ctx, int(req.Offset), int(req.Limit))

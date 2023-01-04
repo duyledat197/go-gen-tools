@@ -1,12 +1,11 @@
-
 package services
 
 import (
 	"context"
 	"time"
 
-	"github.com/duyledat197/interview-hao/internal/models"
-	"github.com/duyledat197/interview-hao/internal/repositories"
+	"github.com/duyledat197/go-gen-tools/internal/models"
+	"github.com/duyledat197/go-gen-tools/internal/repositories"
 )
 
 type UserService interface {

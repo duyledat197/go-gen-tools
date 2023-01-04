@@ -4,8 +4,8 @@ package middleware
 // 	"context"
 // 	"net/http"
 
-// 	"github.com/duyledat197/interview-hao/internal/repositories"
-// 	"github.com/duyledat197/interview-hao/utils"
+// 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+// 	"github.com/duyledat197/go-gen-tools/utils"
 // 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 // 	"go.mongodb.org/mongo-driver/bson/primitive"
 // )

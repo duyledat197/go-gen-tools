@@ -1,10 +1,9 @@
-
 package repositories
 
 import (
 	"context"
 
-	"github.com/duyledat197/interview-hao/internal/models"
+	"github.com/duyledat197/go-gen-tools/internal/models"
 )
 
 type UserRepository interface {

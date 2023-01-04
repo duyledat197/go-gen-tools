@@ -7,8 +7,8 @@ import (
 	"runtime"
 	"text/template"
 
-	"github.com/duyledat197/interview-hao/cmd/gen-layer/models"
-	"github.com/duyledat197/interview-hao/utils/moduleutils"
+	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
+	"github.com/duyledat197/go-gen-tools/utils/moduleutils"
 	"github.com/iancoleman/strcase"
 )
 
