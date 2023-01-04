@@ -213,17 +213,15 @@ $make migrate
 
 Start server with cmd/terminal:
 
-```sh
-$make run
-```
+<h2 align="left">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make run</a></i></pre>
+</h2>
 
 Start server with docker:
 
-```sh
-$make docker-start
-```
-
-Your app should now be running on [localhost:5050](http://localhost:5050/).
+<h2 align="left">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make docker-start</a></i></pre>
+</h2>
 
 ## Tools:
 
