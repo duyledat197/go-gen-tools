@@ -121,7 +121,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userUser"
+              "$ref": "#/definitions/userGetUserByIDResponse"
             }
           },
           "default": {
@@ -146,17 +146,6 @@
     }
   },
   "definitions": {
-    "enum_pbUserRole": {
-      "type": "string",
-      "enum": [
-        "USER_UNKNOWN",
-        "SUPER_ADMIN",
-        "ADMIN",
-        "SELLER",
-        "MANAGER"
-      ],
-      "default": "USER_UNKNOWN"
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -187,36 +176,8 @@
     "userCreateUserRequest": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "age": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "role": {
-          "$ref": "#/definitions/enum_pbUserRole"
-        },
-        "cardId": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "birthDay": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
+        "user": {
+          "$ref": "#/definitions/userUser"
         }
       }
     },
@@ -240,6 +201,14 @@
         "total": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "userGetUserByIDResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/userUser"
         }
       }
     },

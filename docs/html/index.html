@@ -175,61 +175,6 @@
         
           
           <li>
-            <a href="#auth.proto">auth.proto</a>
-            <ul>
-              
-                <li>
-                  <a href="#auth.ChangePasswordRequest"><span class="badge">M</span>ChangePasswordRequest</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.ChangePasswordResponse"><span class="badge">M</span>ChangePasswordResponse</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.ForgotPasswordRequest"><span class="badge">M</span>ForgotPasswordRequest</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.ForgotPasswordResponse"><span class="badge">M</span>ForgotPasswordResponse</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.LoginRequest"><span class="badge">M</span>LoginRequest</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.LoginResponse"><span class="badge">M</span>LoginResponse</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.ResetPasswordRequest"><span class="badge">M</span>ResetPasswordRequest</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.ResetPasswordResponse"><span class="badge">M</span>ResetPasswordResponse</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.VerifyOTPRequest"><span class="badge">M</span>VerifyOTPRequest</a>
-                </li>
-              
-                <li>
-                  <a href="#auth.VerifyOTPResponse"><span class="badge">M</span>VerifyOTPResponse</a>
-                </li>
-              
-              
-              
-              
-                <li>
-                  <a href="#auth.AuthService"><span class="badge">S</span>AuthService</a>
-                </li>
-              
-            </ul>
-          </li>
-        
-          
-          <li>
             <a href="#enum.proto">enum.proto</a>
             <ul>
               
@@ -273,6 +218,10 @@
                 </li>
               
                 <li>
+                  <a href="#user.GetUserByIDResponse"><span class="badge">M</span>GetUserByIDResponse</a>
+                </li>
+              
+                <li>
                   <a href="#user.UpdateUserRequest"><span class="badge">M</span>UpdateUserRequest</a>
                 </li>
               
@@ -298,554 +247,6 @@
       </ul>
     </div>
 
-    
-      
-      <div class="file-heading">
-        <h2 id="auth.proto">auth.proto</h2><a href="#title">Top</a>
-      </div>
-      <p></p>
-
-      
-        <h3 id="auth.ChangePasswordRequest">ChangePasswordRequest</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>password</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>new_password</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-            
-            
-            <h4>Validated Fields</h4>
-            <table>
-              <thead>
-                <tr>
-                  <td>Field</td>
-                  <td>Validations</td>
-                </tr>
-              </thead>
-              <tbody>
-              
-                <tr>
-                  <td>password</td>
-                  <td>
-                    <ul>
-                    
-                      <li>string.min_len: 6</li>
-                    
-                      <li>string.max_len: 20</li>
-                    
-                    </ul>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td>new_password</td>
-                  <td>
-                    <ul>
-                    
-                      <li>string.min_len: 6</li>
-                    
-                      <li>string.max_len: 20</li>
-                    
-                    </ul>
-                  </td>
-                </tr>
-              
-              </tbody>
-            </table>
-            
-          
-
-        
-      
-        <h3 id="auth.ChangePasswordResponse">ChangePasswordResponse</h3>
-        <p></p>
-
-        
-
-        
-      
-        <h3 id="auth.ForgotPasswordRequest">ForgotPasswordRequest</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="auth.ForgotPasswordResponse">ForgotPasswordResponse</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>token</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="auth.LoginRequest">LoginRequest</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>password</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-            
-            
-            <h4>Validated Fields</h4>
-            <table>
-              <thead>
-                <tr>
-                  <td>Field</td>
-                  <td>Validations</td>
-                </tr>
-              </thead>
-              <tbody>
-              
-                <tr>
-                  <td>email</td>
-                  <td>
-                    <ul>
-                    
-                      <li>string.email: true</li>
-                    
-                    </ul>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td>password</td>
-                  <td>
-                    <ul>
-                    
-                      <li>string.min_len: 6</li>
-                    
-                      <li>string.max_len: 20</li>
-                    
-                    </ul>
-                  </td>
-                </tr>
-              
-              </tbody>
-            </table>
-            
-          
-
-        
-      
-        <h3 id="auth.LoginResponse">LoginResponse</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>name</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>phone</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>token</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>age</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>role</td>
-                  <td><a href="#enum_pb.UserRole">enum_pb.UserRole</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>card_id</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>user_id</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>gender</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>birth_day</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>address</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>created_at</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="auth.ResetPasswordRequest">ResetPasswordRequest</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>token</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>new_password</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-            
-            
-            <h4>Validated Fields</h4>
-            <table>
-              <thead>
-                <tr>
-                  <td>Field</td>
-                  <td>Validations</td>
-                </tr>
-              </thead>
-              <tbody>
-              
-                <tr>
-                  <td>new_password</td>
-                  <td>
-                    <ul>
-                    
-                      <li>string.min_len: 6</li>
-                    
-                      <li>string.max_len: 20</li>
-                    
-                    </ul>
-                  </td>
-                </tr>
-              
-              </tbody>
-            </table>
-            
-          
-
-        
-      
-        <h3 id="auth.ResetPasswordResponse">ResetPasswordResponse</h3>
-        <p></p>
-
-        
-
-        
-      
-        <h3 id="auth.VerifyOTPRequest">VerifyOTPRequest</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>otp</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="auth.VerifyOTPResponse">VerifyOTPResponse</h3>
-        <p></p>
-
-        
-
-        
-      
-
-      
-
-      
-
-      
-        <h3 id="auth.AuthService">AuthService</h3>
-        <p></p>
-        <table class="enum-table">
-          <thead>
-            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
-          </thead>
-          <tbody>
-            
-              <tr>
-                <td>Login</td>
-                <td><a href="#auth.LoginRequest">LoginRequest</a></td>
-                <td><a href="#auth.LoginResponse">LoginResponse</a></td>
-                <td><p></p></td>
-              </tr>
-            
-              <tr>
-                <td>ForgotPassword</td>
-                <td><a href="#auth.ForgotPasswordRequest">ForgotPasswordRequest</a></td>
-                <td><a href="#auth.ForgotPasswordResponse">ForgotPasswordResponse</a></td>
-                <td><p></p></td>
-              </tr>
-            
-              <tr>
-                <td>VerifyOTP</td>
-                <td><a href="#auth.VerifyOTPRequest">VerifyOTPRequest</a></td>
-                <td><a href="#auth.VerifyOTPResponse">VerifyOTPResponse</a></td>
-                <td><p></p></td>
-              </tr>
-            
-              <tr>
-                <td>ResetPassword</td>
-                <td><a href="#auth.ResetPasswordRequest">ResetPasswordRequest</a></td>
-                <td><a href="#auth.ResetPasswordResponse">ResetPasswordResponse</a></td>
-                <td><p></p></td>
-              </tr>
-            
-              <tr>
-                <td>ChangePassword</td>
-                <td><a href="#auth.ChangePasswordRequest">ChangePasswordRequest</a></td>
-                <td><a href="#auth.ChangePasswordResponse">ChangePasswordResponse</a></td>
-                <td><p></p></td>
-              </tr>
-            
-          </tbody>
-        </table>
-
-        
-          
-          
-          <h4>Methods with HTTP bindings</h4>
-          <table>
-            <thead>
-              <tr>
-                <td>Method Name</td>
-                <td>Method</td>
-                <td>Pattern</td>
-                <td>Body</td>
-              </tr>
-            </thead>
-            <tbody>
-            
-              
-              
-              <tr>
-                <td>Login</td>
-                <td>POST</td>
-                <td>/v1/auth/login</td>
-                <td>*</td>
-              </tr>
-              
-            
-              
-              
-              <tr>
-                <td>ForgotPassword</td>
-                <td>POST</td>
-                <td>/v1/auth/forgot-password</td>
-                <td>*</td>
-              </tr>
-              
-            
-              
-              
-              <tr>
-                <td>VerifyOTP</td>
-                <td>POST</td>
-                <td>/v1/auth/otp</td>
-                <td>*</td>
-              </tr>
-              
-            
-              
-              
-              <tr>
-                <td>ResetPassword</td>
-                <td>POST</td>
-                <td>/v1/auth/reset-password</td>
-                <td>*</td>
-              </tr>
-              
-            
-              
-              
-              <tr>
-                <td>ChangePassword</td>
-                <td>PUT</td>
-                <td>/v1/auth</td>
-                <td>*</td>
-              </tr>
-              
-            
-            </tbody>
-          </table>
-          
-        
     
       
       <div class="file-heading">
@@ -961,71 +362,8 @@
             <tbody>
               
                 <tr>
-                  <td>name</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>phone</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>age</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>role</td>
-                  <td><a href="#enum_pb.UserRole">enum_pb.UserRole</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>card_id</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>gender</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>birth_day</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>password</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>email</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>address</td>
-                  <td><a href="#string">string</a></td>
+                  <td>user</td>
+                  <td><a href="#user.User">User</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1033,33 +371,6 @@
             </tbody>
           </table>
 
-          
-            
-            
-            <h4>Validated Fields</h4>
-            <table>
-              <thead>
-                <tr>
-                  <td>Field</td>
-                  <td>Validations</td>
-                </tr>
-              </thead>
-              <tbody>
-              
-                <tr>
-                  <td>role</td>
-                  <td>
-                    <ul>
-                    
-                      <li>enum.not_in: [1]</li>
-                    
-                    </ul>
-                  </td>
-                </tr>
-              
-              </tbody>
-            </table>
-            
           
 
         
@@ -1174,6 +485,30 @@
 
         
       
+        <h3 id="user.GetUserByIDResponse">GetUserByIDResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#user.User">User</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="user.UpdateUserRequest">UpdateUserRequest</h3>
         <p></p>
 
@@ -1277,7 +612,7 @@
               <tr>
                 <td>GetUserByID</td>
                 <td><a href="#user.GetUserByIDRequest">GetUserByIDRequest</a></td>
-                <td><a href="#user.User">User</a></td>
+                <td><a href="#user.GetUserByIDResponse">GetUserByIDResponse</a></td>
                 <td><p></p></td>
               </tr>
             

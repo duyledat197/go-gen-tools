@@ -1,9 +1,9 @@
 #!/bin/sh
 
 protoc \
-    /app/proto/*.proto \
+    ./proto/*.proto \
 		-I=/usr/local/include \
-		--proto_path=/proto \
+		--proto_path=./proto \
 		--go_out=:. \
 		--validate_out=lang=go:. \
 		--go-grpc_out=:. \
@@ -14,3 +14,5 @@ protoc \
 		--doc_out=./docs/html --doc_opt=html,index.html 
 
 gofumpt -l -w ./transform/*.go
+
+gofumpt --help

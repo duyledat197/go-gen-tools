@@ -9,7 +9,7 @@ services:
       dockerfile: ./developments/proto.Dockerfile
     volumes:
       - "../:/app/"
-    entrypoint: /app/gen-go.sh
+    entrypoint: /app/developments/gen-go.sh
 
   generate_sqlc:
     image: kjconroy/sqlc
@@ -26,7 +26,7 @@ services:
     volumes:
       - "../:/code:cached"
 
-    command: [ "--all", "--dir", "internal"]
+    command: [ "--all", "--dir", "internal","--case", "underscore"]
 
 
   postgres:
