@@ -182,6 +182,8 @@
     └── token.go
 ```
 
+<div align="center">
+
 ## Installation:
 
 Make sure you have Go installed ([download](https://golang.org/dl/)). Version `1.19` or higher is required.
@@ -260,6 +262,7 @@ Run all test:
 <pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make test</a></i></pre>
 </h2>
 
+</div>
 ## License
 
 MIT
