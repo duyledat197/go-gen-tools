@@ -253,9 +253,9 @@ $make gen-mock
 
 Run all test:
 
-```sh
-$make test
-```
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make test</a></i></pre>
+</h2>
 
 ## License
 
