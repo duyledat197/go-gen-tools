@@ -32,11 +32,11 @@
 
 ## Features:
 
-- Change method login to POST instead of GET.
-- Add method register (POST /regisger).
-- Split services layer to domain and transport layer.
-- Write unit test for the domain layer.
-- Write unit test for the repository/store layer.
+🔭 Auto generate protobuf files.
+🔭 Auto generate mock interface for DDD.
+🔭 Auto generate all layer of DDD.
+🔭 Auto generate sql query with struct mapping and entities .
+🔭 Auto migrate with Postgres.
 
 ## Project Structure:
 
