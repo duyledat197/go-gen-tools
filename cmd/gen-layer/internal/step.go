@@ -9,8 +9,9 @@ import (
 )
 
 var (
-	Layers  = []string{"all", "delivery", "service", "repository"}
-	Methods = []string{"all", "create", "update", "delete", "list", "retrieve"}
+	Layers    = []string{"all", "delivery", "service", "repository"}
+	Methods   = []string{"all", "create", "update", "delete", "list", "retrieve"}
+	Databases = []string{"mongo", "postgres", "inmem"}
 
 	LayerMap = map[string]string{
 		Layers[1]: "deliveries/grpc",
@@ -55,6 +56,20 @@ var Steps = []*models.CliStep{
 		Select: promptui.Select{
 			Label: "Choose method want to generate",
 			Items: Methods,
+			Templates: &promptui.SelectTemplates{
+				Active:   fmt.Sprintf("%s {{ . | underline | green }}", promptui.IconSelect),
+				Label:    fmt.Sprintf("%s {{ . | blue }}: ", promptui.IconInitial),
+				Selected: fmt.Sprintf("%s {{ . | white }}", promptui.IconGood+promptui.Styler(promptui.FGGreen)(" Method name: ")),
+			},
+		},
+	},
+
+	{
+		Name: "step 4",
+		Type: models.SELECT,
+		Select: promptui.Select{
+			Label: "Choose database using",
+			Items: Databases,
 			Templates: &promptui.SelectTemplates{
 				Active:   fmt.Sprintf("%s {{ . | underline | green }}", promptui.IconSelect),
 				Label:    fmt.Sprintf("%s {{ . | blue }}: ", promptui.IconInitial),

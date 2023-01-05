@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"runtime"
@@ -16,7 +15,11 @@ import (
 
 func Run() {
 	var err error
-	for _, step := range Steps {
+	for i, step := range Steps {
+		layer := Steps[1].Val
+		if i == 3 && !(layer == Layers[0] || layer == Layers[3]) {
+			continue
+		}
 		switch step.Type {
 		case models.PROMPT:
 			step.Val, err = step.Prompt.Run()
@@ -33,6 +36,7 @@ func Run() {
 	name := Steps[0].Val
 	layer := Steps[1].Val
 	method := Steps[2].Val
+	database := Steps[3].Val
 
 	baseDir, _ := os.Getwd()
 	_, filename, _, ok := runtime.Caller(0)
@@ -47,6 +51,10 @@ func Run() {
 		layers = Layers
 	} else {
 		layers = []string{layer}
+	}
+
+	if database != "" {
+		layers = append(layers, database)
 	}
 
 	// get methods
@@ -72,24 +80,26 @@ func Run() {
 		if l == Layers[0] {
 			continue
 		}
-		file, err := os.Create(path.Join(baseDir, "internal", LayerMap[l], strcase.ToKebab(name)+".go"))
+		layerPath, ok := LayerMap[l]
+		if !ok {
+			layerPath = l
+		}
+		file, err := os.Create(path.Join(baseDir, "internal", layerPath, strcase.ToKebab(name)+".go"))
 		if err != nil {
 			panic(err)
 		}
 		paths := []string{
 			path.Join(pkgDir, "..", "templates", l, "default.tpl"), // root path
 		}
-		// p := path.Join(pkgDir, "..", "templates", l, "default.tpl")
-		// paths = append(paths, p)
-		for _, m := range methods {
-			if m == Methods[0] {
-				continue
+		if l != Layers[3] {
+			for _, m := range methods {
+				if m == Methods[0] {
+					continue
+				}
+				p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
+				paths = append(paths, p)
 			}
-			p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
-			paths = append(paths, p)
 		}
-		fmt.Println(methods)
-
 		tmpl := template.
 			Must(template.
 				ParseFiles(paths...))
@@ -97,13 +107,16 @@ func Run() {
 		if err := tmpl.ExecuteTemplate(file, "default", templateModel); err != nil {
 			panic(err)
 		}
-		for _, m := range methods {
-			if m == Methods[0] {
-				continue
-			}
-			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
-				panic(err)
+		if l != Layers[3] {
+			for _, m := range methods {
+				if m == Methods[0] {
+					continue
+				}
+				if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+					panic(err)
+				}
 			}
 		}
 	}
+
 }
