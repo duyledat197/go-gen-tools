@@ -12,18 +12,25 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users(id,name)
-values($1,$2)
+INSERT INTO users(id,name,type,team_id)
+values($1,$2,$3,$4)
 Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
 type CreateUserParams struct {
-	ID   pgtype.Text `db:"id" json:"id"`
-	Name pgtype.Text `db:"name" json:"name"`
+	ID     pgtype.Text `db:"id" json:"id"`
+	Name   pgtype.Text `db:"name" json:"name"`
+	Type   pgtype.Text `db:"type" json:"type"`
+	TeamID pgtype.Text `db:"team_id" json:"team_id"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (*User, error) {
-	row := q.db.QueryRowContext(ctx, createUser, arg.ID, arg.Name)
+	row := q.db.QueryRowContext(ctx, createUser,
+		arg.ID,
+		arg.Name,
+		arg.Type,
+		arg.TeamID,
+	)
 	var i User
 	err := row.Scan(
 		&i.ID,

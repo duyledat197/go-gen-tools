@@ -19,3 +19,7 @@ Returning *;
 -- name: GetListHub :many
 SELECT * FROM hubs
 offset $1 limit $2;
+
+-- name: SearchHub :many 
+SELECT * from hubs
+where name like ('%' || $1 || '%');

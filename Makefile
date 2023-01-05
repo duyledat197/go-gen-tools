@@ -24,6 +24,8 @@ gen-layer:
 	go fmt ./internal/*
 gen-mock:
 	docker compose -f ${COMPOSE_FILE} up generate_mock
+bdd-test:
+	docker compose -f ${COMPOSE_FILE} up bdd_test
 build:
 	@echo "building..."
 	go build ./cmd/srv/.

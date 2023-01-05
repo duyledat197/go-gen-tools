@@ -245,6 +245,29 @@
         
           
           <li>
+            <a href="#search.proto">search.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#search.SearchTeamHubRequest"><span class="badge">M</span>SearchTeamHubRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#search.SearchTeamHubResponse"><span class="badge">M</span>SearchTeamHubResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#search.SearchService"><span class="badge">S</span>SearchService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#team.proto">team.proto</a>
             <ul>
               
@@ -794,6 +817,122 @@
                 <td>PUT</td>
                 <td>/v1/hubs</td>
                 <td>*</td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
+    
+      
+      <div class="file-heading">
+        <h2 id="search.proto">search.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="search.SearchTeamHubRequest">SearchTeamHubRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>q</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="search.SearchTeamHubResponse">SearchTeamHubResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>teams</td>
+                  <td><a href="#team.Team">team.Team</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>hubs</td>
+                  <td><a href="#hub.Hub">hub.Hub</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id="search.SearchService">SearchService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>GetTeamHub</td>
+                <td><a href="#search.SearchTeamHubRequest">SearchTeamHubRequest</a></td>
+                <td><a href="#search.SearchTeamHubResponse">SearchTeamHubResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>GetTeamHub</td>
+                <td>GET</td>
+                <td>/v1/search/team-hub</td>
+                <td></td>
               </tr>
               
             

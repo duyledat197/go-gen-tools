@@ -1,4 +1,3 @@
-
 package repositories
 
 import (
@@ -26,6 +25,15 @@ func NewUserRepository(q *models.Queries) UserRepository {
 }
 
 func (u *userRepository) Create(ctx context.Context, user *models.User) error {
+	if _, err := u.db.CreateUser(ctx, models.CreateUserParams{
+		ID:     user.ID,
+		Name:   user.Name,
+		Type:   user.Type,
+		TeamID: user.TeamID,
+	}); err != nil {
+		return err
+	}
+
 	return nil
 }
 

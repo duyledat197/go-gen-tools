@@ -6,6 +6,7 @@ package models
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/jackc/pgtype"
 )
@@ -23,6 +24,8 @@ type Querier interface {
 	GetListHub(ctx context.Context, arg GetListHubParams) ([]*Hub, error)
 	GetListTeam(ctx context.Context, arg GetListTeamParams) ([]*Team, error)
 	GetListUser(ctx context.Context, arg GetListUserParams) ([]*User, error)
+	SearchHub(ctx context.Context, dollar_1 sql.NullString) ([]*Hub, error)
+	SearchTeam(ctx context.Context, dollar_1 sql.NullString) ([]*Team, error)
 	UpdateHub(ctx context.Context, arg UpdateHubParams) (*Hub, error)
 	UpdateTeam(ctx context.Context, arg UpdateTeamParams) (*Team, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error)

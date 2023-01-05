@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package search;
+option go_package = "pb/;pb";
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "enum.proto";
+import "options/annotations.proto";
+import "hub.proto";
+import "team.proto";
+
+// // Go package name which contains business logic structures.
+option (transformer.go_repo_package) = "models";
+// // Go package name with protobuf generated srtuctures. Could be equal to
+// // options go_package.
+option (transformer.go_protobuf_package) = "pb";
+// // Path to source file with Go structures which will be used asdestination.
+option (transformer.go_models_file_path) = "internal/models/models.go";
+
+service SearchService {
+  rpc GetTeamHub(SearchTeamHubRequest) returns (SearchTeamHubResponse) {
+    option (google.api.http) = {
+      get : "/v1/search/team-hub"
+    };
+  };
+}
+
+message SearchTeamHubRequest {
+  string q = 1;
+}
+
+message SearchTeamHubResponse { 
+  repeated team.Team teams = 1;
+  repeated hub.Hub hubs = 2;
+}
+

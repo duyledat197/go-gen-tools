@@ -1,4 +1,3 @@
-
 package services
 
 import (
@@ -7,6 +6,7 @@ import (
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+
 	"github.com/jackc/pgtype"
 )
 

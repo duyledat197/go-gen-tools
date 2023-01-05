@@ -31,7 +31,7 @@ services:
   postgres:
     container_name: postgres_container
     build:
-      context: .
+      context: ../
       dockerfile: ./postgres.Dockerfile
     environment:
       PGDATA: /data/postgres
@@ -44,6 +44,15 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+  
+  bdd_test:
+    container_name: bdd_container
+    build:
+      context: ../
+      dockerfile: ./developments/bdd_test.Dockerfile
+    volumes:
+      - "../integration:/app/"
+    command: ["godog","run"]
 
   migrate:
     image: migrate/migrate

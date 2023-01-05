@@ -29,5 +29,7 @@ func (d *teamDelivery) CreateTeam(ctx context.Context, req *pb.CreateTeamRequest
 	if err := d.teamService.Create(ctx, transform.PbToTeamPtr(req.GetTeam())); err != nil {
 		return nil, status.Errorf(codes.Internal, fmt.Errorf("Create: %v", err).Error())
 	}
-	return &pb.CreateTeamResponse{}, nil
+	return &pb.CreateTeamResponse{
+		Success: true,
+	}, nil
 }

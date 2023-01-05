@@ -7,23 +7,33 @@ package models
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/jackc/pgtype"
 )
 
 const createTeam = `-- name: CreateTeam :one
-INSERT INTO teams(id,name)
-values($1,$2)
+INSERT INTO teams(id,name,type,location_id,hub_id)
+values($1,$2,$3,$4,$5)
 Returning id, name, type, hub_id, location_id, created_at, updated_at, deleted_at
 `
 
 type CreateTeamParams struct {
-	ID   pgtype.Text `db:"id" json:"id"`
-	Name pgtype.Text `db:"name" json:"name"`
+	ID         pgtype.Text `db:"id" json:"id"`
+	Name       pgtype.Text `db:"name" json:"name"`
+	Type       pgtype.Text `db:"type" json:"type"`
+	LocationID pgtype.Text `db:"location_id" json:"location_id"`
+	HubID      pgtype.Text `db:"hub_id" json:"hub_id"`
 }
 
 func (q *Queries) CreateTeam(ctx context.Context, arg CreateTeamParams) (*Team, error) {
-	row := q.db.QueryRowContext(ctx, createTeam, arg.ID, arg.Name)
+	row := q.db.QueryRowContext(ctx, createTeam,
+		arg.ID,
+		arg.Name,
+		arg.Type,
+		arg.LocationID,
+		arg.HubID,
+	)
 	var i Team
 	err := row.Scan(
 		&i.ID,
@@ -92,6 +102,43 @@ type GetListTeamParams struct {
 
 func (q *Queries) GetListTeam(ctx context.Context, arg GetListTeamParams) ([]*Team, error) {
 	rows, err := q.db.QueryContext(ctx, getListTeam, arg.Offset, arg.Limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*Team
+	for rows.Next() {
+		var i Team
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Type,
+			&i.HubID,
+			&i.LocationID,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.DeletedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const searchTeam = `-- name: SearchTeam :many
+SELECT id, name, type, hub_id, location_id, created_at, updated_at, deleted_at from teams 
+where name LIKE ('%' || $1 || '%') or type like ('%' || $1 || '%')
+`
+
+func (q *Queries) SearchTeam(ctx context.Context, dollar_1 sql.NullString) ([]*Team, error) {
+	rows, err := q.db.QueryContext(ctx, searchTeam, dollar_1)
 	if err != nil {
 		return nil, err
 	}

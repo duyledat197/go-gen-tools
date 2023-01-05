@@ -25,19 +25,22 @@ import (
 type server struct {
 
 	// repo
-	userRepo repositories.UserRepository
-	teamRepo repositories.TeamRepository
-	hubRepo  repositories.HubRepository
+	userRepo   repositories.UserRepository
+	teamRepo   repositories.TeamRepository
+	hubRepo    repositories.HubRepository
+	searchRepo repositories.SearchRepository
 
 	// service
-	userSrv services.UserService
-	teamSrv services.TeamService
-	hubSrv  services.HubService
+	userSrv   services.UserService
+	teamSrv   services.TeamService
+	hubSrv    services.HubService
+	searchSrv services.SearchService
 
 	// deliveries
-	userpb pb.UserServiceServer
-	teampb pb.TeamServiceServer
-	hubpb  pb.HubServiceServer
+	userpb   pb.UserServiceServer
+	teampb   pb.TeamServiceServer
+	hubpb    pb.HubServiceServer
+	searchpb pb.SearchServiceServer
 
 	// other
 	db      *sql.DB
@@ -96,6 +99,7 @@ func (s *server) loadRepositories() error {
 	s.userRepo = repositories.NewUserRepository(s.queries)
 	s.teamRepo = repositories.NewTeamRepository(s.queries)
 	s.hubRepo = repositories.NewHubRepository(s.queries)
+	s.searchRepo = repositories.NewSearchRepository(s.queries)
 
 	return nil
 }
@@ -104,6 +108,7 @@ func (s *server) loadServices() error {
 	s.userSrv = services.NewUserService(s.userRepo)
 	s.teamSrv = services.NewTeamService(s.teamRepo)
 	s.hubSrv = services.NewHubService(s.hubRepo)
+	s.searchSrv = services.NewSearchService(s.searchRepo)
 
 	return nil
 }
@@ -112,6 +117,7 @@ func (s *server) loadDeliveries() error {
 	s.userpb = deliveries.NewUserDelivery(s.userSrv)
 	s.teampb = deliveries.NewTeamDelivery(s.teamSrv)
 	s.hubpb = deliveries.NewHubDelivery(s.hubSrv)
+	s.searchpb = deliveries.NewSearchDelivery(s.searchSrv)
 
 	return nil
 }
@@ -145,6 +151,9 @@ func (s *server) startServer(ctx context.Context) error {
 		if err := pb.RegisterHubServiceHandlerServer(ctx, mux, s.hubpb); err != nil {
 			serverError <- err
 		}
+		if err := pb.RegisterSearchServiceHandlerServer(ctx, mux, s.searchpb); err != nil {
+			serverError <- err
+		}
 
 		handler := cors.AllowAll().Handler(mux)
 		log.Printf("HTTP Server listens on port: %s\n", httpPort)
@@ -163,6 +172,7 @@ func (s *server) startServer(ctx context.Context) error {
 		pb.RegisterUserServiceServer(grpcServer, s.userpb)
 		pb.RegisterTeamServiceServer(grpcServer, s.teampb)
 		pb.RegisterHubServiceServer(grpcServer, s.hubpb)
+		pb.RegisterSearchServiceServer(grpcServer, s.searchpb)
 
 		log.Printf("GRPC Server listens on port: %v", grpcPort)
 		if err := grpcServer.Serve(lis); err != nil {

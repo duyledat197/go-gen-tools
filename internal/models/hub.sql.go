@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/jackc/pgtype"
 )
@@ -87,6 +88,41 @@ type GetListHubParams struct {
 
 func (q *Queries) GetListHub(ctx context.Context, arg GetListHubParams) ([]*Hub, error) {
 	rows, err := q.db.QueryContext(ctx, getListHub, arg.Offset, arg.Limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*Hub
+	for rows.Next() {
+		var i Hub
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.LocationID,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.DeletedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const searchHub = `-- name: SearchHub :many
+SELECT id, name, location_id, created_at, updated_at, deleted_at from hubs
+where name like ('%' || $1 || '%')
+`
+
+func (q *Queries) SearchHub(ctx context.Context, dollar_1 sql.NullString) ([]*Hub, error) {
+	rows, err := q.db.QueryContext(ctx, searchHub, dollar_1)
 	if err != nil {
 		return nil, err
 	}

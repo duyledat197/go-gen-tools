@@ -3,8 +3,8 @@ SELECT * FROM users
 WHERE id = $1 LIMIT 1;
 
 -- name: CreateUser :one
-INSERT INTO users(id,name)
-values($1,$2)
+INSERT INTO users(id,name,type,team_id)
+values($1,$2,$3,$4)
 Returning *;
 
 -- name: UpdateUser :one

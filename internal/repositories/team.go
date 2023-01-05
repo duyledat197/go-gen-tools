@@ -1,4 +1,3 @@
-
 package repositories
 
 import (
@@ -26,6 +25,16 @@ func NewTeamRepository(q *models.Queries) TeamRepository {
 }
 
 func (u *teamRepository) Create(ctx context.Context, team *models.Team) error {
+	if _, err := u.db.CreateTeam(ctx, models.CreateTeamParams{
+		ID:         team.ID,
+		Name:       team.Name,
+		Type:       team.Type,
+		LocationID: team.LocationID,
+		HubID:      team.HubID,
+	}); err != nil {
+		return err
+	}
+
 	return nil
 }
 
