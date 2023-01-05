@@ -7,6 +7,7 @@ import (
 
 	"{{.Module}}/internal/models"
 	"{{.Module}}/internal/repositories"
+	"github.com/jackc/pgtype"
 )
 
 type {{.PascalCase}}Service interface {

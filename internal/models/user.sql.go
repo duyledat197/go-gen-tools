@@ -14,7 +14,7 @@ import (
 const createUser = `-- name: CreateUser :one
 INSERT INTO users(id,name)
 values($1,$2)
-Returning id, name, bio, updated_at
+Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
 type CreateUserParams struct {
@@ -28,15 +28,18 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (*User, 
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
-		&i.Bio,
+		&i.Type,
+		&i.TeamID,
+		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.DeletedAt,
 	)
 	return &i, err
 }
 
 const deleteUser = `-- name: DeleteUser :one
 DELETE from users where id = $1
-Returning id, name, bio, updated_at
+Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
 func (q *Queries) DeleteUser(ctx context.Context, id pgtype.Text) (*User, error) {
@@ -45,14 +48,17 @@ func (q *Queries) DeleteUser(ctx context.Context, id pgtype.Text) (*User, error)
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
-		&i.Bio,
+		&i.Type,
+		&i.TeamID,
+		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.DeletedAt,
 	)
 	return &i, err
 }
 
 const findUserByID = `-- name: FindUserByID :one
-SELECT id, name, bio, updated_at FROM users
+SELECT id, name, type, team_id, created_at, updated_at, deleted_at FROM users
 WHERE id = $1 LIMIT 1
 `
 
@@ -62,44 +68,17 @@ func (q *Queries) FindUserByID(ctx context.Context, id pgtype.Text) (*User, erro
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
-		&i.Bio,
+		&i.Type,
+		&i.TeamID,
+		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.DeletedAt,
 	)
 	return &i, err
 }
 
-const getFunction = `-- name: GetFunction :many
-select  from test()
-`
-
-type GetFunctionRow struct {
-}
-
-func (q *Queries) GetFunction(ctx context.Context) ([]*GetFunctionRow, error) {
-	rows, err := q.db.QueryContext(ctx, getFunction)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []*GetFunctionRow
-	for rows.Next() {
-		var i GetFunctionRow
-		if err := rows.Scan(); err != nil {
-			return nil, err
-		}
-		items = append(items, &i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
 const getListUser = `-- name: GetListUser :many
-SELECT id, name, bio, updated_at FROM users
+SELECT id, name, type, team_id, created_at, updated_at, deleted_at FROM users
 offset $1 limit $2
 `
 
@@ -120,8 +99,11 @@ func (q *Queries) GetListUser(ctx context.Context, arg GetListUserParams) ([]*Us
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
-			&i.Bio,
+			&i.Type,
+			&i.TeamID,
+			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.DeletedAt,
 		); err != nil {
 			return nil, err
 		}
@@ -139,7 +121,7 @@ func (q *Queries) GetListUser(ctx context.Context, arg GetListUserParams) ([]*Us
 const updateUser = `-- name: UpdateUser :one
 UPDATE users set name = $1
 where id = $2
-Returning id, name, bio, updated_at
+Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
 type UpdateUserParams struct {
@@ -153,8 +135,11 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, 
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
-		&i.Bio,
+		&i.Type,
+		&i.TeamID,
+		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.DeletedAt,
 	)
 	return &i, err
 }

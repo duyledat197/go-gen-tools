@@ -5,20 +5,35 @@
 package models
 
 import (
-	"time"
-
 	"github.com/jackc/pgtype"
 )
 
 type Hub struct {
-	ID   int64       `db:"id" json:"id"`
-	Name pgtype.Text `db:"name" json:"name"`
-	Bio  pgtype.Text `db:"bio" json:"bio"`
+	ID         pgtype.Text        `db:"id" json:"id"`
+	Name       pgtype.Text        `db:"name" json:"name"`
+	LocationID pgtype.Text        `db:"location_id" json:"location_id"`
+	CreatedAt  pgtype.Timestamptz `db:"created_at" json:"created_at"`
+	UpdatedAt  pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
+	DeletedAt  pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
+}
+
+type Team struct {
+	ID         pgtype.Text        `db:"id" json:"id"`
+	Name       pgtype.Text        `db:"name" json:"name"`
+	Type       pgtype.Text        `db:"type" json:"type"`
+	HubID      pgtype.Text        `db:"hub_id" json:"hub_id"`
+	LocationID pgtype.Text        `db:"location_id" json:"location_id"`
+	CreatedAt  pgtype.Timestamptz `db:"created_at" json:"created_at"`
+	UpdatedAt  pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
+	DeletedAt  pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
 }
 
 type User struct {
-	ID        pgtype.Text `db:"id" json:"id"`
-	Name      pgtype.Text `db:"name" json:"name"`
-	Bio       pgtype.Text `db:"bio" json:"bio"`
-	UpdatedAt time.Time   `db:"updated_at" json:"updated_at"`
+	ID        pgtype.Text        `db:"id" json:"id"`
+	Name      pgtype.Text        `db:"name" json:"name"`
+	Type      pgtype.Text        `db:"type" json:"type"`
+	TeamID    pgtype.Text        `db:"team_id" json:"team_id"`
+	CreatedAt pgtype.Timestamptz `db:"created_at" json:"created_at"`
+	UpdatedAt pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
+	DeletedAt pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
 }

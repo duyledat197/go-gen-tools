@@ -11,11 +11,20 @@ import (
 )
 
 type Querier interface {
+	CreateHub(ctx context.Context, arg CreateHubParams) (*Hub, error)
+	CreateTeam(ctx context.Context, arg CreateTeamParams) (*Team, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (*User, error)
+	DeleteHub(ctx context.Context, id pgtype.Text) (*Hub, error)
+	DeleteTeam(ctx context.Context, id pgtype.Text) (*Team, error)
 	DeleteUser(ctx context.Context, id pgtype.Text) (*User, error)
+	FindHubByID(ctx context.Context, id pgtype.Text) (*Hub, error)
+	FindTeamByID(ctx context.Context, id pgtype.Text) (*Team, error)
 	FindUserByID(ctx context.Context, id pgtype.Text) (*User, error)
-	GetFunction(ctx context.Context) ([]*GetFunctionRow, error)
+	GetListHub(ctx context.Context, arg GetListHubParams) ([]*Hub, error)
+	GetListTeam(ctx context.Context, arg GetListTeamParams) ([]*Team, error)
 	GetListUser(ctx context.Context, arg GetListUserParams) ([]*User, error)
+	UpdateHub(ctx context.Context, arg UpdateHubParams) (*Hub, error)
+	UpdateTeam(ctx context.Context, arg UpdateTeamParams) (*Team, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error)
 }
 

@@ -1,4 +1,3 @@
-
 package deliveries
 
 import (
@@ -12,23 +11,23 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type userDelivery struct {
-	userService services.UserService
-	pb.UnimplementedUserServiceServer
+type teamDelivery struct {
+	teamService services.TeamService
+	pb.UnimplementedTeamServiceServer
 }
 
-func NewUserDelivery(userService services.UserService) pb.UserServiceServer {
-	return &userDelivery{
-		userService: userService,
+func NewTeamDelivery(teamService services.TeamService) pb.TeamServiceServer {
+	return &teamDelivery{
+		teamService: teamService,
 	}
 }
 
-func (d *userDelivery) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+func (d *teamDelivery) CreateTeam(ctx context.Context, req *pb.CreateTeamRequest) (*pb.CreateTeamResponse, error) {
 	if err := req.Validate(); err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, fmt.Errorf("validate failed: %w", err).Error())
 	}
-	if err := d.userService.Create(ctx, transform.PbToUserPtr(req.GetUser())); err != nil {
+	if err := d.teamService.Create(ctx, transform.PbToTeamPtr(req.GetTeam())); err != nil {
 		return nil, status.Errorf(codes.Internal, fmt.Errorf("Create: %v", err).Error())
 	}
-	return &pb.CreateUserResponse{}, nil
+	return &pb.CreateTeamResponse{}, nil
 }

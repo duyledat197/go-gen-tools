@@ -7,7 +7,7 @@ sql:
       go:
         package: "models"
         out: "../models"
-        sql_package: "pgx/v4"
+        sql_package: "database/sql"
         emit_json_tags: true
         emit_interface: true
         emit_db_tags: true
@@ -17,8 +17,17 @@ sql:
             go_type:
               import: "github.com/jackc/pgtype"
               type: "Text"
+          - db_type: "timestamptz"
+            go_type:
+              import: "github.com/jackc/pgtype"
+              type: "Timestamptz"
           - db_type: "text"
             go_type:
               import: "github.com/jackc/pgtype"
               type: "Text"
+            nullable: true
+          - db_type: "timestamptz"
+            go_type:
+              import: "github.com/jackc/pgtype"
+              type: "Timestamptz" 
             nullable: true

@@ -194,6 +194,108 @@
         
           
           <li>
+            <a href="#hub.proto">hub.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#hub.CreateHubRequest"><span class="badge">M</span>CreateHubRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.CreateHubResponse"><span class="badge">M</span>CreateHubResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.GetHubByIDRequest"><span class="badge">M</span>GetHubByIDRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.GetHubByIDResponse"><span class="badge">M</span>GetHubByIDResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.GetListHubRequest"><span class="badge">M</span>GetListHubRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.GetListHubResponse"><span class="badge">M</span>GetListHubResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.Hub"><span class="badge">M</span>Hub</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.UpdateHubRequest"><span class="badge">M</span>UpdateHubRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#hub.UpdateHubResponse"><span class="badge">M</span>UpdateHubResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#hub.HubService"><span class="badge">S</span>HubService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#team.proto">team.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#team.CreateTeamRequest"><span class="badge">M</span>CreateTeamRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#team.CreateTeamResponse"><span class="badge">M</span>CreateTeamResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#team.GetListTeamRequest"><span class="badge">M</span>GetListTeamRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#team.GetListTeamResponse"><span class="badge">M</span>GetListTeamResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#team.GetTeamByIDRequest"><span class="badge">M</span>GetTeamByIDRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#team.GetTeamByIDResponse"><span class="badge">M</span>GetTeamByIDResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#team.Team"><span class="badge">M</span>Team</a>
+                </li>
+              
+                <li>
+                  <a href="#team.UpdateTeamRequest"><span class="badge">M</span>UpdateTeamRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#team.UpdateTeamResponse"><span class="badge">M</span>UpdateTeamResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#team.TeamService"><span class="badge">S</span>TeamService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#user.proto">user.proto</a>
             <ul>
               
@@ -206,11 +308,11 @@
                 </li>
               
                 <li>
-                  <a href="#user.GetListRequest"><span class="badge">M</span>GetListRequest</a>
+                  <a href="#user.GetListUserRequest"><span class="badge">M</span>GetListUserRequest</a>
                 </li>
               
                 <li>
-                  <a href="#user.GetListResponse"><span class="badge">M</span>GetListResponse</a>
+                  <a href="#user.GetListUserResponse"><span class="badge">M</span>GetListUserResponse</a>
                 </li>
               
                 <li>
@@ -346,6 +448,732 @@
     
       
       <div class="file-heading">
+        <h2 id="hub.proto">hub.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="hub.CreateHubRequest">CreateHubRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>hub</td>
+                  <td><a href="#hub.Hub">Hub</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.CreateHubResponse">CreateHubResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>success</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.GetHubByIDRequest">GetHubByIDRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>hubID</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.GetHubByIDResponse">GetHubByIDResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#hub.Hub">Hub</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.GetListHubRequest">GetListHubRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>offset</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>limit</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.GetListHubResponse">GetListHubResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#hub.Hub">Hub</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>total</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.Hub">Hub</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>location_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.UpdateHubRequest">UpdateHubRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>hub</td>
+                  <td><a href="#hub.Hub">Hub</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="hub.UpdateHubResponse">UpdateHubResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>success</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id="hub.HubService">HubService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>GetHubByID</td>
+                <td><a href="#hub.GetHubByIDRequest">GetHubByIDRequest</a></td>
+                <td><a href="#hub.GetHubByIDResponse">GetHubByIDResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateHub</td>
+                <td><a href="#hub.CreateHubRequest">CreateHubRequest</a></td>
+                <td><a href="#hub.CreateHubResponse">CreateHubResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetList</td>
+                <td><a href="#hub.GetListHubRequest">GetListHubRequest</a></td>
+                <td><a href="#hub.GetListHubResponse">GetListHubResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateHub</td>
+                <td><a href="#hub.UpdateHubRequest">UpdateHubRequest</a></td>
+                <td><a href="#hub.UpdateHubResponse">UpdateHubResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>GetHubByID</td>
+                <td>GET</td>
+                <td>/v1/hubs/{hubID}</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>CreateHub</td>
+                <td>POST</td>
+                <td>/v1/hubs</td>
+                <td>*</td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>GetList</td>
+                <td>GET</td>
+                <td>/v1/hubs</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>UpdateHub</td>
+                <td>PUT</td>
+                <td>/v1/hubs</td>
+                <td>*</td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
+    
+      
+      <div class="file-heading">
+        <h2 id="team.proto">team.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="team.CreateTeamRequest">CreateTeamRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>team</td>
+                  <td><a href="#team.Team">Team</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.CreateTeamResponse">CreateTeamResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>success</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.GetListTeamRequest">GetListTeamRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>offset</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>limit</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.GetListTeamResponse">GetListTeamResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#team.Team">Team</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>total</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.GetTeamByIDRequest">GetTeamByIDRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>teamID</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.GetTeamByIDResponse">GetTeamByIDResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#team.Team">Team</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.Team">Team</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>location_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>hub_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.UpdateTeamRequest">UpdateTeamRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>team</td>
+                  <td><a href="#team.Team">Team</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="team.UpdateTeamResponse">UpdateTeamResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>success</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id="team.TeamService">TeamService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>GetTeamByID</td>
+                <td><a href="#team.GetTeamByIDRequest">GetTeamByIDRequest</a></td>
+                <td><a href="#team.GetTeamByIDResponse">GetTeamByIDResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateTeam</td>
+                <td><a href="#team.CreateTeamRequest">CreateTeamRequest</a></td>
+                <td><a href="#team.CreateTeamResponse">CreateTeamResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetList</td>
+                <td><a href="#team.GetListTeamRequest">GetListTeamRequest</a></td>
+                <td><a href="#team.GetListTeamResponse">GetListTeamResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateTeam</td>
+                <td><a href="#team.UpdateTeamRequest">UpdateTeamRequest</a></td>
+                <td><a href="#team.UpdateTeamResponse">UpdateTeamResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>GetTeamByID</td>
+                <td>GET</td>
+                <td>/v1/teams/{teamID}</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>CreateTeam</td>
+                <td>POST</td>
+                <td>/v1/teams</td>
+                <td>*</td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>GetList</td>
+                <td>GET</td>
+                <td>/v1/teams</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>UpdateTeam</td>
+                <td>PUT</td>
+                <td>/v1/teams</td>
+                <td>*</td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
+    
+      
+      <div class="file-heading">
         <h2 id="user.proto">user.proto</h2><a href="#title">Top</a>
       </div>
       <p></p>
@@ -399,7 +1227,7 @@
 
         
       
-        <h3 id="user.GetListRequest">GetListRequest</h3>
+        <h3 id="user.GetListUserRequest">GetListUserRequest</h3>
         <p></p>
 
         
@@ -430,7 +1258,7 @@
 
         
       
-        <h3 id="user.GetListResponse">GetListResponse</h3>
+        <h3 id="user.GetListUserResponse">GetListUserResponse</h3>
         <p></p>
 
         
@@ -582,7 +1410,14 @@
                 </tr>
               
                 <tr>
-                  <td>bio</td>
+                  <td>type</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>team_id</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p> </p></td>
@@ -625,8 +1460,8 @@
             
               <tr>
                 <td>GetList</td>
-                <td><a href="#user.GetListRequest">GetListRequest</a></td>
-                <td><a href="#user.GetListResponse">GetListResponse</a></td>
+                <td><a href="#user.GetListUserRequest">GetListUserRequest</a></td>
+                <td><a href="#user.GetListUserResponse">GetListUserResponse</a></td>
                 <td><p></p></td>
               </tr>
             

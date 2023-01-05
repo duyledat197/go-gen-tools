@@ -19,6 +19,3 @@ Returning *;
 -- name: GetListUser :many
 SELECT * FROM users
 offset $1 limit $2;
-
--- name: GetFunction :many
-select * from test();

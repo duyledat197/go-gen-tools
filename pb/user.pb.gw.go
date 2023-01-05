@@ -122,7 +122,7 @@ var (
 )
 
 func request_UserService_GetList_0(ctx context.Context, marshaler runtime.Marshaler, client UserServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetListRequest
+	var protoReq GetListUserRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -138,7 +138,7 @@ func request_UserService_GetList_0(ctx context.Context, marshaler runtime.Marsha
 }
 
 func local_request_UserService_GetList_0(ctx context.Context, marshaler runtime.Marshaler, server UserServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetListRequest
+	var protoReq GetListUserRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {

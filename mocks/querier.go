@@ -16,6 +16,52 @@ type Querier struct {
 	mock.Mock
 }
 
+// CreateHub provides a mock function with given fields: ctx, arg
+func (_m *Querier) CreateHub(ctx context.Context, arg models.CreateHubParams) (*models.Hub, error) {
+	ret := _m.Called(ctx, arg)
+
+	var r0 *models.Hub
+	if rf, ok := ret.Get(0).(func(context.Context, models.CreateHubParams) *models.Hub); ok {
+		r0 = rf(ctx, arg)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Hub)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, models.CreateHubParams) error); ok {
+		r1 = rf(ctx, arg)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// CreateTeam provides a mock function with given fields: ctx, arg
+func (_m *Querier) CreateTeam(ctx context.Context, arg models.CreateTeamParams) (*models.Team, error) {
+	ret := _m.Called(ctx, arg)
+
+	var r0 *models.Team
+	if rf, ok := ret.Get(0).(func(context.Context, models.CreateTeamParams) *models.Team); ok {
+		r0 = rf(ctx, arg)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Team)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, models.CreateTeamParams) error); ok {
+		r1 = rf(ctx, arg)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // CreateUser provides a mock function with given fields: ctx, arg
 func (_m *Querier) CreateUser(ctx context.Context, arg models.CreateUserParams) (*models.User, error) {
 	ret := _m.Called(ctx, arg)
@@ -39,6 +85,52 @@ func (_m *Querier) CreateUser(ctx context.Context, arg models.CreateUserParams) 
 	return r0, r1
 }
 
+// DeleteHub provides a mock function with given fields: ctx, id
+func (_m *Querier) DeleteHub(ctx context.Context, id pgtype.Text) (*models.Hub, error) {
+	ret := _m.Called(ctx, id)
+
+	var r0 *models.Hub
+	if rf, ok := ret.Get(0).(func(context.Context, pgtype.Text) *models.Hub); ok {
+		r0 = rf(ctx, id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Hub)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, pgtype.Text) error); ok {
+		r1 = rf(ctx, id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// DeleteTeam provides a mock function with given fields: ctx, id
+func (_m *Querier) DeleteTeam(ctx context.Context, id pgtype.Text) (*models.Team, error) {
+	ret := _m.Called(ctx, id)
+
+	var r0 *models.Team
+	if rf, ok := ret.Get(0).(func(context.Context, pgtype.Text) *models.Team); ok {
+		r0 = rf(ctx, id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Team)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, pgtype.Text) error); ok {
+		r1 = rf(ctx, id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // DeleteUser provides a mock function with given fields: ctx, id
 func (_m *Querier) DeleteUser(ctx context.Context, id pgtype.Text) (*models.User, error) {
 	ret := _m.Called(ctx, id)
@@ -49,6 +141,52 @@ func (_m *Querier) DeleteUser(ctx context.Context, id pgtype.Text) (*models.User
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*models.User)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, pgtype.Text) error); ok {
+		r1 = rf(ctx, id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// FindHubByID provides a mock function with given fields: ctx, id
+func (_m *Querier) FindHubByID(ctx context.Context, id pgtype.Text) (*models.Hub, error) {
+	ret := _m.Called(ctx, id)
+
+	var r0 *models.Hub
+	if rf, ok := ret.Get(0).(func(context.Context, pgtype.Text) *models.Hub); ok {
+		r0 = rf(ctx, id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Hub)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, pgtype.Text) error); ok {
+		r1 = rf(ctx, id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// FindTeamByID provides a mock function with given fields: ctx, id
+func (_m *Querier) FindTeamByID(ctx context.Context, id pgtype.Text) (*models.Team, error) {
+	ret := _m.Called(ctx, id)
+
+	var r0 *models.Team
+	if rf, ok := ret.Get(0).(func(context.Context, pgtype.Text) *models.Team); ok {
+		r0 = rf(ctx, id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Team)
 		}
 	}
 
@@ -85,22 +223,45 @@ func (_m *Querier) FindUserByID(ctx context.Context, id pgtype.Text) (*models.Us
 	return r0, r1
 }
 
-// GetFunction provides a mock function with given fields: ctx
-func (_m *Querier) GetFunction(ctx context.Context) ([]*models.GetFunctionRow, error) {
-	ret := _m.Called(ctx)
+// GetListHub provides a mock function with given fields: ctx, arg
+func (_m *Querier) GetListHub(ctx context.Context, arg models.GetListHubParams) ([]*models.Hub, error) {
+	ret := _m.Called(ctx, arg)
 
-	var r0 []*models.GetFunctionRow
-	if rf, ok := ret.Get(0).(func(context.Context) []*models.GetFunctionRow); ok {
-		r0 = rf(ctx)
+	var r0 []*models.Hub
+	if rf, ok := ret.Get(0).(func(context.Context, models.GetListHubParams) []*models.Hub); ok {
+		r0 = rf(ctx, arg)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]*models.GetFunctionRow)
+			r0 = ret.Get(0).([]*models.Hub)
 		}
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
-		r1 = rf(ctx)
+	if rf, ok := ret.Get(1).(func(context.Context, models.GetListHubParams) error); ok {
+		r1 = rf(ctx, arg)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// GetListTeam provides a mock function with given fields: ctx, arg
+func (_m *Querier) GetListTeam(ctx context.Context, arg models.GetListTeamParams) ([]*models.Team, error) {
+	ret := _m.Called(ctx, arg)
+
+	var r0 []*models.Team
+	if rf, ok := ret.Get(0).(func(context.Context, models.GetListTeamParams) []*models.Team); ok {
+		r0 = rf(ctx, arg)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*models.Team)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, models.GetListTeamParams) error); ok {
+		r1 = rf(ctx, arg)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -123,6 +284,52 @@ func (_m *Querier) GetListUser(ctx context.Context, arg models.GetListUserParams
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(context.Context, models.GetListUserParams) error); ok {
+		r1 = rf(ctx, arg)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// UpdateHub provides a mock function with given fields: ctx, arg
+func (_m *Querier) UpdateHub(ctx context.Context, arg models.UpdateHubParams) (*models.Hub, error) {
+	ret := _m.Called(ctx, arg)
+
+	var r0 *models.Hub
+	if rf, ok := ret.Get(0).(func(context.Context, models.UpdateHubParams) *models.Hub); ok {
+		r0 = rf(ctx, arg)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Hub)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, models.UpdateHubParams) error); ok {
+		r1 = rf(ctx, arg)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// UpdateTeam provides a mock function with given fields: ctx, arg
+func (_m *Querier) UpdateTeam(ctx context.Context, arg models.UpdateTeamParams) (*models.Team, error) {
+	ret := _m.Called(ctx, arg)
+
+	var r0 *models.Team
+	if rf, ok := ret.Get(0).(func(context.Context, models.UpdateTeamParams) *models.Team); ok {
+		r0 = rf(ctx, arg)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Team)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, models.UpdateTeamParams) error); ok {
 		r1 = rf(ctx, arg)
 	} else {
 		r1 = ret.Error(1)

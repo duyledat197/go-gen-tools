@@ -10,72 +10,93 @@ import (
 	"github.com/duyledat197/go-gen-tools/utils/transformhelpers"
 )
 
-// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
-// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
-// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
-// "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
-// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.DurationRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
-// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
-// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
-// "user.User": target: "User", Omitted: false, OneofDecl: ""
-// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
-// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
-// "google.api.Http": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
-// "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
-// "user.GetUserByIDResponse": target: "", Omitted: true, OneofDecl: ""
-// "user.GetListRequest": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
-// "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
+// "hub.GetHubByIDResponse": target: "", Omitted: true, OneofDecl: ""
 // "user.CreateUserResponse": target: "", Omitted: true, OneofDecl: ""
-// "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.SourceCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "validate.MessageRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.AnyRules": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumOptions": target: "", Omitted: true, OneofDecl: ""
 // "google.protobuf.GeneratedCodeInfo": target: "", Omitted: true, OneofDecl: ""
+// "team.UpdateTeamRequest": target: "", Omitted: true, OneofDecl: ""
+// "validate.EnumRules": target: "", Omitted: true, OneofDecl: ""
+// "hub.GetHubByIDRequest": target: "", Omitted: true, OneofDecl: ""
+// "hub.UpdateHubResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.Int64Rules": target: "", Omitted: true, OneofDecl: ""
+// "user.GetUserByIDRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.GetListUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.api.Http": target: "", Omitted: true, OneofDecl: ""
+// "validate.SInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "hub.GetListHubResponse": target: "", Omitted: true, OneofDecl: ""
+// "hub.CreateHubResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MessageOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Duration": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.DoubleRules": target: "", Omitted: true, OneofDecl: ""
+// "team.GetListTeamResponse": target: "", Omitted: true, OneofDecl: ""
+// "validate.DurationRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.Timestamp": target: "", Omitted: true, OneofDecl: ""
+// "validate.MapRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.BoolRules": target: "", Omitted: true, OneofDecl: ""
+// "hub.UpdateHubRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FileOptions": target: "", Omitted: true, OneofDecl: ""
 // "validate.FieldRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.FloatRules": target: "", Omitted: true, OneofDecl: ""
+// "user.GetUserByIDResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "hub.Hub": target: "Hub", Omitted: false, OneofDecl: ""
+// "user.GetListUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "hub.GetListHubRequest": target: "", Omitted: true, OneofDecl: ""
+// "team.GetTeamByIDResponse": target: "", Omitted: true, OneofDecl: ""
+// "team.Team": target: "Team", Omitted: false, OneofDecl: ""
+// "validate.SInt64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.BytesRules": target: "", Omitted: true, OneofDecl: ""
+// "validate.RepeatedRules": target: "", Omitted: true, OneofDecl: ""
+// "google.api.CustomHttpPattern": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.MethodDescriptorProto": target: "", Omitted: true, OneofDecl: ""
 // "validate.UInt64Rules": target: "", Omitted: true, OneofDecl: ""
+// "team.GetTeamByIDRequest": target: "", Omitted: true, OneofDecl: ""
+// "team.CreateTeamResponse": target: "", Omitted: true, OneofDecl: ""
+// "team.UpdateTeamResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.api.HttpRule": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed32Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.TimestampRules": target: "", Omitted: true, OneofDecl: ""
+// "hub.CreateHubRequest": target: "", Omitted: true, OneofDecl: ""
+// "user.User": target: "User", Omitted: false, OneofDecl: ""
+// "google.protobuf.FileDescriptorSet": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.DescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.OneofOptions": target: "", Omitted: true, OneofDecl: ""
+// "user.CreateUserRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.Fixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "validate.StringRules": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.EnumValueOptions": target: "", Omitted: true, OneofDecl: ""
+// "validate.SFixed64Rules": target: "", Omitted: true, OneofDecl: ""
+// "team.CreateTeamRequest": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ExtensionRangeOptions": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.ServiceDescriptorProto": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.FieldOptions": target: "", Omitted: true, OneofDecl: ""
+// "user.UpdateUserResponse": target: "", Omitted: true, OneofDecl: ""
+// "google.protobuf.UninterpretedOption": target: "", Omitted: true, OneofDecl: ""
+// "validate.UInt32Rules": target: "", Omitted: true, OneofDecl: ""
+// "team.GetListTeamRequest": target: "", Omitted: true, OneofDecl: ""
 // message "GetUserByIDRequest" has no option "transformer.go_struct", skipped...
 // message "GetUserByIDResponse" has no option "transformer.go_struct", skipped...
 
 // Target struct fields:
-// Field: "Bio", Type: "pgtype.Text", isPointer: false
-// Field: "UpdatedAt", Type: "time.Time", isPointer: false
+// Field: "DeletedAt", Type: "pgtype.Timestamptz", isPointer: false
 // Field: "ID", Type: "pgtype.Text", isPointer: false
 // Field: "Name", Type: "pgtype.Text", isPointer: false
+// Field: "Type", Type: "pgtype.Text", isPointer: false
+// Field: "TeamID", Type: "pgtype.Text", isPointer: false
+// Field: "CreatedAt", Type: "pgtype.Timestamptz", isPointer: false
+// Field: "UpdatedAt", Type: "pgtype.Timestamptz", isPointer: false
 
 // ===============================
 // fdp.Name: "id", mapAs: "", mapTo: ""
@@ -86,14 +107,16 @@ import (
 // sf: source.FieldInfo{Type:"PgtypeText", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Name", gname: "Name"
 
 // ===============================
-// fdp.Options: &descriptor.FieldOptions{XXX_InternalExtensions: proto.NewUnsafeXXX_InternalExtensions(map[int32]proto.Extension{5303: proto.NewExtension([]byte{0xba, 0xcb, 0x2, 0x3, 0x42, 0x69, 0x6f})}),}
+// fdp.Name: "type", mapAs: "", mapTo: ""
+// sf: source.FieldInfo{Type:"PgtypeText", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Type", gname: "Type"
 
-// fdp.Name: "bio", mapAs: "", mapTo: "Bio"
-// sf: source.FieldInfo{Type:"PgtypeText", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "Bio", gname: "Bio"
+// ===============================
+// fdp.Name: "team_id", mapAs: "", mapTo: ""
+// sf: source.FieldInfo{Type:"PgtypeText", IsPointer:false}, pbType: "", goType: "string", ft: "TYPE_STRING", pname: "TeamId", gname: "TeamID"
 // message "CreateUserRequest" has no option "transformer.go_struct", skipped...
 // message "CreateUserResponse" has no option "transformer.go_struct", skipped...
-// message "GetListRequest" has no option "transformer.go_struct", skipped...
-// message "GetListResponse" has no option "transformer.go_struct", skipped...
+// message "GetListUserRequest" has no option "transformer.go_struct", skipped...
+// message "GetListUserResponse" has no option "transformer.go_struct", skipped...
 // message "UpdateUserRequest" has no option "transformer.go_struct", skipped...
 // message "UpdateUserResponse" has no option "transformer.go_struct", skipped...
 func PbToUserPtr(src *pb.User, opts ...TransformParam) *models.User {
@@ -140,9 +163,10 @@ func PbToUserList(src []*pb.User, opts ...TransformParam) []models.User {
 
 func PbToUser(src pb.User, opts ...TransformParam) models.User {
 	s := models.User{
-		ID:   transformhelpers.StringToPgtypeText(src.Id),
-		Name: transformhelpers.StringToPgtypeText(src.Name),
-		Bio:  transformhelpers.StringToPgtypeText(src.Bio),
+		ID:     transformhelpers.StringToPgtypeText(src.Id),
+		Name:   transformhelpers.StringToPgtypeText(src.Name),
+		Type:   transformhelpers.StringToPgtypeText(src.Type),
+		TeamID: transformhelpers.StringToPgtypeText(src.TeamId),
 	}
 
 	applyOptions(opts...)
@@ -210,9 +234,10 @@ func UserToPbList(src []models.User, opts ...TransformParam) []*pb.User {
 
 func UserToPb(src models.User, opts ...TransformParam) pb.User {
 	s := pb.User{
-		Id:   transformhelpers.PgtypeTextToString(src.ID),
-		Name: transformhelpers.PgtypeTextToString(src.Name),
-		Bio:  transformhelpers.PgtypeTextToString(src.Bio),
+		Id:     transformhelpers.PgtypeTextToString(src.ID),
+		Name:   transformhelpers.PgtypeTextToString(src.Name),
+		Type:   transformhelpers.PgtypeTextToString(src.Type),
+		TeamId: transformhelpers.PgtypeTextToString(src.TeamID),
 	}
 
 	applyOptions(opts...)

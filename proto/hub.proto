@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package user;
+package hub;
 option go_package = "pb/;pb";
 
 import "google/api/annotations.proto";
@@ -16,62 +16,61 @@ option (transformer.go_protobuf_package) = "pb";
 // // Path to source file with Go structures which will be used asdestination.
 option (transformer.go_models_file_path) = "internal/models/models.go";
 
-service UserService {
-  rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIDResponse) {
+service HubService {
+  rpc GetHubByID(GetHubByIDRequest) returns (GetHubByIDResponse) {
     option (google.api.http) = {
-      get : "/v1/users/{userID}"
+      get : "/v1/hubs/{hubID}"
     };
   };
 
-  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+  rpc CreateHub(CreateHubRequest) returns (CreateHubResponse) {
     option (google.api.http) = {
-      post : "/v1/users",
+      post : "/v1/hubs",
       body : "*"
     };
   };
 
-  rpc GetList(GetListUserRequest) returns (GetListUserResponse) {
+  rpc GetList(GetListHubRequest) returns (GetListHubResponse) {
     option (google.api.http) = {
-      get : "/v1/users"
+      get : "/v1/hubs"
     };
   };
 
-  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+  rpc UpdateHub(UpdateHubRequest) returns (UpdateHubResponse) {
     option (google.api.http) = {
-      put : "/v1/users",
+      put : "/v1/hubs",
       body : "*"
     };
   };
 }
 
-message GetUserByIDRequest { string userID = 1; }
+message GetHubByIDRequest { string hubID = 1; }
 
-message GetUserByIDResponse { User data = 1; }
+message GetHubByIDResponse { Hub data = 1; }
 
-message User {
-  option (transformer.go_struct) = "User";
+message Hub {
+  option (transformer.go_struct) = "Hub";
   string id = 1;
   string name = 2;
-  string type = 3;
-  string team_id = 4;
+  string location_id = 3;
 }
 
-message CreateUserRequest {
-  User user = 1;
+message CreateHubRequest {
+  Hub hub = 1;
 }
 
-message CreateUserResponse { bool success = 1; }
+message CreateHubResponse { bool success = 1; }
 
-message GetListUserRequest {
+message GetListHubRequest {
   int32 offset = 1;
   int32 limit = 2;
 }
 
-message GetListUserResponse {
-  repeated User data = 1;
+message GetListHubResponse {
+  repeated Hub data = 1;
   int32 total = 2;
 }
 
-message UpdateUserRequest { User user = 1; }
+message UpdateHubRequest { Hub hub = 1; }
 
-message UpdateUserResponse { bool success = 1; }
+message UpdateHubResponse { bool success = 1; }

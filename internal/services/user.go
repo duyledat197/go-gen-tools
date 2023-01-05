@@ -1,3 +1,4 @@
+
 package services
 
 import (
@@ -6,6 +7,7 @@ import (
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+	"github.com/jackc/pgtype"
 )
 
 type UserService interface {
@@ -34,7 +36,9 @@ func (s *userService) Create(ctx context.Context, user *models.User) error {
 }
 
 func (s *userService) Update(ctx context.Context, id string, user *models.User) error {
-	user.UpdatedAt = time.Now()
+	user.UpdatedAt = pgtype.Timestamptz{
+		Time: time.Now(),
+	}
 	if err := s.userRepo.Update(ctx, id, user); err != nil {
 		return err
 	}

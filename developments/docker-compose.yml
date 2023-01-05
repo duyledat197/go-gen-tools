@@ -35,7 +35,7 @@ services:
       dockerfile: ./postgres.Dockerfile
     environment:
       PGDATA: /data/postgres
-      POSTGRES_DB: testdb
+      POSTGRES_DB: postgres
       DATABASE_HOST: localhost
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

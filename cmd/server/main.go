@@ -5,39 +5,43 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
-	"os"
+	"sync"
 
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
-	"github.com/duyledat197/go-gen-tools/utils/metadata"
-
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/rs/cors"
+	"google.golang.org/grpc"
+
 	_ "github.com/jackc/pgx/v5"
 	_ "github.com/lib/pq"
-	"github.com/rs/cors"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type server struct {
 
 	// repo
 	userRepo repositories.UserRepository
+	teamRepo repositories.TeamRepository
+	hubRepo  repositories.HubRepository
 
 	// service
 	userSrv services.UserService
+	teamSrv services.TeamService
+	hubSrv  services.HubService
 
 	// deliveries
 	userpb pb.UserServiceServer
+	teampb pb.TeamServiceServer
+	hubpb  pb.HubServiceServer
 
 	// other
-	TokenKey string
-	mgoDB    *mongo.Database
-	db       *sql.DB
-	queries  *models.Queries
+	db      *sql.DB
+	queries *models.Queries
 }
 
 var srv server
@@ -48,7 +52,7 @@ func start() error {
 		return err
 	}
 
-	if err := srv.connectPsql(); err != nil {
+	if err := srv.loadDB(); err != nil {
 		return err
 	}
 
@@ -64,7 +68,7 @@ func start() error {
 		return err
 	}
 
-	srv.startGRPCServer(ctx)
+	srv.startServer(ctx)
 	return nil
 }
 
@@ -74,42 +78,41 @@ func main() {
 	}
 }
 
-func (s *server) NewQueries() error {
-	s.queries = models.New(s.db)
-	return nil
-}
-
-func (s *server) connectPsql() error {
-	db, err := sql.Open("postgres", os.Getenv("postgres://postgres:postgres@localhost/postgres?sslmode=disable"))
+func (s *server) loadDB() error {
+	db, err := sql.Open("postgres", "postgres://postgres:postgres@localhost/postgres?sslmode=disable")
 	if err != nil {
 		return err
 	}
+
 	s.db = db
-	defer db.Close()
+
+	// init queries
+	s.queries = models.New(s.db)
 
 	return nil
 }
 
 func (s *server) loadRepositories() error {
 	s.userRepo = repositories.NewUserRepository(s.queries)
+	s.teamRepo = repositories.NewTeamRepository(s.queries)
+	s.hubRepo = repositories.NewHubRepository(s.queries)
+
 	return nil
 }
 
 func (s *server) loadServices() error {
 	s.userSrv = services.NewUserService(s.userRepo)
-	return nil
-}
+	s.teamSrv = services.NewTeamService(s.teamRepo)
+	s.hubSrv = services.NewHubService(s.hubRepo)
 
-func (s *server) loadPubSubs() (err error) {
 	return nil
 }
 
 func (s *server) loadDeliveries() error {
 	s.userpb = deliveries.NewUserDelivery(s.userSrv)
-	return nil
-}
+	s.teampb = deliveries.NewTeamDelivery(s.teamSrv)
+	s.hubpb = deliveries.NewHubDelivery(s.hubSrv)
 
-func (s *server) loadLogger() error {
 	return nil
 }
 
@@ -117,18 +120,61 @@ func (s *server) loadConfig() error {
 	return nil
 }
 
-func (s *server) startGRPCServer(ctx context.Context) error {
-	mux := runtime.NewServeMux(
-		runtime.WithMetadata(metadata.Authentication),
-	)
+func (s *server) startServer(ctx context.Context) error {
+	var serverError = make(chan error)
+	var waitGroup sync.WaitGroup
 
-	if err := pb.RegisterUserServiceHandlerServer(ctx, mux, s.userpb); err != nil {
-		return err
+	httpPort := "8585"
+	grpcPort := "5000"
+
+	waitGroup.Add(2)
+
+	go func() {
+		defer waitGroup.Done()
+
+		mux := runtime.NewServeMux(
+		// runtime.WithMetadata(metadata.Authentication),
+		)
+
+		if err := pb.RegisterUserServiceHandlerServer(ctx, mux, s.userpb); err != nil {
+			serverError <- err
+		}
+		if err := pb.RegisterTeamServiceHandlerServer(ctx, mux, s.teampb); err != nil {
+			serverError <- err
+		}
+		if err := pb.RegisterHubServiceHandlerServer(ctx, mux, s.hubpb); err != nil {
+			serverError <- err
+		}
+
+		handler := cors.AllowAll().Handler(mux)
+		log.Printf("HTTP Server listens on port: %s\n", httpPort)
+		http.ListenAndServe(fmt.Sprintf(":%s", httpPort), handler)
+	}()
+
+	go func() {
+		defer waitGroup.Done()
+
+		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpcPort))
+		if err != nil {
+			serverError <- err
+		}
+
+		grpcServer := grpc.NewServer()
+		pb.RegisterUserServiceServer(grpcServer, s.userpb)
+		pb.RegisterTeamServiceServer(grpcServer, s.teampb)
+		pb.RegisterHubServiceServer(grpcServer, s.hubpb)
+
+		log.Printf("GRPC Server listens on port: %v", grpcPort)
+		if err := grpcServer.Serve(lis); err != nil {
+			serverError <- err
+		}
+	}()
+
+	for <-serverError != nil {
+		log.Fatal("start server failed:", <-serverError)
 	}
 
-	port := os.Getenv("PORT")
-	log.Printf("server listen on port: %s\n", port)
-	handler := cors.AllowAll().Handler(mux)
+	waitGroup.Wait()
 
-	return http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
+	return nil
 }

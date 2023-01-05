@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "user.proto",
+    "title": "hub.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "UserService"
+      "name": "HubService"
     }
   ],
   "consumes": [
@@ -16,14 +16,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/users": {
+    "/v1/hubs": {
       "get": {
-        "operationId": "UserService_GetList",
+        "operationId": "HubService_GetList",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userGetListUserResponse"
+              "$ref": "#/definitions/hubGetListHubResponse"
             }
           },
           "default": {
@@ -50,16 +50,16 @@
           }
         ],
         "tags": [
-          "UserService"
+          "HubService"
         ]
       },
       "post": {
-        "operationId": "UserService_CreateUser",
+        "operationId": "HubService_CreateHub",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userCreateUserResponse"
+              "$ref": "#/definitions/hubCreateHubResponse"
             }
           },
           "default": {
@@ -75,21 +75,21 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreateUserRequest"
+              "$ref": "#/definitions/hubCreateHubRequest"
             }
           }
         ],
         "tags": [
-          "UserService"
+          "HubService"
         ]
       },
       "put": {
-        "operationId": "UserService_UpdateUser",
+        "operationId": "HubService_UpdateHub",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userUpdateUserResponse"
+              "$ref": "#/definitions/hubUpdateHubResponse"
             }
           },
           "default": {
@@ -105,23 +105,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userUpdateUserRequest"
+              "$ref": "#/definitions/hubUpdateHubRequest"
             }
           }
         ],
         "tags": [
-          "UserService"
+          "HubService"
         ]
       }
     },
-    "/v1/users/{userID}": {
+    "/v1/hubs/{hubID}": {
       "get": {
-        "operationId": "UserService_GetUserByID",
+        "operationId": "HubService_GetHubByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userGetUserByIDResponse"
+              "$ref": "#/definitions/hubGetHubByIDResponse"
             }
           },
           "default": {
@@ -133,19 +133,88 @@
         },
         "parameters": [
           {
-            "name": "userID",
+            "name": "hubID",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "UserService"
+          "HubService"
         ]
       }
     }
   },
   "definitions": {
+    "hubCreateHubRequest": {
+      "type": "object",
+      "properties": {
+        "hub": {
+          "$ref": "#/definitions/hubHub"
+        }
+      }
+    },
+    "hubCreateHubResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "hubGetHubByIDResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/hubHub"
+        }
+      }
+    },
+    "hubGetListHubResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/hubHub"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "hubHub": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "locationId": {
+          "type": "string"
+        }
+      }
+    },
+    "hubUpdateHubRequest": {
+      "type": "object",
+      "properties": {
+        "hub": {
+          "$ref": "#/definitions/hubHub"
+        }
+      }
+    },
+    "hubUpdateHubResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -170,78 +239,6 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
-        }
-      }
-    },
-    "userCreateUserRequest": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/userUser"
-        }
-      }
-    },
-    "userCreateUserResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "userGetListUserResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/userUser"
-          }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "userGetUserByIDResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/userUser"
-        }
-      }
-    },
-    "userUpdateUserRequest": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/userUser"
-        }
-      }
-    },
-    "userUpdateUserResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
-    "userUser": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "teamId": {
-          "type": "string"
         }
       }
     }

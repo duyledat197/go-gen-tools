@@ -18,12 +18,12 @@
   "paths": {
     "/v1/teams": {
       "get": {
-        "operationId": "TeamService_GetTeams",
+        "operationId": "TeamService_GetList",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/teamGetTeamsResponse"
+              "$ref": "#/definitions/teamGetListTeamResponse"
             }
           },
           "default": {
@@ -114,7 +114,7 @@
         ]
       }
     },
-    "/v1/teams/{teamId}": {
+    "/v1/teams/{teamID}": {
       "get": {
         "operationId": "TeamService_GetTeamByID",
         "responses": {
@@ -133,54 +133,10 @@
         },
         "parameters": [
           {
-            "name": "teamId",
+            "name": "teamID",
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "TeamService"
-        ]
-      },
-      "post": {
-        "operationId": "TeamService_AddUsersToTeam",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/teamAddUsersToTeamResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userIds": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
           }
         ],
         "tags": [
@@ -217,14 +173,6 @@
         }
       }
     },
-    "teamAddUsersToTeamResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
     "teamCreateTeamRequest": {
       "type": "object",
       "properties": {
@@ -236,20 +184,12 @@
     "teamCreateTeamResponse": {
       "type": "object",
       "properties": {
-        "teamId": {
-          "type": "string"
+        "success": {
+          "type": "boolean"
         }
       }
     },
-    "teamGetTeamByIDResponse": {
-      "type": "object",
-      "properties": {
-        "team": {
-          "$ref": "#/definitions/teamTeam"
-        }
-      }
-    },
-    "teamGetTeamsResponse": {
+    "teamGetListTeamResponse": {
       "type": "object",
       "properties": {
         "data": {
@@ -259,39 +199,35 @@
           }
         },
         "total": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "teamGetTeamByIDResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/teamTeam"
         }
       }
     },
     "teamTeam": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "userIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "dataIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "projectId": {
-          "type": "string"
-        },
         "id": {
           "type": "string"
         },
-        "createdAt": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "locationId": {
+          "type": "string"
+        },
+        "hubId": {
           "type": "string"
         }
       }
