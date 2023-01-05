@@ -12,9 +12,19 @@ func (s *Suite) RegisterStep(sc *godog.ScenarioContext) {
 	steps := map[string]interface{}{
 		// example:
 		// `^there are (\d+) godogs$`: s.thereAreGodogs,
+
+		/*generate_key*/
 	}
 
 	for step, fn := range steps {
 		sc.Step(step, fn)
 	}
+}
+
+func aBackground() error {
+	return godog.ErrPending
+}
+
+func aSignedIn(arg1 string) error {
+	return godog.ErrPending
 }

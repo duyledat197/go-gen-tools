@@ -1,6 +1,6 @@
 {{define "delete"}}Feature: delete {{.CamelCase}}
 
-    Background:
+    Background: basic background
         Given a signed in "admin"
         And a background
 

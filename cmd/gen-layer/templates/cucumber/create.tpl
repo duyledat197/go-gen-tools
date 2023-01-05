@@ -1,6 +1,6 @@
 {{define "create"}}Feature: Create {{.CamelCase}}
 
-    Background:
+    Background: basic background
         Given a signed in "admin"
         And a background
 

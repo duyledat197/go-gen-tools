@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"runtime"
 	"text/template"
 
 	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
@@ -39,8 +40,11 @@ func Run() {
 	database := Steps[3].Val
 
 	baseDir, _ := os.Getwd()
-
-	pkgDir := pathutils.GetPkgDir()
+	_, filename, _, ok := runtime.Caller(0)
+	if !ok {
+		panic("No caller information")
+	}
+	pkgDir := path.Dir(filename)
 
 	// get layers
 	var layers []string
@@ -122,8 +126,9 @@ func Run() {
 			if m == Methods[0] {
 				continue
 			}
-			p := path.Join(pkgDir, "..", "templates", Layers[4], m+".tpl")
 
+			// generate features file
+			p := path.Join(pkgDir, "..", "templates", Layers[4], m+".tpl")
 			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.feature", m, strcase.ToKebab(name)))
 			file, err := os.Create(filePath)
 			if err != nil {
@@ -133,6 +138,23 @@ func Run() {
 				panic(err)
 			}
 			tmpl := template.
+				Must(template.
+					ParseFiles(p))
+			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+				panic(err)
+			}
+
+			// generate go file
+			p = path.Join(pkgDir, "..", "templates", "godog", m+".tpl")
+			filePath = path.Join(baseDir, "features", fmt.Sprintf("%s_%s.go", m, strcase.ToKebab(name)))
+			file, err = os.Create(filePath)
+			if err != nil {
+				if os.IsExist(err) {
+					continue
+				}
+				panic(err)
+			}
+			tmpl = template.
 				Must(template.
 					ParseFiles(p))
 			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {

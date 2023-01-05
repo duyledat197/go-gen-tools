@@ -1,6 +1,6 @@
 {{define "list"}}Feature: list {{.CamelCase}}
 
-    Background:
+    Background: basic background
         Given a signed in "admin"
         And a background
 

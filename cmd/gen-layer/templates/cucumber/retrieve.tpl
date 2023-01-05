@@ -1,6 +1,6 @@
 {{define "retrieve"}}Feature: retrieve {{.CamelCase}}
 
-    Background:
+    Background: basic background
         Given a signed in "admin"
         And a background
 

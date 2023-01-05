@@ -1,6 +1,6 @@
 {{define "update"}}Feature: update {{.CamelCase}}
 
-    Background:
+    Background: basic background
         Given a signed in "admin"
 		And a background
 
