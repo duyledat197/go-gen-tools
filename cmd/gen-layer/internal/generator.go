@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"runtime"
@@ -77,20 +78,23 @@ func Run() {
 	}
 
 	for _, l := range layers {
-		if l == Layers[0] {
+		if l == Layers[0] || l == Layers[4] {
 			continue
 		}
 		layerPath, ok := LayerMap[l]
 		if !ok {
 			layerPath = l
 		}
-		file, err := os.Create(path.Join(baseDir, "internal", layerPath, strcase.ToKebab(name)+".go"))
+		filePath := path.Join(baseDir, "internal", layerPath, strcase.ToKebab(name)+".go")
+		file, err := os.Create(filePath)
 		if err != nil {
+			if os.IsExist(err) {
+				continue
+			}
 			panic(err)
 		}
-		paths := []string{
-			path.Join(pkgDir, "..", "templates", l, "default.tpl"), // root path
-		}
+		p := path.Join(pkgDir, "..", "templates", l, "default.tpl") // root path
+		paths := []string{p}
 		if l != Layers[3] {
 			for _, m := range methods {
 				if m == Methods[0] {
@@ -103,7 +107,6 @@ func Run() {
 		tmpl := template.
 			Must(template.
 				ParseFiles(paths...))
-
 		if err := tmpl.ExecuteTemplate(file, "default", templateModel); err != nil {
 			panic(err)
 		}
@@ -118,5 +121,27 @@ func Run() {
 			}
 		}
 	}
+	if slices.Contains(layers, Layers[4]) {
+		for _, m := range methods {
+			if m == Methods[0] {
+				continue
+			}
+			p := path.Join(pkgDir, "..", "templates", Layers[4], m+".tpl")
 
+			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.feature", m, strcase.ToKebab(name)))
+			file, err := os.Create(filePath)
+			if err != nil {
+				if os.IsExist(err) {
+					continue
+				}
+				panic(err)
+			}
+			tmpl := template.
+				Must(template.
+					ParseFiles(p))
+			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+				panic(err)
+			}
+		}
+	}
 }

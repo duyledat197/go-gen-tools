@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	Layers    = []string{"all", "delivery", "service", "repository"}
+	Layers    = []string{"all", "delivery", "service", "repository", "cucumber"}
 	Methods   = []string{"all", "create", "update", "delete", "list", "retrieve"}
 	Databases = []string{"mongo", "postgres", "inmem"}
 
