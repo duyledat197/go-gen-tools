@@ -8,11 +8,11 @@ import (
 )
 
 type {{.PascalCase}}Repository interface {
-	Create(ctx context.Context, {{.CamelCase}} *models.{{.PascalCase}}) error
-	GetByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error)
-	GetList(ctx context.Context, offset, limit int) ([]*models.{{.PascalCase}}, error)
-	Update(ctx context.Context, id string, {{.CamelCase}} *models.{{.PascalCase}}) error
-	Delete(ctx context.Context, id string) error
+	{{if .IsCreate}} Create(ctx context.Context, {{.CamelCase}} *models.{{.PascalCase}}) error {{end}}
+	{{if .IsRetrieve}} GetByID(ctx context.Context, id string) (*models.{{.PascalCase}}, error) {{end}}
+	{{if .IsList}} GetList(ctx context.Context, offset, limit int) ([]*models.{{.PascalCase}}, error) {{end}}
+	{{if .IsUpdate}} Update(ctx context.Context, id string, {{.CamelCase}} *models.{{.PascalCase}}) error {{end}}
+	{{if .IsDelete}} Delete(ctx context.Context, id string) error {{end}}
 }
 
 type {{.CamelCase}}Repository struct {
