@@ -16,7 +16,11 @@ import (
 
 func Run() {
 	var err error
-	for _, step := range Steps {
+	for i, step := range Steps {
+		layer := Steps[1].Val
+		if i == 3 && !(layer == Layers[0] || layer == Layers[3]) {
+			continue
+		}
 		switch step.Type {
 		case models.PROMPT:
 			step.Val, err = step.Prompt.Run()
@@ -33,6 +37,7 @@ func Run() {
 	name := Steps[0].Val
 	layer := Steps[1].Val
 	method := Steps[2].Val
+	database := Steps[3].Val
 
 	baseDir, _ := os.Getwd()
 	_, filename, _, ok := runtime.Caller(0)
@@ -47,6 +52,10 @@ func Run() {
 		layers = Layers
 	} else {
 		layers = []string{layer}
+	}
+
+	if database != "" {
+		layers = append(layers, database)
 	}
 
 	// get methods
@@ -69,38 +78,67 @@ func Run() {
 	}
 
 	for _, l := range layers {
-		if l == Layers[0] {
+		if l == Layers[0] || l == Layers[4] {
 			continue
 		}
-		file, err := os.Create(path.Join(baseDir, "internal", LayerMap[l], strcase.ToKebab(name)+".go"))
+		layerPath, ok := LayerMap[l]
+		if !ok {
+			layerPath = l
+		}
+		filePath := path.Join(baseDir, "internal", layerPath, strcase.ToKebab(name)+".go")
+		file, err := os.Create(filePath)
 		if err != nil {
-			panic(err)
-		}
-		paths := []string{
-			path.Join(pkgDir, "..", "templates", l, "default.tpl"), // root path
-		}
-		// p := path.Join(pkgDir, "..", "templates", l, "default.tpl")
-		// paths = append(paths, p)
-		for _, m := range methods {
-			if m == Methods[0] {
+			if os.IsExist(err) {
 				continue
 			}
-			p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
-			paths = append(paths, p)
+			panic(err)
 		}
-		fmt.Println(methods)
-
+		p := path.Join(pkgDir, "..", "templates", l, "default.tpl") // root path
+		paths := []string{p}
+		if l != Layers[3] {
+			for _, m := range methods {
+				if m == Methods[0] {
+					continue
+				}
+				p := path.Join(pkgDir, "..", "templates", l, m+".tpl")
+				paths = append(paths, p)
+			}
+		}
 		tmpl := template.
 			Must(template.
 				ParseFiles(paths...))
-
 		if err := tmpl.ExecuteTemplate(file, "default", templateModel); err != nil {
 			panic(err)
 		}
+		if l != Layers[3] {
+			for _, m := range methods {
+				if m == Methods[0] {
+					continue
+				}
+				if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+					panic(err)
+				}
+			}
+		}
+	}
+	if slices.Contains(layers, Layers[4]) {
 		for _, m := range methods {
 			if m == Methods[0] {
 				continue
 			}
+			p := path.Join(pkgDir, "..", "templates", Layers[4], m+".tpl")
+
+			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.feature", m, strcase.ToKebab(name)))
+			file, err := os.Create(filePath)
+			if err != nil {
+				if os.IsExist(err) {
+					continue
+				}
+				panic(err)
+			}
+			tmpl := template.
+				Must(template.
+					ParseFiles(p))
 			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
 				panic(err)
 			}

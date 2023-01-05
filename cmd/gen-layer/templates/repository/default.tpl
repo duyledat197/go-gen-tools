@@ -15,13 +15,4 @@ type {{.PascalCase}}Repository interface {
 	{{if .IsDelete}} Delete(ctx context.Context, id string) error {{end}}
 }
 
-type {{.CamelCase}}Repository struct {
-	db *models.Queries
-}
-
-func New{{.PascalCase}}Repository(q *models.Queries) {{.PascalCase}}Repository {
-	return &{{.CamelCase}}Repository{
-		db: q,
-	}
-}
 {{end}}
