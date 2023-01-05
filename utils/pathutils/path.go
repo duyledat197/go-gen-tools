@@ -1,9 +1,11 @@
-package moduleutils
+package pathutils
 
 import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
+	"runtime"
 
 	"golang.org/x/mod/modfile"
 )
@@ -28,4 +30,12 @@ func GetModuleName() string {
 	modName := modfile.ModulePath(goModBytes)
 
 	return modName
+}
+
+func GetPkgDir() string {
+	_, filename, _, ok := runtime.Caller(0)
+	if !ok {
+		panic("No caller information")
+	}
+	return path.Dir(filename)
 }

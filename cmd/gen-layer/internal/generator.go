@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"runtime"
 	"text/template"
 
 	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
-	"github.com/duyledat197/go-gen-tools/utils/moduleutils"
+	"github.com/duyledat197/go-gen-tools/utils/pathutils"
 
 	"github.com/iancoleman/strcase"
 	"golang.org/x/exp/slices"
@@ -40,11 +39,8 @@ func Run() {
 	database := Steps[3].Val
 
 	baseDir, _ := os.Getwd()
-	_, filename, _, ok := runtime.Caller(0)
-	if !ok {
-		panic("No caller information")
-	}
-	pkgDir := path.Dir(filename)
+
+	pkgDir := pathutils.GetPkgDir()
 
 	// get layers
 	var layers []string
@@ -69,7 +65,7 @@ func Run() {
 	templateModel := &models.Template{
 		CamelCase:  strcase.ToLowerCamel(name),
 		PascalCase: strcase.ToCamel(name),
-		Module:     moduleutils.GetModuleName(),
+		Module:     pathutils.GetModuleName(),
 		IsCreate:   slices.Contains(methods, Methods[1]),
 		IsUpdate:   slices.Contains(methods, Methods[2]),
 		IsDelete:   slices.Contains(methods, Methods[3]),

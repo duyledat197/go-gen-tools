@@ -51,7 +51,7 @@ services:
       context: ../
       dockerfile: ./developments/bdd_test.Dockerfile
     volumes:
-      - "../integration:/app/"
+      - "../:/app/"
     command: ["godog","run"]
 
   migrate:
