@@ -5,7 +5,6 @@ import (
 	"expvar"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/duyledat197/go-gen-tools/pkg/ratelimit"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
@@ -23,6 +22,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type Options struct {
@@ -62,16 +63,15 @@ type GrpcServer struct {
 	Host        string
 	Port        string
 
-	Consul       *registry.ConsulRegister
-	Tracer       *tracing.OpenTracer
-	AuthFunction grpc_auth.AuthFunc
-	Server       *grpc.Server
-
-	ZapLogger *zap.Logger
-
-	Options *Options
-
+	Consul         *registry.ConsulRegister
+	Tracer         *tracing.OpenTracer
+	AuthFunction   grpc_auth.AuthFunc
+	Server         *grpc.Server
+	ZapLogger      *zap.Logger
+	Options        *Options
 	MaxMessageSize int //* default = 0 mean 4MB
+
+	OtherOptions []grpc.ServerOption
 }
 
 func (s *GrpcServer) InitServer() *GrpcServer {
@@ -80,8 +80,7 @@ func (s *GrpcServer) InitServer() *GrpcServer {
 	})
 
 	recoveryFn := func(p interface{}) (err error) {
-		s.ZapLogger.Error("recover in: ", zap.Time("at", time.Now()), zap.Any("p", p))
-		return nil
+		return status.Errorf(codes.Unknown, "panic triggered: %v", p)
 	}
 
 	var (
@@ -179,6 +178,7 @@ func (s *GrpcServer) InitServer() *GrpcServer {
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 			unaryInterceptors...,
 		)))
+	opts = append(opts, s.OtherOptions...)
 	s.Server = grpc.NewServer(
 		opts...,
 	)

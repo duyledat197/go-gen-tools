@@ -48,6 +48,7 @@ type GrpcClient struct {
 	Endpoint      string
 	Options       *Options
 	Creds         credentials.TransportCredentials
+	OtherOptions  []grpc.DialOption
 }
 
 func (c *GrpcClient) Dial(consul *consul.Client, consulAddress string) (*grpc.ClientConn, error) {
@@ -126,5 +127,7 @@ func (c *GrpcClient) Dial(consul *consul.Client, consulAddress string) (*grpc.Cl
 		sIntOpt,
 		uIntOpt,
 	}...)
+
+	opts = append(opts, c.OtherOptions...)
 	return grpc.Dial(c.Endpoint, opts...)
 }

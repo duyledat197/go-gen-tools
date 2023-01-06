@@ -18,7 +18,9 @@ RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@la
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 RUN go install github.com/envoyproxy/protoc-gen-validate@v0.9.1
 RUN go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
-RUN go install github.com/bold-commerce/protoc-gen-struct-transformer@v1.0.7    
+RUN go install github.com/bold-commerce/protoc-gen-struct-transformer@v1.0.7
+RUN go install github.com/yeqown/protoc-gen-fieldmask@latest    
+RUN go install github.com/nats-rpc/nrpc/protoc-gen-nrpc@v0.0.0-20210122221438-e1db8d872eb1
 RUN go install mvdan.cc/gofumpt@latest
 
 RUN go mod download github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa
@@ -26,6 +28,7 @@ RUN go mod download github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f49
 ENV MOD=$GOPATH/pkg/mod
 RUN mv $MOD/github.com/envoyproxy/protoc-gen-validate@v0.9.1/validate /usr/local/include/
 RUN mv $MOD/github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa/google/* /usr/local/include/google/
+RUN mv $MOD/github.com/nats-rpc/nrpc@v0.0.0-20210122221438-e1db8d872eb1/nrpc.proto /usr/local/include/
 
 WORKDIR /app
 COPY /.. /app
