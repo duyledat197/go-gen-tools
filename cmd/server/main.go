@@ -13,12 +13,12 @@ import (
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/rs/cors"
-	"google.golang.org/grpc"
 
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/jackc/pgx/v5"
 	_ "github.com/lib/pq"
+	"github.com/rs/cors"
+	"google.golang.org/grpc"
 )
 
 type server struct {

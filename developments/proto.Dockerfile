@@ -30,4 +30,4 @@ RUN mv $MOD/github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa/
 WORKDIR /app
 COPY /.. /app
 
-RUN go install /app/cmd/protoc-gen-custom/.
+RUN go install /app/tools/protoc-gen-custom/.

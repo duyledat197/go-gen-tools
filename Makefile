@@ -20,7 +20,7 @@ start-postgres:
 migrate:
 	docker compose -f ${COMPOSE_FILE} up migrate
 gen-layer:
-	go run ./cmd/gen-layer/.
+	go run ./tools/gen-layer/.
 	go fmt ./internal
 gen-mock:
 	docker compose -f ${COMPOSE_FILE} up generate_mock
