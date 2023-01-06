@@ -7,12 +7,14 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/pkg/ratelimit"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
+	grpc_ratelimit "github.com/grpc-ecosystem/go-grpc-middleware/ratelimit"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
@@ -46,6 +48,9 @@ type Options struct {
 
 	//* for start prometheus server
 	IsEnablePrometheusServer bool
+
+	//* for enable ratelimit
+	IsEnableRateLimit bool
 }
 
 type GrpcServer struct {
@@ -142,6 +147,12 @@ func (s *GrpcServer) InitServer() *GrpcServer {
 			go func() {
 				http.ListenAndServe(fmt.Sprintf(":9090"), mux)
 			}()
+		}
+
+		if options.IsEnableRateLimit {
+			limiter := ratelimit.NewLimitter(3, 10)
+			streamInterceptors = append(streamInterceptors, grpc_ratelimit.StreamServerInterceptor(limiter))
+			unaryInterceptors = append(unaryInterceptors, grpc_ratelimit.UnaryServerInterceptor(limiter))
 		}
 	}
 

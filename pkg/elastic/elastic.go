@@ -49,7 +49,7 @@ func (c *ElasticClient) CreateDocument(index string, content interface{}) error 
 	return nil
 }
 
-func (c *ElasticClient) Search(query interface{}, index string) ([]byte, error) {
+func (c *ElasticClient) Search(index string, query interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(query); err != nil {
 		return nil, fmt.Errorf("Error encoding query: %s", err)
