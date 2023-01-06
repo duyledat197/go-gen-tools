@@ -13,6 +13,7 @@ require (
 	github.com/cucumber/godog v0.12.6
 	github.com/cucumber/messages-go/v16 v16.0.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/elastic/go-elasticsearch/v7 v7.17.7
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/esurdam/go-swagger-ui v0.0.0-20221023084847-8beb5ba14803
 	github.com/gogo/protobuf v1.3.2
