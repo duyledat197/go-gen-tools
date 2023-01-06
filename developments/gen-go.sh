@@ -4,6 +4,7 @@ protoc \
     ./proto/*.proto \
 		-I=/usr/local/include \
 		--proto_path=./proto \
+		--go_out=:. \
 		--validate_out=lang=go:. \
 		--go-grpc_out=:. \
 		--grpc-gateway_out=:. \
@@ -16,8 +17,24 @@ protoc \
     ./proto/*.proto \
 		-I=/usr/local/include \
 		--proto_path=./proto \
-		--nrpc_out=:./pb \
 		--struct-transformer_out=package=transform,debug=true,goimports=true,helper-package=transformhelpers:. \
 		--doc_out=:./docs/markdown --doc_opt=markdown,docs.md
 
-gofumpt -l -w ./transform/*.go
+mkdir ./pb/natspb
+mkdir ./pb/cobra
+
+protoc \
+	./proto/nats/*.proto \
+		-I=/usr/local/include \
+		--proto_path=./proto/nats \
+		--go_out=:. \
+		--nrpc_out=:./pb/natspb
+
+protoc \
+	./proto/cobra/*.proto \
+		-I=/usr/local/include \
+		--proto_path=./proto/cobra \
+		--gofast_out=plugins=grpc:. \
+		--cobra_out=plugins=client:.
+
+chmod -R 777 ./pb

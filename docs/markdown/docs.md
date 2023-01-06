@@ -7,12 +7,6 @@
     - [ProjectStatus](#enum_pb-ProjectStatus)
     - [UserRole](#enum_pb-UserRole)
   
-- [example.proto](#example-proto)
-    - [HelloReply](#example-HelloReply)
-    - [HelloRequest](#example-HelloRequest)
-  
-    - [Greeter](#example-Greeter)
-  
 - [hub.proto](#hub-proto)
     - [CreateHubRequest](#hub-CreateHubRequest)
     - [CreateHubResponse](#hub-CreateHubResponse)
@@ -103,62 +97,6 @@
  
 
  
-
- 
-
-
-
-<a name="example-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## example.proto
-
-
-
-<a name="example-HelloReply"></a>
-
-### HelloReply
-The response message containing the greetings
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| message | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="example-HelloRequest"></a>
-
-### HelloRequest
-The request message containing the user&#39;s name.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-
-
-
-
-
- 
-
- 
-
- 
-
-
-<a name="example-Greeter"></a>
-
-### Greeter
-The greeting service definition.
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| SayHello | [HelloRequest](#example-HelloRequest) | [HelloReply](#example-HelloReply) | Sends a greeting |
 
  
 

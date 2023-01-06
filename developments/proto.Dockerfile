@@ -21,7 +21,9 @@ RUN go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 RUN go install github.com/bold-commerce/protoc-gen-struct-transformer@v1.0.7
 RUN go install github.com/yeqown/protoc-gen-fieldmask@latest    
 RUN go install github.com/nats-rpc/nrpc/protoc-gen-nrpc@v0.0.0-20210122221438-e1db8d872eb1
+RUN go install github.com/fiorix/protoc-gen-cobra@v0.0.0-20181029091941-dffa0bfa45cc
 RUN go install mvdan.cc/gofumpt@latest
+RUN go install github.com/gogo/protobuf/protoc-gen-gofast@latest
 
 RUN go mod download github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa
 
