@@ -18,6 +18,7 @@ import (
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
@@ -51,6 +52,9 @@ type Options struct {
 
 	//* for enable ratelimit
 	IsEnableRateLimit bool
+
+	//* for enable validator
+	IsEnableValidator bool
 }
 
 type GrpcServer struct {
@@ -153,6 +157,11 @@ func (s *GrpcServer) InitServer() *GrpcServer {
 			limiter := ratelimit.NewLimitter(3, 10)
 			streamInterceptors = append(streamInterceptors, grpc_ratelimit.StreamServerInterceptor(limiter))
 			unaryInterceptors = append(unaryInterceptors, grpc_ratelimit.UnaryServerInterceptor(limiter))
+		}
+
+		if options.IsEnableValidator {
+			streamInterceptors = append(streamInterceptors, grpc_validator.StreamServerInterceptor())
+			unaryInterceptors = append(unaryInterceptors, grpc_validator.UnaryServerInterceptor())
 		}
 	}
 

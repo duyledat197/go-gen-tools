@@ -9,6 +9,7 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	consul "github.com/hashicorp/consul/api"
 	"google.golang.org/grpc"
@@ -34,6 +35,9 @@ type Options struct {
 
 	//* enable tls secure
 	IsEnableSecure bool
+
+	//* for enable validator
+	IsEnableValidator bool
 }
 
 type GrpcClient struct {
@@ -104,6 +108,9 @@ func (c *GrpcClient) Dial(consul *consul.Client, consulAddress string) (*grpc.Cl
 			opts = append(opts, grpc.WithInsecure())
 		}
 
+		if options.IsEnableValidator {
+			unaryInterceptors = append(unaryInterceptors, grpc_validator.UnaryClientInterceptor())
+		}
 	}
 
 	sIntOpt := grpc.WithStreamInterceptor(grpc_middleware.ChainStreamClient(
