@@ -24,5 +24,5 @@
     Scenario: update invalid {{.CamelCase}}
         Given {{.CamelCase}} is deleted
         When user update {{.CamelCase}}
-        Then return "NotFound" status code
+        Then returns "NotFound" status code
 {{end}}

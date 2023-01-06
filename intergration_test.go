@@ -26,9 +26,6 @@ func TestFeatures(t *testing.T) {
 	}
 }
 
-// godogsCtxKey is the key used to store the available godogs in the context.Context.
-type godogsCtxKey struct{}
-
 func InitializeScenario(sc *godog.ScenarioContext) {
 	s := &features.Suite{}
 	s.RegisterStep(sc)

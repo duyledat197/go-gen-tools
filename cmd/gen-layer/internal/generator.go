@@ -2,12 +2,17 @@ package internal
 
 import (
 	"fmt"
+	"io/fs"
+	"io/ioutil"
 	"os"
 	"path"
 	"runtime"
+	"strings"
 	"text/template"
 
 	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
+	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/utils"
+	"github.com/duyledat197/go-gen-tools/features"
 	"github.com/duyledat197/go-gen-tools/utils/pathutils"
 
 	"github.com/iancoleman/strcase"
@@ -122,6 +127,13 @@ func Run() {
 		}
 	}
 	if slices.Contains(layers, Layers[4]) {
+
+		stepMap := make(map[string]bool)
+		suite := &features.Suite{}
+		definedSteps := suite.GetSteps()
+		for key := range definedSteps {
+			stepMap[key] = true
+		}
 		for _, m := range methods {
 			if m == Methods[0] {
 				continue
@@ -129,8 +141,8 @@ func Run() {
 
 			// generate features file
 			p := path.Join(pkgDir, "..", "templates", Layers[4], m+".tpl")
-			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.feature", m, strcase.ToKebab(name)))
-			file, err := os.Create(filePath)
+			featureFilePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.feature", m, strcase.ToKebab(name)))
+			file, err := os.Create(featureFilePath)
 			if err != nil {
 				if os.IsExist(err) {
 					continue
@@ -146,7 +158,7 @@ func Run() {
 
 			// generate go file
 			p = path.Join(pkgDir, "..", "templates", "godog", m+".tpl")
-			filePath = path.Join(baseDir, "features", fmt.Sprintf("%s_%s.go", m, strcase.ToKebab(name)))
+			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.go", m, strcase.ToKebab(name)))
 			file, err = os.Create(filePath)
 			if err != nil {
 				if os.IsExist(err) {
@@ -158,6 +170,18 @@ func Run() {
 				Must(template.
 					ParseFiles(p))
 			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
+				panic(err)
+			}
+
+			steps := utils.GetStepsContent(featureFilePath, stepMap)
+			bddFilePath := path.Join(baseDir, "features", "bdd.go")
+			b, err := os.ReadFile(bddFilePath)
+			if err != nil {
+				panic(err)
+			}
+			steps = append(steps, "\n/*generate_key*/")
+			replacer := strings.ReplaceAll(string(b), "/*generate_key*/", strings.Join(steps, ""))
+			if err := ioutil.WriteFile(bddFilePath, []byte(replacer), fs.ModePerm); err != nil {
 				panic(err)
 			}
 		}
