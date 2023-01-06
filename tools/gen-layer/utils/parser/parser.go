@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
+	"github.com/duyledat197/go-gen-tools/tools/gen-layer/models"
 
 	"github.com/cucumber/gherkin-go/v19"
 	"github.com/cucumber/messages-go/v16"

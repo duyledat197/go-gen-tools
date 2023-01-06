@@ -10,9 +10,9 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/models"
-	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/utils"
 	"github.com/duyledat197/go-gen-tools/features"
+	"github.com/duyledat197/go-gen-tools/tools/gen-layer/models"
+	"github.com/duyledat197/go-gen-tools/tools/gen-layer/utils"
 	"github.com/duyledat197/go-gen-tools/utils/pathutils"
 
 	"github.com/iancoleman/strcase"

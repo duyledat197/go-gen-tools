@@ -9,8 +9,9 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/duyledat197/go-gen-tools/tools/gen-layer/utils/parser"
+
 	"github.com/cucumber/messages-go/v16"
-	"github.com/duyledat197/go-gen-tools/cmd/gen-layer/utils/parser"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
