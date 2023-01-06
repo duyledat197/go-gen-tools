@@ -45,29 +45,53 @@
 ├── cmd
 │   ├── gen-layer
 │   │   ├── internal
-│   │   │   ├── process.go
+│   │   │   ├── generator.go
 │   │   │   └── step.go
 │   │   ├── main.go
 │   │   ├── models
 │   │   │   ├── cli_step.go
+│   │   │   ├── feature.go
 │   │   │   └── template.go
-│   │   └── templates
-│   │       ├── delivery
-│   │       │   ├── create.tpl
-│   │       │   ├── default.tpl
-│   │       │   ├── delete.tpl
-│   │       │   ├── list.tpl
-│   │       │   ├── retrieve.tpl
-│   │       │   └── update.tpl
-│   │       ├── repository
-│   │       │   └── default.tpl
-│   │       └── service
-│   │           ├── create.tpl
-│   │           ├── default.tpl
-│   │           ├── delete.tpl
-│   │           ├── list.tpl
-│   │           ├── retrieve.tpl
-│   │           └── update.tpl
+│   │   ├── templates
+│   │   │   ├── cucumber
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── delivery
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── default.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── godog
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── postgres
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── default.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── repository
+│   │   │   │   └── default.tpl
+│   │   │   └── service
+│   │   │       ├── create.tpl
+│   │   │       ├── default.tpl
+│   │   │       ├── delete.tpl
+│   │   │       ├── list.tpl
+│   │   │       ├── retrieve.tpl
+│   │   │       └── update.tpl
+│   │   └── utils
+│   │       ├── parser
+│   │       │   └── parser.go
+│   │       └── steps.go
 │   ├── protoc-gen-custom
 │   │   ├── internal
 │   │   │   └── generator.go
@@ -81,11 +105,12 @@
 │   │   ├── 0001_migrate.up.sql
 │   │   ├── 0002_migrate.up.sql
 │   │   └── 0003_migrate.up.sql
-│   ├── queries
-│   │   ├── hub.sql
-│   │   └── user.sql
-│   └── sqlc.yaml
+│   └── queries
+│       ├── hub.sql
+│       ├── team.sql
+│       └── user.sql
 ├── developments
+│   ├── bdd_test.Dockerfile
 │   ├── docker-compose.yml
 │   ├── gen-go.sh
 │   ├── groonga-build.sh
@@ -102,14 +127,24 @@
 │       ├── data.swagger.json
 │       ├── enum.swagger.json
 │       ├── file.swagger.json
+│       ├── hub.swagger.json
 │       ├── project.swagger.json
+│       ├── search.swagger.json
 │       ├── task.swagger.json
 │       ├── team.swagger.json
 │       └── user.swagger.json
+├── features
+│   └── bdd.go
 ├── go.mod
 ├── go.sum
+├── intergration_test.go
 ├── internal
 │   ├── deliveries
+│   │   ├── grpc
+│   │   │   ├── hub.go
+│   │   │   ├── search.go
+│   │   │   ├── team.go
+│   │   │   └── user.go
 │   │   └── http
 │   │       ├── auth.go
 │   │       ├── http.go
@@ -121,19 +156,29 @@
 │   │   ├── hub.sql.go
 │   │   ├── models.go
 │   │   ├── querier.go
+│   │   ├── team.sql.go
 │   │   └── user.sql.go
+│   ├── mongo
+│   ├── postgres
 │   ├── repositories
+│   │   ├── hub.go
+│   │   ├── repository.go
+│   │   ├── search.go
 │   │   ├── team.go
 │   │   └── user.go
 │   └── services
+│       ├── hub.go
+│       ├── hub_test.go
+│       ├── search.go
+│       ├── team.go
 │       └── user.go
 ├── Makefile
 ├── mocks
-│   ├── DBTX.go
-│   ├── Middleware.go
-│   ├── Querier.go
-│   ├── TeamRepository.go
-│   └── UserRepository.go
+│   ├── dbtx.go
+│   ├── hub_repository.go
+│   ├── querier.go
+│   ├── user_repository.go
+│   └── user_service.go
 ├── pb
 │   ├── auth_enums.pb.go
 │   ├── auth_grpc.pb.go
@@ -145,7 +190,21 @@
 │   ├── enum_methods.pb.go
 │   ├── enum.pb.go
 │   ├── enum.pb.validate.go
+│   ├── hub_enums.pb.go
+│   ├── hub_grpc.pb.go
+│   ├── hub_methods.pb.go
+│   ├── hub.pb.go
+│   ├── hub.pb.gw.go
+│   ├── hub.pb.validate.go
+│   ├── search_enums.pb.go
+│   ├── search_grpc.pb.go
+│   ├── search_methods.pb.go
+│   ├── search.pb.go
+│   ├── search.pb.gw.go
+│   ├── search.pb.validate.go
+│   ├── team_enums.pb.go
 │   ├── team_grpc.pb.go
+│   ├── team_methods.pb.go
 │   ├── team.pb.go
 │   ├── team.pb.gw.go
 │   ├── team.pb.validate.go
@@ -155,32 +214,75 @@
 │   ├── user.pb.go
 │   ├── user.pb.gw.go
 │   └── user.pb.validate.go
+├── pkg
+│   ├── grpc_client
+│   │   ├── grpc.go
+│   │   └── option.go
+│   ├── grpc_server
+│   │   ├── grpc.go
+│   │   ├── health_check.go
+│   │   └── middleware.go
+│   ├── http_server
+│   │   ├── http.go
+│   │   ├── middleware.go
+│   │   └── middleware_test.go
+│   ├── hystrix
+│   │   └── config.go
+│   ├── registry
+│   │   ├── consul.go
+│   │   └── consul_test.go
+│   └── tracing
+│       └── open_tracing.go
 ├── proto
-│   ├── auth.proto
 │   ├── enum.proto
+│   ├── hub.proto
 │   ├── options
 │   │   ├── annotations.pb.go
 │   │   ├── annotations.proto
 │   │   └── doc.go
+│   ├── search.proto
+│   ├── team.proto
 │   └── user.proto
 ├── README.md
+├── third_party
+│   ├── sendgrid
+│   │   └── email.go
+│   └── twilio
+│       ├── messaging.go
+│       └── twilio.go
 ├── transform
+│   ├── hub_transformer.go
 │   ├── options.go
+│   ├── search_transformer.go
 │   ├── team_transformer.go
-│   ├── transform.go
 │   └── user_transformer.go
 └── utils
+    ├── authenticate
+    │   ├── authenticator.go
+    │   ├── jwt.go
+    │   ├── jwt_test.go
+    │   ├── paseto.go
+    │   ├── paseto_test.go
+    │   ├── payload.go
+    │   └── token.go
     ├── crypto
     │   ├── sha256.go
     │   └── sha256_test.go
     ├── helper
     │   ├── validation.go
     │   └── validation_test.go
+    ├── ip.go
+    ├── logger
+    │   └── zap.go
     ├── metadata
     │   └── metadata.go
-    ├── moduleutils
-    │   └── module.go
-    └── token.go
+    ├── pathutils
+    │   └── path.go
+    ├── string.go
+    ├── token.go
+    └── transformhelpers
+        └── helpers.go
+
 ```
 
 # ARCHITECTURE

@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/duyledat197/go-gen-tools/utils/registry"
-	"github.com/duyledat197/go-gen-tools/utils/tracing"
+	"github.com/duyledat197/go-gen-tools/pkg/registry"
+	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/ip_messaging/v2"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 // MessagingClient class
@@ -27,7 +27,7 @@ func NewMessagingClient(phoneNumber, subaccountSid string) *MessagingClient {
 func (s *MessagingClient) Send(to, body string) error {
 	params := &openapi.CreateMessageParams{}
 	params.SetFrom(s.phoneNumber).SetBody(body)
-	_, err := s.client.IpMessagingV1.CreateMessage(params)
+	_, err := s.client.Api.CreateMessage(params)
 	if err != nil {
 		return fmt.Errorf("CreateMessage: %w", err)
 	}

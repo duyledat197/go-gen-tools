@@ -3,7 +3,7 @@ package grpc_client
 import (
 	"context"
 
-	hystrixconfig "github.com/duyledat197/go-gen-tools/utils/hystrix"
+	hystrixconfig "github.com/duyledat197/go-gen-tools/pkg/hystrix"
 
 	"github.com/afex/hystrix-go/hystrix"
 	"google.golang.org/grpc"

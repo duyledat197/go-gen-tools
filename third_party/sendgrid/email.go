@@ -1,4 +1,4 @@
-package twilio
+package sendgrid
 
 import (
 	"fmt"

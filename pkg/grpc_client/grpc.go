@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/duyledat197/go-gen-tools/utils/tracing"
+	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"

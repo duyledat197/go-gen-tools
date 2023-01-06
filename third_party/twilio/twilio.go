@@ -2,8 +2,6 @@ package twilio
 
 import (
 	"os"
-
-	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 // Twilio SDK object
@@ -25,9 +23,4 @@ func NewTwilio() *Twilio {
 // Messaging get client
 func (s *Twilio) Messaging() *MessagingClient {
 	return NewMessagingClient(s.phoneNumber, s.subaccountSid)
-}
-
-// Emailing get client
-func (s *Twilio) Emailing(from *mail.Email) *EmailClient {
-	return NewEmailClient(s.sendGridAPIKey, from)
 }
