@@ -15,17 +15,18 @@ type HubRepository interface {
 }
 
 type hubRepository struct {
-	db *models.Queries
+	db models.DBTX
 }
 
-func NewHubRepository(q *models.Queries) HubRepository {
+func NewHubRepository(db models.DBTX) HubRepository {
 	return &hubRepository{
-		db: q,
+		db,
 	}
 }
 
-func (u *hubRepository) Create(ctx context.Context, hub *models.Hub) error {
-	if _, err := u.db.CreateHub(ctx, models.CreateHubParams{
+func (r *hubRepository) Create(ctx context.Context, hub *models.Hub) error {
+	q := models.New(r.db)
+	if _, err := q.CreateHub(ctx, models.CreateHubParams{
 		ID:         hub.ID,
 		Name:       hub.Name,
 		LocationID: hub.LocationID,

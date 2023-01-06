@@ -13,16 +13,17 @@ type SearchRepository interface {
 }
 
 type searchRepository struct {
-	db *models.Queries
+	db models.DBTX
 }
 
-func NewSearchRepository(q *models.Queries) SearchRepository {
+func NewSearchRepository(db models.DBTX) SearchRepository {
 	return &searchRepository{
-		db: q,
+		db,
 	}
 }
 
 func (u *searchRepository) TeamHub(ctx context.Context, q string) ([]*models.Team, []*models.Hub, error) {
+	qu := models.New(u.db)
 	wg := &sync.WaitGroup{}
 	var errSearchTeamChan, errSearchHubChan = make(chan error, 1), make(chan error, 1)
 	teams := make([]*models.Team, 0)
@@ -31,7 +32,7 @@ func (u *searchRepository) TeamHub(ctx context.Context, q string) ([]*models.Tea
 	go func() {
 		defer wg.Done()
 		var err error
-		teams, err = u.db.SearchTeam(ctx, sql.NullString{
+		teams, err = qu.SearchTeam(ctx, sql.NullString{
 			String: q,
 			Valid:  true,
 		})
@@ -45,7 +46,7 @@ func (u *searchRepository) TeamHub(ctx context.Context, q string) ([]*models.Tea
 	go func() {
 		defer wg.Done()
 		var err error
-		hubs, err = u.db.SearchHub(ctx, sql.NullString{
+		hubs, err = qu.SearchHub(ctx, sql.NullString{
 			String: q,
 			Valid:  true,
 		})

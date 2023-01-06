@@ -15,17 +15,18 @@ type TeamRepository interface {
 }
 
 type teamRepository struct {
-	db *models.Queries
+	db models.DBTX
 }
 
-func NewTeamRepository(q *models.Queries) TeamRepository {
+func NewTeamRepository(db models.DBTX) TeamRepository {
 	return &teamRepository{
-		db: q,
+		db,
 	}
 }
 
 func (u *teamRepository) Create(ctx context.Context, team *models.Team) error {
-	if _, err := u.db.CreateTeam(ctx, models.CreateTeamParams{
+	q := models.New(u.db)
+	if _, err := q.CreateTeam(ctx, models.CreateTeamParams{
 		ID:         team.ID,
 		Name:       team.Name,
 		Type:       team.Type,

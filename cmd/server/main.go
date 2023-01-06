@@ -10,7 +10,6 @@ import (
 	"sync"
 
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
-	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
@@ -43,8 +42,7 @@ type server struct {
 	searchpb pb.SearchServiceServer
 
 	// other
-	db      *sql.DB
-	queries *models.Queries
+	db *sql.DB
 }
 
 var srv server
@@ -89,17 +87,14 @@ func (s *server) loadDB() error {
 
 	s.db = db
 
-	// init queries
-	s.queries = models.New(s.db)
-
 	return nil
 }
 
 func (s *server) loadRepositories() error {
-	s.userRepo = repositories.NewUserRepository(s.queries)
-	s.teamRepo = repositories.NewTeamRepository(s.queries)
-	s.hubRepo = repositories.NewHubRepository(s.queries)
-	s.searchRepo = repositories.NewSearchRepository(s.queries)
+	s.userRepo = repositories.NewUserRepository(s.db)
+	s.teamRepo = repositories.NewTeamRepository(s.db)
+	s.hubRepo = repositories.NewHubRepository(s.db)
+	s.searchRepo = repositories.NewSearchRepository(s.db)
 
 	return nil
 }

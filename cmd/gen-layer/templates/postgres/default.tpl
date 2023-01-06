@@ -9,12 +9,12 @@ import (
 )
 
 type {{.CamelCase}}Repository struct {
-	db *models.Queries
+	db models.DBTX
 }
 
-func New{{.PascalCase}}Repository(q *models.Queries) repositories.{{.PascalCase}}Repository {
+func New{{.PascalCase}}Repository(db models.DBTX) repositories.{{.PascalCase}}Repository {
 	return &{{.CamelCase}}Repository{
-		db: q,
+		db,
 	}
 }
 {{end}}
