@@ -27,7 +27,9 @@ require (
 	github.com/hashicorp/consul/api v1.18.0
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jackc/pgtype v1.13.0
+	github.com/jackc/pgx-zap v0.0.0-20221202020421-94b1cb2f889f
 	github.com/jackc/pgx/v5 v5.2.0
+	github.com/jackhopner/pgx-xray-tracer v0.0.0-20221107022434-477d7f46d947
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lib/pq v1.10.2
 	github.com/manifoldco/promptui v0.9.0
@@ -47,7 +49,7 @@ require (
 	github.com/twilio/twilio-go v1.3.0
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	go.mongodb.org/mongo-driver v1.11.1
-	go.uber.org/zap v1.13.0
+	go.uber.org/zap v1.24.0
 	golang.org/x/exp v0.0.0-20230105000112-eab7a2c85304
 	golang.org/x/mod v0.7.0
 	golang.org/x/net v0.5.0
@@ -65,7 +67,10 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
+	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/armon/go-metrics v0.3.10 // indirect
+	github.com/aws/aws-sdk-go v1.17.12 // indirect
+	github.com/aws/aws-xray-sdk-go v1.7.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
@@ -95,11 +100,13 @@ require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgx/v4 v4.17.2 // indirect
+	github.com/jackc/puddle/v2 v2.1.2 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
 	github.com/jcmturner/gofork v1.7.6 // indirect
 	github.com/jcmturner/gokrb5/v8 v8.4.3 // indirect
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/klauspost/compress v1.15.11 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
@@ -119,17 +126,17 @@ require (
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/stretchr/objx v0.4.0 // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasthttp v1.34.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.1 // indirect
 	github.com/xdg-go/stringprep v1.0.3 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
 	go.uber.org/atomic v1.10.0 // indirect
-	go.uber.org/multierr v1.5.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
-	golang.org/x/tools v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
