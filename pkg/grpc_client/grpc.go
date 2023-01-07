@@ -1,9 +1,9 @@
 package grpc_client
 
 import (
-	"fmt"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/pkg/registry"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -11,7 +11,6 @@ import (
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	consul "github.com/hashicorp/consul/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -41,17 +40,16 @@ type Options struct {
 }
 
 type GrpcClient struct {
-	ServiceName   string
-	Tracer        *tracing.OpenTracer
-	Consul        *consul.Client
-	ConsulAddress string
-	Endpoint      string
-	Options       *Options
-	Creds         credentials.TransportCredentials
-	OtherOptions  []grpc.DialOption
+	ServiceName  string
+	Tracer       *tracing.OpenTracer
+	Consul       *registry.ConsulClient
+	Endpoint     string
+	Options      *Options
+	Creds        credentials.TransportCredentials
+	OtherOptions []grpc.DialOption
 }
 
-func (c *GrpcClient) Dial(consul *consul.Client, consulAddress string) (*grpc.ClientConn, error) {
+func (c *GrpcClient) Dial() (*grpc.ClientConn, error) {
 	optsRetry := []grpc_retry.CallOption{
 		grpc_retry.WithBackoff(grpc_retry.BackoffExponential(50 * time.Millisecond)),
 		grpc_retry.WithCodes(codes.Unavailable),
@@ -68,7 +66,7 @@ func (c *GrpcClient) Dial(consul *consul.Client, consulAddress string) (*grpc.Cl
 		options := c.Options
 		if options.IsEnableClientLoadBalancer {
 			opts = append(opts, grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`))
-			c.Endpoint = fmt.Sprintf("%s://%s/%s", "consul", c.ConsulAddress, c.ServiceName)
+			c.Endpoint = c.Consul.GetURL(c.ServiceName)
 		}
 
 		if options.IsEnableHystrix {

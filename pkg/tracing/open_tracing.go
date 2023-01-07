@@ -6,6 +6,7 @@ import (
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
+	jeager_zap "github.com/uber/jaeger-client-go/log/zap"
 	"go.uber.org/zap"
 )
 
@@ -40,6 +41,7 @@ func (t *OpenTracer) Init() *OpenTracer {
 		config.Reporter(jaeger.NewRemoteReporter(
 			transport,
 			jaeger.ReporterOptions.BufferFlushInterval(1*time.Second),
+			jaeger.ReporterOptions.Logger(jeager_zap.NewLogger(t.Logger)),
 		)),
 		config.Sampler(sampler),
 	}

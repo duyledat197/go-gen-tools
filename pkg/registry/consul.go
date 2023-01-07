@@ -32,6 +32,10 @@ func (c *ConsulClient) Init() *ConsulClient {
 	return c
 }
 
+func (c *ConsulClient) GetURL(serviceName string) string {
+	return fmt.Sprintf("%s://%s/%s", "consul", c.Address, serviceName)
+}
+
 // ConsulRegister ...
 type ConsulRegister struct {
 	ServiceName                    string   // service name
