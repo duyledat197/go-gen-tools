@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
+	"go.uber.org/zap"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -12,18 +13,17 @@ import (
 type RedisClient struct {
 	Client  *redis.Client
 	Options *redis.Options
+
+	Logger *zap.Logger
 }
 
-func NewRedisClient(options *redis.Options) *RedisClient {
-	ctx := context.Background()
-	client := redis.NewClient(options)
+func (c *RedisClient) Init(ctx context.Context) *RedisClient {
+	client := redis.NewClient(c.Options)
 	if cmd := client.Ping(ctx); cmd.Err() != nil {
-		panic(cmd.Err())
+		c.Logger.Panic("connect redis error: ", zap.Error(cmd.Err()))
 	}
-	return &RedisClient{
-		Client:  client,
-		Options: options,
-	}
+	c.Client = client
+	return c
 }
 
 type Options struct {

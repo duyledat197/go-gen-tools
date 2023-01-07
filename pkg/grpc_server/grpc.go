@@ -67,14 +67,16 @@ type GrpcServer struct {
 	Tracer         *tracing.OpenTracer
 	AuthFunction   grpc_auth.AuthFunc
 	Server         *grpc.Server
-	ZapLogger      *zap.Logger
+	Logger         *zap.Logger
 	Options        *Options
 	MaxMessageSize int //* default = 0 mean 4MB
+
+	AfterInit func(ctx context.Context) error
 
 	OtherOptions []grpc.ServerOption
 }
 
-func (s *GrpcServer) InitServer() *GrpcServer {
+func (s *GrpcServer) Init() *GrpcServer {
 	filterFn := grpc_opentracing.WithFilterFunc(func(ctx context.Context, fullMethodName string) bool {
 		return fullMethodName != "/grpc.health.v1.Health/Check"
 	})
@@ -130,14 +132,16 @@ func (s *GrpcServer) InitServer() *GrpcServer {
 		if options.IsEnableClientLoadBalancer {
 			id, err := s.Consul.Register()
 			if err != nil {
-				panic(err)
+				s.Logger.Panic("connect consul server error:", zap.Error(err))
 			}
-			defer s.Consul.Deregister(id)
+			s.AfterInit = func(ctx context.Context) error {
+				return s.Consul.Deregister(id)
+			}
 		}
 
 		if options.IsEnableLogger {
-			streamInterceptors = append(streamInterceptors, grpc_zap.StreamServerInterceptor(s.ZapLogger))
-			unaryInterceptors = append(unaryInterceptors, grpc_zap.UnaryServerInterceptor(s.ZapLogger))
+			streamInterceptors = append(streamInterceptors, grpc_zap.StreamServerInterceptor(s.Logger))
+			unaryInterceptors = append(unaryInterceptors, grpc_zap.UnaryServerInterceptor(s.Logger))
 		}
 
 		if options.IsEnablePrometheusServer {
@@ -148,7 +152,9 @@ func (s *GrpcServer) InitServer() *GrpcServer {
 			mux.Handle("/metrics", promhttp.Handler())
 
 			go func() {
-				http.ListenAndServe(fmt.Sprintf(":9090"), mux)
+				if err := http.ListenAndServe(fmt.Sprintf(":9090"), mux); err != nil {
+					s.Logger.Panic("start prometheus server error:", zap.Error(err))
+				}
 			}()
 		}
 

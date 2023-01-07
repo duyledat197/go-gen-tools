@@ -7,19 +7,29 @@ import (
 	"github.com/duyledat197/go-gen-tools/utils"
 
 	"github.com/hashicorp/consul/api"
+	"go.uber.org/zap"
 )
 
-// NewClient returns a new Client with connection to consul
-func NewClient(addr string) (*api.Client, error) {
+type ConsulClient struct {
+	Client *api.Client
+	Config *api.Config
+
+	Logger  *zap.Logger
+	Address string
+}
+
+func (c *ConsulClient) Init() *ConsulClient {
 	cfg := api.DefaultConfig()
-	cfg.Address = addr
+	cfg.Address = c.Address
 
-	c, err := api.NewClient(cfg)
+	client, err := api.NewClient(cfg)
 	if err != nil {
-		return nil, err
+		c.Logger.Panic("create consul client error: ", zap.Error(err))
 	}
+	c.Client = client
+	c.Config = cfg
 
-	return c, nil
+	return c
 }
 
 // ConsulRegister ...
@@ -31,23 +41,12 @@ type ConsulRegister struct {
 	Interval                       time.Duration
 	Client                         *api.Client
 	Address                        string
-}
 
-// NewConsulRegister ...
-func NewConsulRegister(consulClient *api.Client, serviceName string, servicePort int, tags []string) *ConsulRegister {
-	return &ConsulRegister{
-		ServiceName:                    serviceName,
-		Tags:                           tags,
-		ServicePort:                    servicePort,
-		DeregisterCriticalServiceAfter: time.Duration(1) * time.Minute,
-		Interval:                       time.Duration(10) * time.Second,
-		Client:                         consulClient,
-	}
+	Logger *zap.Logger
 }
 
 // Register ...
 func (r *ConsulRegister) Register() (string, error) {
-
 	IP := utils.GetLocalIP()
 	reg := &api.AgentServiceRegistration{
 		ID:      fmt.Sprintf("%v-%v-%v", r.ServiceName, IP, r.ServicePort),
@@ -61,7 +60,7 @@ func (r *ConsulRegister) Register() (string, error) {
 			DeregisterCriticalServiceAfter: r.DeregisterCriticalServiceAfter.String(),
 		},
 	}
-	fmt.Println("client connect consul with ID:", reg.ID)
+	r.Logger.Info("client connect consul with ID:", zap.String("registerID", reg.ID))
 	return reg.ID, r.Client.Agent().ServiceRegister(reg)
 }
 

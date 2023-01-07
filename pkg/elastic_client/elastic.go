@@ -10,24 +10,23 @@ import (
 	"github.com/elastic/go-elasticsearch/v7"
 	es7 "github.com/elastic/go-elasticsearch/v7"
 	"github.com/elastic/go-elasticsearch/v7/esapi"
+	"go.uber.org/zap"
 )
 
 type ElasticClient struct {
 	Client  *es7.Client
 	Configs elasticsearch.Config
 	Indexes []string
+	Logger  *zap.Logger
 }
 
-func NewcElasticClient(configs elasticsearch.Config) *ElasticClient {
-	cfg := configs
-	client, err := es7.NewClient(cfg)
+func (c *ElasticClient) Init() *ElasticClient {
+	client, err := es7.NewClient(c.Configs)
 	if err != nil {
-		panic(err)
+		c.Logger.Panic("connect elastic error: ", zap.Error(err))
 	}
-	return &ElasticClient{
-		Client:  client,
-		Configs: configs,
-	}
+	c.Client = client
+	return c
 }
 
 func (c *ElasticClient) CreateDocument(index string, content interface{}) error {
