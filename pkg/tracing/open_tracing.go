@@ -1,36 +1,44 @@
 package tracing
 
 import (
-	"fmt"
 	"time"
 
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
+	"go.uber.org/zap"
 )
 
 type OpenTracer struct {
 	ServiceName string
 	Address     string
-	Tracer      opentracing.Tracer
+
+	Tracer    opentracing.Tracer
+	Config    config.Configuration
+	Transport jaeger.Transport
+
+	Logger *zap.Logger
 }
 
-func NewOpenTracer(serviceName, address string) (*OpenTracer, error) {
+func (t *OpenTracer) Init() *OpenTracer {
 	cfg := config.Configuration{
-		ServiceName: serviceName,
+		ServiceName: t.ServiceName,
 		Sampler: &config.SamplerConfig{
 			Type: jaeger.SamplerTypeRemote,
 		},
 	}
-	sender, err := jaeger.NewUDPTransport(address, 0)
+	transport, err := jaeger.NewUDPTransport(t.Address, 0)
 	if err != nil {
-		return nil, err
+		t.Logger.Panic("create jeager transport error: ", zap.Error(err))
 	}
-	sampler, _ := jaeger.NewGuaranteedThroughputProbabilisticSampler(10, 0.01)
+	sampler, err := jaeger.NewGuaranteedThroughputProbabilisticSampler(10, 0.01)
+	if err != nil {
+		t.Logger.Panic("create jeager sampler error: ", zap.Error(err))
+	}
 
 	options := []config.Option{
 		config.Reporter(jaeger.NewRemoteReporter(
-			sender,
+			transport,
 			jaeger.ReporterOptions.BufferFlushInterval(1*time.Second),
 		)),
 		config.Sampler(sampler),
@@ -39,12 +47,14 @@ func NewOpenTracer(serviceName, address string) (*OpenTracer, error) {
 	tracer, _, err := cfg.NewTracer(options...)
 
 	if err != nil {
-		return nil, fmt.Errorf("tracer: %w", err)
+		if err != nil {
+			t.Logger.Panic("new jeager error: ", zap.Error(err))
+		}
 	}
 
-	return &OpenTracer{
-		ServiceName: serviceName,
-		Address:     address,
-		Tracer:      tracer,
-	}, nil
+	t.Tracer = tracer
+	t.Transport = transport
+	t.Config = cfg
+
+	return t
 }
