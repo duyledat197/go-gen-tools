@@ -22,9 +22,9 @@ package natspb
 
 import (
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/nats-rpc/nrpc"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	_ "pb/"
 	reflect "reflect"
 	sync "sync"
 )
