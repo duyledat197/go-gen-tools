@@ -10,17 +10,32 @@ import (
 	"go.uber.org/zap"
 )
 
+type Options struct {
+	//* enable tls
+	IsEnableTLS bool
+}
+
 type ConsulClient struct {
-	Client *api.Client
-	Config *api.Config
+	Client    *api.Client
+	Config    *api.Config
+	TLSConfig api.TLSConfig
 
 	Logger  *zap.Logger
 	Address string
+
+	Options *Options
 }
 
 func (c *ConsulClient) Init() *ConsulClient {
 	cfg := api.DefaultConfig()
 	cfg.Address = c.Address
+
+	if c.Options != nil {
+		options := c.Options
+		if options.IsEnableTLS {
+			cfg.TLSConfig = c.TLSConfig
+		}
+	}
 
 	client, err := api.NewClient(cfg)
 	if err != nil {

@@ -2,6 +2,7 @@ package mongo_client
 
 import (
 	"context"
+	"crypto/tls"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -30,7 +31,7 @@ type MongoClient struct {
 
 	ConnectionURI string
 	Logger        *zap.Logger
-	Creds         options.Credential
+	TLSConfig     tls.Config
 	ReplicaSet    string
 
 	Options *Options
@@ -51,7 +52,7 @@ func (c *MongoClient) Init(ctx context.Context) *MongoClient {
 	if c.Options != nil {
 		options := c.Options
 		if options.IsEnableTLS {
-			clientOpts.SetAuth(c.Creds)
+			clientOpts.SetTLSConfig(&c.TLSConfig)
 		}
 
 		clientOpts.SetLoadBalanced(options.IsEnableLoadBalancer)
