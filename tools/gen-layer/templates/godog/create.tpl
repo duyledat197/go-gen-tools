@@ -3,11 +3,11 @@ package features
 
 import "github.com/cucumber/godog"
 
-func {{.CamelCase}}MustBeCreated() error {
+func (s *Suite) {{.CamelCase}}MustBeCreated() error {
        return godog.ErrPending
 }
 
-func userCreate{{.PascalCase}}() error {
+func (s *Suite) userCreate{{.PascalCase}}() error {
        return godog.ErrPending
 }
 {{end}}

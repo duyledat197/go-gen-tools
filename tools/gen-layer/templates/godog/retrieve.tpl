@@ -3,11 +3,11 @@ package features
 
 import "github.com/cucumber/godog"
 
-func {{.CamelCase}}IsDeleted() error {
+func (s *Suite) {{.CamelCase}}IsDeleted() error {
        return godog.ErrPending
 }
 
-func userRetrieve{{.PascalCase}}() error {
+func (s *Suite) userRetrieve{{.PascalCase}}() error {
        return godog.ErrPending
 }
 {{end}}

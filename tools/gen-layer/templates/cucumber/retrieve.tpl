@@ -24,5 +24,5 @@
     Scenario: retrieve invalid {{.CamelCase}}
         Given {{.CamelCase}} is deleted
         When user retrieve {{.CamelCase}}
-        Then <%[2]s>returns "NotFound" status code
+        Then returns "NotFound" status code
 {{end}}

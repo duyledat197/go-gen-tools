@@ -17,12 +17,12 @@
 	# delete {{.CamelCase}}
     Scenario: delete {{.CamelCase}}
         When user delete {{.CamelCase}}
-        Then <%[2]s>returns "OK" status code
+        Then returns "OK" status code
         And {{.CamelCase}} have been deleted correctly
 
 	# delete {{.CamelCase}} again
     Scenario: delete {{.CamelCase}} again
         Given user delete {{.CamelCase}}
         When user delete {{.CamelCase}} again
-        Then <%[2]s>returns "NotFound" status code
+        Then returns "NotFound" status code
 {{end}}

@@ -23,10 +23,10 @@ func (s *Suite) RegisterStep(sc *godog.ScenarioContext) {
 	}
 }
 
-func aBackground() error {
+func (s *Suite) aBackground() error {
 	return godog.ErrPending
 }
 
-func aSignedIn(arg1 string) error {
+func (s *Suite) aSignedIn(arg1 string) error {
 	return godog.ErrPending
 }

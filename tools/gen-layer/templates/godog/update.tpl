@@ -3,15 +3,15 @@ package features
 
 import "github.com/cucumber/godog"
 
-func {{.CamelCase}}IsDeleted() error {
+func (s *Suite) {{.CamelCase}}IsDeleted() error {
        return godog.ErrPending
 }
 
-func updated{{.PascalCase}}SetAsExpected() error {
+func (s *Suite) updated{{.PascalCase}}SetAsExpected() error {
        return godog.ErrPending
 }
 
-func userUpdate{{.PascalCase}}() error {
+func (s *Suite) userUpdate{{.PascalCase}}() error {
        return godog.ErrPending
 }
 {{end}}

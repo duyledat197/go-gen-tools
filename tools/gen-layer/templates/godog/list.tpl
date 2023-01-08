@@ -3,11 +3,11 @@ package features
 
 import "github.com/cucumber/godog"
 
-func returnsStatusCode(arg1 string) error {
+func (s *Suite) returnsStatusCode(arg1 string) error {
        return godog.ErrPending
 }
 
-func userList{{.PascalCase}}() error {
+func (s *Suite) userList{{.PascalCase}}() error {
        return godog.ErrPending
 }
 {{end}}
