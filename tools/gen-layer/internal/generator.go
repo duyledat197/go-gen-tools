@@ -157,6 +157,7 @@ func Run() {
 			}
 
 			// generate go file
+			stepContents := utils.GetStepsContent(featureFilePath, stepMap)
 			p = path.Join(pkgDir, "..", "templates", "godog", m+".tpl")
 			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.go", m, strcase.ToKebab(name)))
 			file, err = os.Create(filePath)
@@ -173,12 +174,16 @@ func Run() {
 				panic(err)
 			}
 
-			steps := utils.GetStepsContent(featureFilePath, stepMap)
+			var steps []string
+			for _, step := range stepContents {
+				steps = append(steps, step.Content)
+			}
 			bddFilePath := path.Join(baseDir, "features", "bdd.go")
 			b, err := os.ReadFile(bddFilePath)
 			if err != nil {
 				panic(err)
 			}
+
 			steps = append(steps, "\n/*generate_key*/")
 			replacer := strings.ReplaceAll(string(b), "/*generate_key*/", strings.Join(steps, ""))
 			if err := ioutil.WriteFile(bddFilePath, []byte(replacer), fs.ModePerm); err != nil {

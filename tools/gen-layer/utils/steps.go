@@ -18,15 +18,21 @@ import (
 
 const FeatureExt = ".feature"
 
-func GetStepsContent(filePath string, stepMap map[string]bool) []string {
-	var stepTexts []string
+type StepContent struct {
+	Content  string
+	FuncName string
+	Expr     string
+}
+
+func GetStepsContent(filePath string, stepMap map[string]bool) []*StepContent {
+	var result []*StepContent
 	features, err := parser.ParseFeatures([]string{filePath})
 	if err != nil {
 		panic(err)
 	}
 	for _, f := range features {
 		if f.GherkinDocument.Feature == nil {
-			return stepTexts
+			return nil
 		}
 		for _, children := range f.GherkinDocument.Feature.Children {
 			steps := []*messages.Step{}
@@ -39,13 +45,17 @@ func GetStepsContent(filePath string, stepMap map[string]bool) []string {
 			for _, step := range steps {
 				expr, name := GetExprAndFuncName(step.Text)
 				if _, ok := stepMap[expr]; !ok {
-					stepTexts = append(stepTexts, "`"+expr+"`: s."+name+",\n")
+					result = append(result, &StepContent{
+						Content:  "`" + expr + "`: s." + name + ",\n",
+						Expr:     expr,
+						FuncName: name,
+					})
 					stepMap[expr] = true
 				}
 			}
 		}
 	}
-	return stepTexts
+	return result
 }
 
 func IsEmpty(name string) (bool, error) {
