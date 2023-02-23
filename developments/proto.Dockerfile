@@ -22,6 +22,7 @@ RUN go install github.com/bold-commerce/protoc-gen-struct-transformer@v1.0.7
 RUN go install github.com/yeqown/protoc-gen-fieldmask@latest    
 RUN go install mvdan.cc/gofumpt@latest
 RUN go install github.com/gogo/protobuf/protoc-gen-gofast@latest
+RUN go install github.com/NathanBaulch/protoc-gen-cobra@latest
 
 RUN go mod download github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa
 
@@ -33,5 +34,4 @@ WORKDIR /app
 COPY /.. /app
 
 RUN go install /app/tools/protoc-gen-custom/.
-RUN go install /app/tools/protoc-gen-cobra/.
 RUN go install /app/tools/protoc-gen-nrpc/.

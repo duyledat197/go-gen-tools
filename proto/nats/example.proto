@@ -18,7 +18,7 @@ import "nrpc.proto";
 
 package example;
 
-option go_package = "pb/natspb/;natspb";
+option go_package = ".;natspb";
 
 // The greeting service definition.
 service Greeter {

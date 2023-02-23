@@ -149,7 +149,6 @@ func (s *server) loadConfig(ctx context.Context) error {
 }
 
 func (s *server) startServer(ctx context.Context) error {
-	var serverError = make(chan error)
 
 	httpPort := s.config.HTTP.Port
 	grpcPort := s.config.GRPC.Port
@@ -187,7 +186,7 @@ func (s *server) startServer(ctx context.Context) error {
 
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpcPort))
 		if err != nil {
-			serverError <- err
+			return err
 		}
 
 		grpcServer := grpc.NewServer()

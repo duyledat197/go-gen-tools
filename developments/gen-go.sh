@@ -33,8 +33,10 @@ protoc \
 protoc \
 	./proto/cobra/*.proto \
 		-I=/usr/local/include \
+		--go_out=:./pb/cobra \
+		--go-grpc_out=:./pb/cobra \
 		--proto_path=./proto/cobra \
-		--gofast_out=plugins=grpc:. \
-		--cobra_out=plugins=client:.
+		--experimental_allow_proto3_optional=:true \
+		--cobra_out=plugins=client:./pb/cobra
 
 chmod -R 777 ./pb

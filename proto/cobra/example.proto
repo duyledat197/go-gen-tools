@@ -1,17 +1,26 @@
 syntax = "proto3";
 
-package cobra;
+package example;
 
-option go_package = "pb/cobra/;pb/cobra";
+option go_package = ".;pb";
 
-service Bank { rpc Deposit(DepositRequest) returns (DepositReply); }
-
-message DepositRequest {
-  string account = 1;
-  double amount = 2;
+service CRUD {
+  rpc Create(CreateCRUD) returns (CRUDObject);
+  rpc Get(GetCRUD) returns (CRUDObject);
+  rpc Update(CRUDObject) returns (CRUDObject);
+  rpc Delete(CRUDObject) returns (Empty);
 }
 
-message DepositReply {
-  string account = 1;
-  double balance = 2;
+message CRUDObject {
+  string name = 1;
+  optional string value = 2;
 }
+
+message CreateCRUD {
+  string name = 1;
+  optional string value = 2;
+}
+
+message GetCRUD { string name = 1; }
+
+message Empty {}
