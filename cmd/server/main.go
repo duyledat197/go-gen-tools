@@ -2,58 +2,73 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
-	"sync"
 
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
+	"github.com/duyledat197/go-gen-tools/internal/mongo"
+	"github.com/duyledat197/go-gen-tools/internal/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
+	"github.com/duyledat197/go-gen-tools/utils/logger"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/lib/pq"
 	"github.com/rs/cors"
+	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 )
 
 type server struct {
 
-	// repo
+	//* repo
 	userRepo   repositories.UserRepository
 	teamRepo   repositories.TeamRepository
 	hubRepo    repositories.HubRepository
 	searchRepo repositories.SearchRepository
 
-	// service
+	//* service
 	userSrv   services.UserService
 	teamSrv   services.TeamService
 	hubSrv    services.HubService
 	searchSrv services.SearchService
 
-	// deliveries
+	//* deliveries
 	userpb   pb.UserServiceServer
 	teampb   pb.TeamServiceServer
 	hubpb    pb.HubServiceServer
 	searchpb pb.SearchServiceServer
 
-	// other
-	db *sql.DB
+	//* postgres info
+	pgxConfig *pgxpool.Config
+	PgxDB     *pgxpool.Pool
+
+	//* config
+	config *Config
+
+	//* logger
+	logger *zap.Logger
 }
 
 var srv server
 
 func start() error {
 	ctx := context.Background()
-	if err := srv.loadConfig(); err != nil {
+	if err := srv.loadConfig(ctx); err != nil {
 		return err
 	}
 
-	if err := srv.loadDB(); err != nil {
+	if err := srv.loadPostgresConnection(ctx); err != nil {
+		return err
+	}
+
+	if err := srv.loadLogger(); err != nil {
 		return err
 	}
 
@@ -69,7 +84,9 @@ func start() error {
 		return err
 	}
 
-	srv.startServer(ctx)
+	if err := srv.startServer(ctx); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -79,22 +96,32 @@ func main() {
 	}
 }
 
-func (s *server) loadDB() error {
-	db, err := sql.Open("postgres", "postgres://postgres:postgres@localhost/postgres?sslmode=disable")
+func (s *server) loadPostgresConnection(ctx context.Context) error {
+
+	var err error
+	s.pgxConfig, err = pgxpool.ParseConfig(s.config.PostgresDB.GetConnectionString())
 	if err != nil {
 		return err
 	}
-
-	s.db = db
-
+	s.PgxDB, err = pgxpool.NewWithConfig(ctx, s.pgxConfig)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
+func (s *server) loadLogger() error {
+	s.logger = logger.NewZapLogger("INFO", true)
+	return nil
+}
 func (s *server) loadRepositories() error {
-	s.userRepo = repositories.NewUserRepository(s.db)
-	s.teamRepo = repositories.NewTeamRepository(s.db)
-	s.hubRepo = repositories.NewHubRepository(s.db)
-	s.searchRepo = repositories.NewSearchRepository(s.db)
+	// with postgres
+	s.userRepo = postgres.NewUserRepository(s.PgxDB)
+	s.teamRepo = postgres.NewTeamRepository(s.PgxDB)
+	s.hubRepo = postgres.NewHubRepository(s.PgxDB)
+
+	// with mongo
+	s.searchRepo = mongo.NewSearchRepository(s.PgxDB)
 
 	return nil
 }
@@ -117,46 +144,46 @@ func (s *server) loadDeliveries() error {
 	return nil
 }
 
-func (s *server) loadConfig() error {
+func (s *server) loadConfig(ctx context.Context) error {
 	return nil
 }
 
 func (s *server) startServer(ctx context.Context) error {
 	var serverError = make(chan error)
-	var waitGroup sync.WaitGroup
 
-	httpPort := "8585"
-	grpcPort := "5000"
+	httpPort := s.config.HTTP.Port
+	grpcPort := s.config.GRPC.Port
 
-	waitGroup.Add(2)
+	eg, ctx := errgroup.WithContext(ctx)
 
-	go func() {
-		defer waitGroup.Done()
-
+	eg.Go(func() error {
+		//* middleware
 		mux := runtime.NewServeMux(
 		// runtime.WithMetadata(metadata.Authentication),
 		)
 
 		if err := pb.RegisterUserServiceHandlerServer(ctx, mux, s.userpb); err != nil {
-			serverError <- err
+			return err
 		}
 		if err := pb.RegisterTeamServiceHandlerServer(ctx, mux, s.teampb); err != nil {
-			serverError <- err
+			return err
 		}
 		if err := pb.RegisterHubServiceHandlerServer(ctx, mux, s.hubpb); err != nil {
-			serverError <- err
+			return err
 		}
 		if err := pb.RegisterSearchServiceHandlerServer(ctx, mux, s.searchpb); err != nil {
-			serverError <- err
+			return err
 		}
 
 		handler := cors.AllowAll().Handler(mux)
-		log.Printf("HTTP Server listens on port: %s\n", httpPort)
-		http.ListenAndServe(fmt.Sprintf(":%s", httpPort), handler)
-	}()
+		s.logger.Sugar().Infoln("HTTP Server listens on port: %s\n", httpPort)
+		if err := http.ListenAndServe(fmt.Sprintf(":%s", httpPort), handler); err != nil {
+			return err
+		}
+		return nil
+	})
 
-	go func() {
-		defer waitGroup.Done()
+	eg.Go(func() error {
 
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpcPort))
 		if err != nil {
@@ -169,17 +196,16 @@ func (s *server) startServer(ctx context.Context) error {
 		pb.RegisterHubServiceServer(grpcServer, s.hubpb)
 		pb.RegisterSearchServiceServer(grpcServer, s.searchpb)
 
-		log.Printf("GRPC Server listens on port: %v", grpcPort)
+		s.logger.Sugar().Infoln("GRPC Server listens on port: %v", grpcPort)
 		if err := grpcServer.Serve(lis); err != nil {
-			serverError <- err
+			return err
 		}
-	}()
+		return nil
+	})
 
-	for <-serverError != nil {
-		log.Fatal("start server failed:", <-serverError)
+	if err := eg.Wait(); err != nil {
+		s.logger.Sugar().Fatalln("start server failed:", err)
 	}
-
-	waitGroup.Wait()
 
 	return nil
 }

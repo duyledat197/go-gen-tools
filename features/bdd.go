@@ -13,6 +13,9 @@ func (s *Suite) GetSteps() map[string]interface{} {
 		// example:
 		// `^there are (\d+) godogs$`: s.thereAreGodogs,
 
+		`^a signed in "([^"]*)"$`: s.aSignedIn,
+		`^a background$`:          s.aBackground,
+
 		/*generate_key*/
 	}
 }

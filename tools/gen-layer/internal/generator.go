@@ -159,6 +159,7 @@ func Run() {
 			// generate go file
 			stepContents := utils.GetStepsContent(featureFilePath, stepMap)
 			p = path.Join(pkgDir, "..", "templates", "godog", m+".tpl")
+			defaultPath := path.Join(pkgDir, "..", "templates", "godog", "default.tpl")
 			filePath := path.Join(baseDir, "features", fmt.Sprintf("%s_%s.go", m, strcase.ToKebab(name)))
 			file, err = os.Create(filePath)
 			if err != nil {
@@ -169,7 +170,7 @@ func Run() {
 			}
 			tmpl = template.
 				Must(template.
-					ParseFiles(p))
+					ParseFiles(p, defaultPath))
 			if err := tmpl.ExecuteTemplate(file, m, templateModel); err != nil {
 				panic(err)
 			}

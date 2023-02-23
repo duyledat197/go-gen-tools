@@ -1,7 +1,5 @@
 {{define "delete"}}
-package features
-
-import "github.com/cucumber/godog"
+{{template "default"}}
 
 func (s *Suite) {{.CamelCase}}HaveBeenDeletedCorrectly() error {
        return godog.ErrPending

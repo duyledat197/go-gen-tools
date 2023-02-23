@@ -1,3 +1,4 @@
+
 package services
 
 import (
@@ -6,15 +7,16 @@ import (
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+	
 	"github.com/jackc/pgtype"
 )
 
 type TeamService interface {
-	Create(ctx context.Context, team *models.Team) error
-	GetByID(ctx context.Context, id string) (*models.Team, error)
-	GetList(ctx context.Context, offset, limit int) ([]*models.Team, error)
-	Update(ctx context.Context, id string, team *models.Team) error
-	Delete(ctx context.Context, id string) error
+	 Create(ctx context.Context, team *models.Team) error 
+	 GetByID(ctx context.Context, id string) (*models.Team, error) 
+	 GetList(ctx context.Context, offset, limit int) ([]*models.Team, error) 
+	 Update(ctx context.Context, id string, team *models.Team) error 
+	 Delete(ctx context.Context, id string) error 
 }
 
 type teamService struct {

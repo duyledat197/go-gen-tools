@@ -12,12 +12,12 @@ services:
     entrypoint: /app/developments/gen-go.sh
 
   generate_sqlc:
-    image: kjconroy/sqlc
+    image: kjconroy/sqlc:latest
     volumes:
       - "../database/:/src/"
       - "../internal/models/:/models/"
       - "./sqlc.yaml:/sqlc.yaml"
-    command: ["generate"]
+    command: ["generate", "--experimental"]
 
   generate_mock:
     image: vektra/mockery

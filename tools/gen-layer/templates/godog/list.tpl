@@ -1,7 +1,5 @@
 {{define "list"}}
-package features
-
-import "github.com/cucumber/godog"
+{{template "default"}}
 
 func (s *Suite) returnsStatusCode(arg1 string) error {
        return godog.ErrPending

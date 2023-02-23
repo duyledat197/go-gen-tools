@@ -1,3 +1,4 @@
+
 package services
 
 import (
@@ -6,16 +7,16 @@ import (
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
-
+	
 	"github.com/jackc/pgtype"
 )
 
 type UserService interface {
-	Create(ctx context.Context, user *models.User) error
-	GetByID(ctx context.Context, id string) (*models.User, error)
-	GetList(ctx context.Context, offset, limit int) ([]*models.User, error)
-	Update(ctx context.Context, id string, user *models.User) error
-	Delete(ctx context.Context, id string) error
+	 Create(ctx context.Context, user *models.User) error 
+	 GetByID(ctx context.Context, id string) (*models.User, error) 
+	 GetList(ctx context.Context, offset, limit int) ([]*models.User, error) 
+	 Update(ctx context.Context, id string, user *models.User) error 
+	 Delete(ctx context.Context, id string) error 
 }
 
 type userService struct {

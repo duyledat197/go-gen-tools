@@ -1,3 +1,4 @@
+
 package deliveries
 
 import (
@@ -7,7 +8,7 @@ import (
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
 	"github.com/duyledat197/go-gen-tools/transform"
-
+	
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -24,9 +25,6 @@ func NewUserDelivery(userService services.UserService) pb.UserServiceServer {
 }
 
 func (d *userDelivery) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
-	if err := req.Validate(); err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, fmt.Errorf("validate failed: %w", err).Error())
-	}
 	if err := d.userService.Create(ctx, transform.PbToUserPtr(req.GetUser())); err != nil {
 		return nil, status.Errorf(codes.Internal, fmt.Errorf("Create: %v", err).Error())
 	}
@@ -38,6 +36,15 @@ func (d *userDelivery) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest
 		return nil, err
 	}
 	return &pb.UpdateUserResponse{
+		Success: true,
+	}, nil
+}
+
+func (d *userDelivery) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
+	if err := d.userService.Delete(ctx, req.User.Id); err != nil {
+		return nil, err
+	}
+	return &pb.DeleteUserResponse{
 		Success: true,
 	}, nil
 }

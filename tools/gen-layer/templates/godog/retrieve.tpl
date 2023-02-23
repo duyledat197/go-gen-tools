@@ -1,7 +1,5 @@
 {{define "retrieve"}}
-package features
-
-import "github.com/cucumber/godog"
+{{template "default"}}
 
 func (s *Suite) {{.CamelCase}}IsDeleted() error {
        return godog.ErrPending

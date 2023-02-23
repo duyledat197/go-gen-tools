@@ -1,3 +1,4 @@
+
 package deliveries
 
 import (
@@ -7,7 +8,7 @@ import (
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
 	"github.com/duyledat197/go-gen-tools/transform"
-
+	
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -24,15 +25,10 @@ func NewHubDelivery(hubService services.HubService) pb.HubServiceServer {
 }
 
 func (d *hubDelivery) CreateHub(ctx context.Context, req *pb.CreateHubRequest) (*pb.CreateHubResponse, error) {
-	if err := req.Validate(); err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, fmt.Errorf("validate failed: %w", err).Error())
-	}
 	if err := d.hubService.Create(ctx, transform.PbToHubPtr(req.GetHub())); err != nil {
 		return nil, status.Errorf(codes.Internal, fmt.Errorf("Create: %v", err).Error())
 	}
-	return &pb.CreateHubResponse{
-		Success: true,
-	}, nil
+	return &pb.CreateHubResponse{}, nil
 }
 
 func (d *hubDelivery) UpdateHub(ctx context.Context, req *pb.UpdateHubRequest) (*pb.UpdateHubResponse, error) {
@@ -40,6 +36,15 @@ func (d *hubDelivery) UpdateHub(ctx context.Context, req *pb.UpdateHubRequest) (
 		return nil, err
 	}
 	return &pb.UpdateHubResponse{
+		Success: true,
+	}, nil
+}
+
+func (d *hubDelivery) DeleteHub(ctx context.Context, req *pb.DeleteHubRequest) (*pb.DeleteHubResponse, error) {
+	if err := d.hubService.Delete(ctx, req.Hub.Id); err != nil {
+		return nil, err
+	}
+	return &pb.DeleteHubResponse{
 		Success: true,
 	}, nil
 }

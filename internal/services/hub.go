@@ -1,3 +1,4 @@
+
 package services
 
 import (
@@ -6,15 +7,16 @@ import (
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+	
 	"github.com/jackc/pgtype"
 )
 
 type HubService interface {
-	Create(ctx context.Context, hub *models.Hub) error
-	GetByID(ctx context.Context, id string) (*models.Hub, error)
-	GetList(ctx context.Context, offset, limit int) ([]*models.Hub, error)
-	Update(ctx context.Context, id string, hub *models.Hub) error
-	Delete(ctx context.Context, id string) error
+	 Create(ctx context.Context, hub *models.Hub) error 
+	 GetByID(ctx context.Context, id string) (*models.Hub, error) 
+	 GetList(ctx context.Context, offset, limit int) ([]*models.Hub, error) 
+	 Update(ctx context.Context, id string, hub *models.Hub) error 
+	 Delete(ctx context.Context, id string) error 
 }
 
 type hubService struct {
