@@ -12,6 +12,7 @@ helm repo add jaeger-all-in-one https://raw.githubusercontent.com/hansehe/jaeger
 helm repo add hashicorp https://helm.releases.hashicorp.com --force-update
 helm repo add grafana https://grafana.github.io/helm-charts --force-update
 helm repo add nats https://nats-io.github.io/k8s/helm/charts --force-update
+helm repo add minio https://charts.min.io/ --force-update
 
 # install insfras
 helm upgrade --install postgresql bitnami/postgresql --namespace ${INSFRAS} --create-namespace
@@ -21,3 +22,4 @@ helm upgrade --install grafana grafana/grafana --namespace ${INSFRAS} --create-n
 helm upgrade --install kafka bitnami/kafka --namespace ${INSFRAS} --create-namespace
 helm upgrade --install redis bitnami/redis --namespace ${INSFRAS} --create-namespace
 helm upgrade --install nats nats/nats --namespace ${INSFRAS} --create-namespace
+helm upgrade --install minio minio/minio --namespace ${INSFRAS} --create-namespace
