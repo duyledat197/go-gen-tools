@@ -15,7 +15,7 @@ import (
 const createHub = `-- name: CreateHub :one
 INSERT INTO hubs(id,name,location_id)
 values($1,$2,$3)
-Returning id, name, location_id, created_at, updated_at, deleted_at
+Returning id, name, location_id, created_at, updated_at, deleted_at, json
 `
 
 type CreateHubParams struct {
@@ -34,13 +34,14 @@ func (q *Queries) CreateHub(ctx context.Context, arg CreateHubParams) (*Hub, err
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.DeletedAt,
+		&i.Json,
 	)
 	return &i, err
 }
 
 const deleteHub = `-- name: DeleteHub :one
 DELETE from hubs where id = $1
-Returning id, name, location_id, created_at, updated_at, deleted_at
+Returning id, name, location_id, created_at, updated_at, deleted_at, json
 `
 
 func (q *Queries) DeleteHub(ctx context.Context, id pgtype.Text) (*Hub, error) {
@@ -53,12 +54,13 @@ func (q *Queries) DeleteHub(ctx context.Context, id pgtype.Text) (*Hub, error) {
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.DeletedAt,
+		&i.Json,
 	)
 	return &i, err
 }
 
 const findHubByID = `-- name: FindHubByID :one
-SELECT id, name, location_id, created_at, updated_at, deleted_at FROM hubs
+SELECT id, name, location_id, created_at, updated_at, deleted_at, json FROM hubs
 WHERE id = $1 LIMIT 1
 `
 
@@ -72,12 +74,13 @@ func (q *Queries) FindHubByID(ctx context.Context, id pgtype.Text) (*Hub, error)
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.DeletedAt,
+		&i.Json,
 	)
 	return &i, err
 }
 
 const getListHub = `-- name: GetListHub :many
-SELECT id, name, location_id, created_at, updated_at, deleted_at FROM hubs
+SELECT id, name, location_id, created_at, updated_at, deleted_at, json FROM hubs
 offset $1 limit $2
 `
 
@@ -102,6 +105,7 @@ func (q *Queries) GetListHub(ctx context.Context, arg GetListHubParams) ([]*Hub,
 			&i.CreatedAt,
 			&i.UpdatedAt,
 			&i.DeletedAt,
+			&i.Json,
 		); err != nil {
 			return nil, err
 		}
@@ -114,7 +118,7 @@ func (q *Queries) GetListHub(ctx context.Context, arg GetListHubParams) ([]*Hub,
 }
 
 const searchHub = `-- name: SearchHub :many
-SELECT id, name, location_id, created_at, updated_at, deleted_at from hubs
+SELECT id, name, location_id, created_at, updated_at, deleted_at, json from hubs
 where name like ('%' || $1 || '%')
 `
 
@@ -134,6 +138,7 @@ func (q *Queries) SearchHub(ctx context.Context, dollar_1 pgtype.Text) ([]*Hub, 
 			&i.CreatedAt,
 			&i.UpdatedAt,
 			&i.DeletedAt,
+			&i.Json,
 		); err != nil {
 			return nil, err
 		}
@@ -148,7 +153,7 @@ func (q *Queries) SearchHub(ctx context.Context, dollar_1 pgtype.Text) ([]*Hub, 
 const updateHub = `-- name: UpdateHub :one
 UPDATE hubs set name = $1
 where id = $2
-Returning id, name, location_id, created_at, updated_at, deleted_at
+Returning id, name, location_id, created_at, updated_at, deleted_at, json
 `
 
 type UpdateHubParams struct {
@@ -166,6 +171,7 @@ func (q *Queries) UpdateHub(ctx context.Context, arg UpdateHubParams) (*Hub, err
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.DeletedAt,
+		&i.Json,
 	)
 	return &i, err
 }

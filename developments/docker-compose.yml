@@ -30,9 +30,10 @@ services:
 
   postgres:
     container_name: postgres_container
-    build:
-      context: ../
-      dockerfile: ./postgres.Dockerfile
+    # build:
+      # context: .
+      # dockerfile: ./postgres.Dockerfile
+    image: postgres:13-alpine
     environment:
       PGDATA: /data/postgres
       POSTGRES_DB: postgres

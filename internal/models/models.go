@@ -16,6 +16,7 @@ type Hub struct {
 	CreatedAt  pgtype.Timestamptz `db:"created_at" json:"created_at"`
 	UpdatedAt  pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
 	DeletedAt  pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
+	Json       []byte             `db:"json" json:"json"`
 }
 
 type Team struct {
