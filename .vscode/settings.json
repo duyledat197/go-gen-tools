@@ -1,5 +1,49 @@
 {
-    "cSpell.words": [
-        "duyledat"
-    ]
+  "workbench.iconTheme": "material-icon-theme",
+  "go.docsTool": "gogetdoc",
+  "go.gocodeAutoBuild": true,
+  "go.testOnSave": true,
+  "go.useLanguageServer": true,
+  "gitlens.gitCommands.closeOnFocusOut": true,
+  "git.autofetch": true,
+  "explorer.confirmDelete": false,
+  "git.confirmSync": false,
+  "workbench.colorTheme": "Tokyo Night Storm",
+  "editor.formatOnSave": true,
+  "cSpell.enableFiletypes": ["proto"],
+  "[proto]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "gitlens.advanced.messages": {
+    "suppressGitMissingWarning": true
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "go.inlayHints.assignVariableTypes": true,
+  "go.inlayHints.parameterNames": true,
+  "go.inlayHints.functionTypeParameters": true,
+  "go.inlayHints.constantValues": true,
+  "go.inlayHints.rangeVariableTypes": true,
+  "go.inlayHints.compositeLiteralTypes": true,
+  "go.inlayHints.compositeLiteralFields": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.guides.bracketPairs": "active",
+  "go.lintTool": "revive",
+  "editor.inlayHints.padding": true,
+  "editor.parameterHints.cycle": true,
+  "editor.fontFamily": "'Fira Code'",
+  "editor.codeLensFontFamily": "'Fira Code'",
+  "editor.fontLigatures": true,
+  "editor.tabSize": 2,
+  "workbench.colorCustomizations": {
+    "editorInlayHint.background": "#0a61a8",
+    "editorInlayHint.foreground": "#e6ae63"
+  },
+  "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font"
 }
