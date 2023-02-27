@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/config"
 	pgxzap "github.com/jackc/pgx-zap"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/jackc/pgx/v5/tracelog"
@@ -22,26 +23,26 @@ type Options struct {
 }
 
 type PostgresClient struct {
-	Pool          *pgxpool.Pool
-	ConnectionURI string
-	MaxConnection int32
-	Config        *pgxpool.Config
+	Pool     *pgxpool.Pool
+	Database *config.Database
+	config   *pgxpool.Config
 
 	Logger  *zap.Logger
 	Options *Options
 }
 
-func (c *PostgresClient) Init(ctx context.Context) *PostgresClient {
-	u, err := url.Parse(c.ConnectionURI)
+func (c *PostgresClient) Connect(ctx context.Context) error {
+	connectionString := c.Database.GetConnectionString()
+	u, err := url.Parse(connectionString)
 	if err != nil {
-		c.Logger.Panic("cannot create new connection to Postgres (failed to parse URI)", zap.Error(err))
+		return fmt.Errorf("cannot create new connection to Postgres (failed to parse URI)", err)
 	}
-	config, err := pgxpool.ParseConfig(c.ConnectionURI)
+	config, err := pgxpool.ParseConfig(connectionString)
 	if err != nil {
-		c.Logger.Panic("cannot read PG_CONNECTION_URI", zap.Error(err))
+		return fmt.Errorf("cannot read PG_CONNECTION_URI", err)
 	}
 
-	config.MaxConns = c.MaxConnection
+	config.MaxConns = int32(c.Database.MaxConnection)
 	config.MaxConnIdleTime = 15 * time.Second
 	config.HealthCheckPeriod = 600 * time.Millisecond
 
@@ -61,13 +62,18 @@ func (c *PostgresClient) Init(ctx context.Context) *PostgresClient {
 		}
 	}
 
-	c.Logger.Info("NewConnectionPool max connection", zap.Int32("max connection", c.MaxConnection))
+	c.Logger.Info("NewConnectionPool max connection", zap.Int("max connection", c.Database.MaxConnection))
 
 	pool, err := pgxpool.NewWithConfig(ctx, config)
 	if err != nil {
-		c.Logger.Panic(fmt.Sprintf("cannot create new connection to %q", u.Redacted()), zap.Error(err))
+		return fmt.Errorf(fmt.Sprintf("cannot create new connection to %q", u.Redacted()), err)
 	}
 	c.Pool = pool
-	c.Config = config
-	return c
+	c.config = config
+	return nil
+}
+
+func (c *PostgresClient) Stop(ctx context.Context) error {
+	c.Pool.Close()
+	return nil
 }

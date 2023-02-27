@@ -4,8 +4,10 @@ import (
 	"context"
 	"expvar"
 	"fmt"
+	"net"
 	"net/http"
 
+	"github.com/duyledat197/go-gen-tools/config"
 	"github.com/duyledat197/go-gen-tools/pkg/ratelimit"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
@@ -59,24 +61,21 @@ type Options struct {
 }
 
 type GrpcServer struct {
-	ServiceName string
-	Host        string
-	Port        string
-
+	ServiceName    string
 	Consul         *registry.ConsulRegister
-	Tracer         *tracing.OpenTracer
+	Tracer         *tracing.TracerClient
 	AuthFunction   grpc_auth.AuthFunc
-	Server         *grpc.Server
+	server         *grpc.Server
 	Logger         *zap.Logger
+	Address        *config.ConnectionAddr
 	Options        *Options
 	MaxMessageSize int //* default = 0 mean 4MB
-
-	AfterInit func(ctx context.Context) error
+	Handlers       func(ctx context.Context, server *grpc.Server) error
 
 	OtherOptions []grpc.ServerOption
 }
 
-func (s *GrpcServer) Init() *GrpcServer {
+func (s *GrpcServer) Init(ctx context.Context) error {
 	filterFn := grpc_opentracing.WithFilterFunc(func(ctx context.Context, fullMethodName string) bool {
 		return fullMethodName != "/grpc.health.v1.Health/Check"
 	})
@@ -130,12 +129,8 @@ func (s *GrpcServer) Init() *GrpcServer {
 		}
 
 		if options.IsEnableClientLoadBalancer {
-			id, err := s.Consul.Register()
-			if err != nil {
+			if err := s.Consul.Register(); err != nil {
 				s.Logger.Panic("connect consul server error:", zap.Error(err))
-			}
-			s.AfterInit = func(ctx context.Context) error {
-				return s.Consul.Deregister(id)
 			}
 		}
 
@@ -145,7 +140,7 @@ func (s *GrpcServer) Init() *GrpcServer {
 		}
 
 		if options.IsEnablePrometheusServer {
-			grpc_prometheus.Register(s.Server)
+			grpc_prometheus.Register(s.server)
 			mux := http.NewServeMux()
 
 			mux.Handle("/debug/vars", expvar.Handler())
@@ -185,8 +180,27 @@ func (s *GrpcServer) Init() *GrpcServer {
 			unaryInterceptors...,
 		)))
 	opts = append(opts, s.OtherOptions...)
-	s.Server = grpc.NewServer(
+	s.server = grpc.NewServer(
 		opts...,
 	)
-	return s
+	s.Handlers(ctx, s.server)
+	return nil
+}
+
+func (s *GrpcServer) Start(ctx context.Context) error {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", s.Address.Port))
+	if err != nil {
+		return err
+	}
+	s.Logger.Sugar().Infoln("GRPC Server listens on port: %v", s.Address.Port)
+	if err := s.server.Serve(lis); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *GrpcServer) Stop(ctx context.Context) error {
+	s.server.GracefulStop()
+	s.Consul.Deregister()
+	return nil
 }

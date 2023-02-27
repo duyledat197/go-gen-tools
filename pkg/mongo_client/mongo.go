@@ -3,8 +3,10 @@ package mongo_client
 import (
 	"context"
 	"crypto/tls"
+	"fmt"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -23,29 +25,26 @@ type Options struct {
 }
 
 type MongoClient struct {
-	Client        *mongo.Client
-	ClientOptions *options.ClientOptions
+	Database      *config.Database
+	client        *mongo.Client
+	clientOptions *options.ClientOptions
 
-	Timeout       time.Duration
-	MaxConnection uint64
-
-	ConnectionURI string
-	Logger        *zap.Logger
-	TLSConfig     tls.Config
-	ReplicaSet    string
+	Logger     *zap.Logger
+	TLSConfig  tls.Config
+	ReplicaSet string
 
 	Options *Options
 }
 
-func (c *MongoClient) Init(ctx context.Context) *MongoClient {
-	ctx, cancel := context.WithTimeout(ctx, c.Timeout)
+func (c *MongoClient) Connect(ctx context.Context) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Database.Timeout)
 	defer cancel()
 	clientOpts := options.Client()
 
 	//* set up mongo client options
-	clientOpts.SetConnectTimeout(c.Timeout)
+	clientOpts.SetConnectTimeout(c.Database.Timeout)
 	clientOpts.SetMaxConnIdleTime(15 * time.Second)
-	clientOpts.SetMaxConnecting(c.MaxConnection)
+	clientOpts.SetMaxConnecting(uint64(c.Database.MaxConnection))
 	clientOpts.SetRetryReads(true)
 	clientOpts.SetRetryWrites(true)
 
@@ -63,16 +62,20 @@ func (c *MongoClient) Init(ctx context.Context) *MongoClient {
 	}
 
 	if err := clientOpts.Validate(); err != nil {
-		c.Logger.Panic("connect mongo error: validate ", zap.Error(err))
+		return fmt.Errorf("connect mongo error: validate : %w", err)
 	}
-	client, err := mongo.Connect(ctx, clientOpts.ApplyURI(c.ConnectionURI))
+	client, err := mongo.Connect(ctx, clientOpts.ApplyURI(c.Database.GetConnectionString()))
 	if err != nil {
-		c.Logger.Panic("connect mongo error: connect ", zap.Error(err))
+		return fmt.Errorf("connect mongo error: connect: %w", err)
 	}
 	if err := client.Ping(ctx, readpref.Primary()); err != nil {
-		c.Logger.Panic("connect mongo error: ping ", zap.Error(err))
+		return fmt.Errorf("connect mongo error: ping: %w", err)
 	}
-	c.Client = client
-	c.ClientOptions = clientOpts
-	return c
+	c.client = client
+	c.clientOptions = clientOpts
+	return nil
+}
+
+func (c *MongoClient) Stop(ctx context.Context) error {
+	return c.client.Disconnect(ctx)
 }

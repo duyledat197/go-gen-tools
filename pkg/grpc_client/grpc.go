@@ -1,8 +1,10 @@
 package grpc_client
 
 import (
+	"context"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/config"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 
@@ -41,15 +43,17 @@ type Options struct {
 
 type GrpcClient struct {
 	ServiceName  string
-	Tracer       *tracing.OpenTracer
+	Tracer       *tracing.TracerClient
 	Consul       *registry.ConsulClient
+	Address      *config.ConnectionAddr
 	Endpoint     string
 	Options      *Options
 	Creds        credentials.TransportCredentials
 	OtherOptions []grpc.DialOption
+	Client       *grpc.ClientConn
 }
 
-func (c *GrpcClient) Dial() (*grpc.ClientConn, error) {
+func (c *GrpcClient) Connect(ctx context.Context) error {
 	optsRetry := []grpc_retry.CallOption{
 		grpc_retry.WithBackoff(grpc_retry.BackoffExponential(50 * time.Millisecond)),
 		grpc_retry.WithCodes(codes.Unavailable),
@@ -67,6 +71,8 @@ func (c *GrpcClient) Dial() (*grpc.ClientConn, error) {
 		if options.IsEnableClientLoadBalancer {
 			opts = append(opts, grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`))
 			c.Endpoint = c.Consul.GetURL(c.ServiceName)
+		} else {
+			c.Endpoint = c.Address.GetConnectionString()
 		}
 
 		if options.IsEnableHystrix {
@@ -125,7 +131,15 @@ func (c *GrpcClient) Dial() (*grpc.ClientConn, error) {
 		sIntOpt,
 		uIntOpt,
 	}...)
-
+	var err error
 	opts = append(opts, c.OtherOptions...)
-	return grpc.Dial(c.Endpoint, opts...)
+	c.Client, err = grpc.Dial(c.Endpoint, opts...)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *GrpcClient) Stop(ctx context.Context) error {
+	return c.Client.Close()
 }
