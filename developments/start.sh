@@ -1,6 +1,7 @@
 #!/bin/bash
 
 INSFRAS=insfras
+SERVICES=services
 
 # kind set up
 go install sigs.k8s.io/kind@v0.17.0
@@ -23,3 +24,5 @@ helm upgrade --install kafka bitnami/kafka --namespace ${INSFRAS} --create-names
 helm upgrade --install redis bitnami/redis --namespace ${INSFRAS} --create-namespace
 helm upgrade --install nats nats/nats --namespace ${INSFRAS} --create-namespace
 helm upgrade --install minio minio/minio --namespace ${INSFRAS} --create-namespace
+
+#install services

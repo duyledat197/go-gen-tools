@@ -18,6 +18,7 @@ import (
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
 	"github.com/duyledat197/go-gen-tools/utils/logger"
+	"github.com/duyledat197/go-gen-tools/utils/metadata"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/jackc/pgx/v5"
@@ -27,6 +28,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type server struct {
@@ -191,7 +193,12 @@ func (s *server) startServer(ctx context.Context) error {
 	eg.Go(func() error {
 		//* middleware
 		mux := runtime.NewServeMux(
-		// runtime.WithMetadata(metadata.Authentication),
+			runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+				MarshalOptions: protojson.MarshalOptions{
+					UseEnumNumbers: false,
+				},
+			}),
+			runtime.WithMetadata(metadata.Authentication),
 		)
 
 		if err := pb.RegisterUserServiceHandlerServer(ctx, mux, s.userpb); err != nil {
