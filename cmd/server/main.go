@@ -8,9 +8,9 @@ import (
 	"net/http"
 
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
-	"github.com/duyledat197/go-gen-tools/internal/mongo"
-	"github.com/duyledat197/go-gen-tools/internal/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+	"github.com/duyledat197/go-gen-tools/internal/repositories/mongo"
+	"github.com/duyledat197/go-gen-tools/internal/repositories/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
 	"github.com/duyledat197/go-gen-tools/utils/logger"
