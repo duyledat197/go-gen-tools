@@ -6,6 +6,10 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
@@ -54,12 +58,15 @@ type server struct {
 
 	//* logger
 	logger *zap.Logger
+
+	grpcServer *grpc.Server
+	httpServer *http.Server
 }
 
 var srv server
 
-func start() error {
-	ctx := context.Background()
+func start(ctx context.Context) error {
+
 	if err := srv.loadConfig(ctx); err != nil {
 		return err
 	}
@@ -90,10 +97,36 @@ func start() error {
 	return nil
 }
 
+func stop(ctx context.Context) error {
+	if err := srv.httpServer.Shutdown(ctx); err != nil {
+		return err
+	}
+	srv.grpcServer.GracefulStop()
+	return nil
+}
+
 func main() {
-	if err := start(); err != nil {
+	ctx := context.Background()
+	// ?
+	timeWait := 15 * time.Second
+	signChan := make(chan os.Signal, 1)
+
+	if err := start(ctx); err != nil {
 		log.Fatal(err)
 	}
+	signal.Notify(signChan, os.Interrupt, syscall.SIGTERM)
+	<-signChan
+	log.Println("Shutting down")
+	ctx, cancel := context.WithTimeout(context.Background(), timeWait)
+	defer func() {
+		log.Println("Close another connection")
+		cancel()
+	}()
+	if err := stop(ctx); err == context.DeadlineExceeded {
+		log.Print("Halted active connections")
+	}
+	close(signChan)
+	log.Printf("Server down Completed")
 }
 
 func (s *server) loadPostgresConnection(ctx context.Context) error {
@@ -175,10 +208,15 @@ func (s *server) startServer(ctx context.Context) error {
 		}
 
 		handler := cors.AllowAll().Handler(mux)
-		s.logger.Sugar().Infoln("HTTP Server listens on port: %s\n", httpPort)
-		if err := http.ListenAndServe(fmt.Sprintf(":%s", httpPort), handler); err != nil {
+		s.httpServer = &http.Server{
+			Addr:    fmt.Sprintf(":%s", httpPort),
+			Handler: handler,
+		}
+		s.logger.Sugar().Infof("HTTP Server listens on port: %s\n", httpPort)
+		if err := s.httpServer.ListenAndServe(); err != nil {
 			return err
 		}
+
 		return nil
 	})
 
@@ -189,16 +227,17 @@ func (s *server) startServer(ctx context.Context) error {
 			return err
 		}
 
-		grpcServer := grpc.NewServer()
-		pb.RegisterUserServiceServer(grpcServer, s.userpb)
-		pb.RegisterTeamServiceServer(grpcServer, s.teampb)
-		pb.RegisterHubServiceServer(grpcServer, s.hubpb)
-		pb.RegisterSearchServiceServer(grpcServer, s.searchpb)
+		s.grpcServer = grpc.NewServer()
+		pb.RegisterUserServiceServer(s.grpcServer, s.userpb)
+		pb.RegisterTeamServiceServer(s.grpcServer, s.teampb)
+		pb.RegisterHubServiceServer(s.grpcServer, s.hubpb)
+		pb.RegisterSearchServiceServer(s.grpcServer, s.searchpb)
 
 		s.logger.Sugar().Infoln("GRPC Server listens on port: %v", grpcPort)
-		if err := grpcServer.Serve(lis); err != nil {
+		if err := s.grpcServer.Serve(lis); err != nil {
 			return err
 		}
+
 		return nil
 	})
 

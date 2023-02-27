@@ -9,13 +9,13 @@ import (
 
 	swaggerui "github.com/esurdam/go-swagger-ui"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
-// NewHTTPHandler ...
 func NewServerMux(docFileName, docFileRoot string, handleFunc func(ctx context.Context, mux *runtime.ServeMux)) (http.Handler, error) {
 	ctx := context.Background()
 	mux := runtime.NewServeMux(
-		runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{}),
+		runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{MarshalOptions: protojson.MarshalOptions{UseEnumNumbers: false}, UnmarshalOptions: protojson.UnmarshalOptions{AllowPartial: true}}),
 		// runtime.WithMetadata(mapMetaData),
 	)
 	handleFunc(ctx, mux)
