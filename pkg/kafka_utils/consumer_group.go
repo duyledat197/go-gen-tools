@@ -1,129 +1,104 @@
-package kafka_utils
+package kafka
 
 import (
 	"context"
 	"fmt"
 	"log"
-	"os"
-	"os/signal"
-	"strings"
-	"sync"
-	"syscall"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/config"
+	"github.com/duyledat197/go-gen-tools/pkg/pubsub"
+
 	"github.com/Shopify/sarama"
+	"go.uber.org/zap"
 )
 
-type ConsumerGroupHandler interface {
-	Subscribe(fn func(msg []byte, timeEvent time.Time, key []byte))
+type ConsumerGroup struct {
+	serviceName string
+	brokers     []*config.ConnectionAddr
+	topics      []*pubsub.Topic
+	client      sarama.ConsumerGroup
+	logger      *zap.Logger
+	handler     func(msg *pubsub.Message, eventTime time.Time)
 }
 
-type consumerGroup struct {
-	topics string
-	client sarama.ConsumerGroup
-}
-
-func NewConsumerGroup(assignor, brokers, groupId, topics string, oldest bool) (ConsumerGroupHandler, error) {
+func (g *ConsumerGroup) Connect(ctx context.Context) error {
 	config := sarama.NewConfig()
+	config.Consumer.Group.Rebalance.Strategy = sarama.BalanceStrategyRoundRobin
+	config.Consumer.Offsets.Initial = sarama.OffsetOldest
 
-	switch assignor {
-	case "sticky":
-		config.Consumer.Group.Rebalance.Strategy = sarama.BalanceStrategySticky
-	case "roundrobin":
-		config.Consumer.Group.Rebalance.Strategy = sarama.BalanceStrategyRoundRobin
-	case "range":
-		config.Consumer.Group.Rebalance.Strategy = sarama.BalanceStrategyRange
-	default:
-		fmt.Printf("Unrecognized consumer group partition assignor: %s\n", assignor)
+	var addrs []string
+	for _, broker := range g.brokers {
+		addrs = append(addrs, broker.GetConnectionString())
 	}
 
-	if oldest {
-		config.Consumer.Offsets.Initial = sarama.OffsetOldest
-	}
-
-	client, err := sarama.NewConsumerGroup(strings.Split(brokers, ","), groupId, config)
+	client, err := sarama.NewConsumerGroup(addrs, g.serviceName, config)
 	if err != nil {
-		fmt.Printf("Error creating consumer group client: %v\n", err)
-		return nil, err
+		return fmt.Errorf("error creating consumer group client: %w", err)
 	}
 
-	return &consumerGroup{
-		topics: topics,
-		client: client,
-	}, nil
+	g.client = client
+	g.Subscribe()
+	return nil
 }
 
-func (s *consumerGroup) Subscribe(fn func(msg []byte, timeEvent time.Time, key []byte)) {
-	ctx, cancel := context.WithCancel(context.Background())
-	consumer := ConsumerGroup{
-		ready: make(chan bool),
-		fn:    fn,
+func (g *ConsumerGroup) Close(ctx context.Context) error {
+	return g.client.Close()
+}
+
+func (g *ConsumerGroup) Subscribe() {
+	ctx := context.Background()
+	consumer := consumerGroupHandler{
+		ready:  make(chan bool),
+		fn:     g.handler,
+		logger: g.logger,
 	}
-	wg := &sync.WaitGroup{}
-	wg.Add(1)
+	var topics []string
+	for _, topic := range g.topics {
+		topics = append(topics, topic.Name)
+	}
 	go func() {
-		defer wg.Done()
 		for {
-			// `Consume` should be called inside an infinite loop, when a
-			// server-side rebalance happens, the consumer session will need to be
-			// recreated to get the new claims
-			if err := s.client.Consume(ctx, strings.Split(s.topics, ","), &consumer); err != nil {
+			// TODO: `Consume` should be called inside an infinite loop, when a
+			// TODO: server-side rebalance happens, the consumer session will need to be
+			// TODO: recreated to get the new claims
+			if err := g.client.Consume(ctx, topics, &consumer); err != nil {
 				log.Panicf("Error from consumer: %v", err)
 			}
-			// check if context was cancelled, signaling that the consumer should stop
 			if ctx.Err() != nil {
 				return
 			}
 			consumer.ready = make(chan bool)
 		}
 	}()
-
-	<-consumer.ready // Await till the consumer has been set up
-	log.Println("Sarama consumer up and running!...")
-
-	sigterm := make(chan os.Signal, 1)
-	signal.Notify(sigterm, syscall.SIGINT, syscall.SIGTERM)
-	select {
-	case <-ctx.Done():
-		log.Println("terminating: context cancelled")
-	case <-sigterm:
-		log.Println("terminating: via signal")
-	}
-	cancel()
-	wg.Wait()
-	if err := s.client.Close(); err != nil {
-		log.Panicf("Error closing client: %v", err)
-	}
+	<-consumer.ready
 }
 
-// Consumer represents a Sarama consumer group consumer
-type ConsumerGroup struct {
-	ready chan bool
-	fn    func(msg []byte, timeEvent time.Time, key []byte)
+type consumerGroupHandler struct {
+	ready  chan bool
+	fn     func(msg *pubsub.Message, eventTime time.Time)
+	logger *zap.Logger
 }
 
-// Setup is run at the beginning of a new session, before ConsumeClaim
-func (consumer *ConsumerGroup) Setup(sarama.ConsumerGroupSession) error {
-	// Mark the consumer as ready
-	close(consumer.ready)
+func (h *consumerGroupHandler) Setup(sarama.ConsumerGroupSession) error {
+	h.logger.Info("Sarama consumer up and running!...")
+	close(h.ready)
 	return nil
 }
 
-// Cleanup is run at the end of a session, once all ConsumeClaim goroutines have exited
-func (consumer *ConsumerGroup) Cleanup(sarama.ConsumerGroupSession) error {
+func (h *consumerGroupHandler) Cleanup(session sarama.ConsumerGroupSession) error {
 	return nil
 }
 
-// ConsumeClaim must start a consumer loop of ConsumerGroupClaim's Messages().
-func (consumer *ConsumerGroup) ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
-	// NOTE:
-	// Do not move the code below to a goroutine.
-	// The `ConsumeClaim` itself is called within a goroutine, see:
-	// https://github.com/Shopify/sarama/blob/master/consumer_group.go#L27-L29
+// TODO: ConsumeClaim must start a consumer loop of ConsumerGroupClaim's Messages().
+func (h *consumerGroupHandler) ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
 	for message := range claim.Messages() {
-		log.Printf("Message claimed: value = %s, timestamp = %v, topic = %s", string(message.Value), message.Timestamp, message.Topic)
+		h.logger.Sugar().Infof("Message claimed: value = %s, timestamp = %v, topic = %s\n", string(message.Value), message.Timestamp, message.Topic)
 		session.MarkMessage(message, "")
-		consumer.fn(message.Value, message.Timestamp, message.Key)
+		h.fn(&pubsub.Message{
+			Key: message.Key,
+			Msg: message.Value,
+		}, message.Timestamp)
 	}
 	return nil
 }

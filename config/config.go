@@ -51,11 +51,14 @@ type Config struct {
 	// database
 	PostgresDB *Database
 	MongoDB    *Database
+	ElasticDB  *Database
+	RedisDB    *Database
 
 	// connection address
 	HTTP *ConnectionAddr
 	GRPC *ConnectionAddr
 
-	Consul *ConnectionAddr
-	Tracer *ConnectionAddr
+	Consul     *ConnectionAddr
+	Tracer     *ConnectionAddr
+	Prometheus *ConnectionAddr
 }

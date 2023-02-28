@@ -1,4 +1,4 @@
-package kafka_utils
+package pubsub
 
 import "github.com/google/uuid"
 
@@ -8,4 +8,6 @@ type Topic struct {
 }
 
 type Message struct {
+	Key []byte
+	Msg []byte
 }

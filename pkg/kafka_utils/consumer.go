@@ -1,41 +1,43 @@
-package kafka_utils
+package kafka
 
 import (
-	"time"
+	"context"
+	"fmt"
+
+	"github.com/duyledat197/go-gen-tools/config"
+	"github.com/duyledat197/go-gen-tools/pkg/pubsub"
 
 	"github.com/Shopify/sarama"
+	"github.com/google/uuid"
 )
 
 type Consumer struct {
-	ClientID  string
-	Address   string
-	Consumer  sarama.PartitionConsumer
-	partition int32
-	topic     *Topic
+	clientID  string
+	Brokers   []*config.ConnectionAddr
+	client    sarama.PartitionConsumer
+	Partition int32
+	Topic     *pubsub.Topic
 }
 
-func NewConsumer(clientID, address string, partition int32, topic *Topic) (*Consumer, error) {
+func (c *Consumer) Connect(ctx context.Context) error {
 	cfg := sarama.NewConfig()
-	cfg.ClientID = clientID
-
-	cfg.Net.ReadTimeout = 3 * time.Second
-	cfg.Consumer.Retry.Backoff = 200 * time.Millisecond
-	cfg.Consumer.Return.Errors = true
-	cfg.Metadata.Retry.Max = 5
-
-	master, err := sarama.NewConsumer([]string{address}, cfg)
-	if err != nil {
-		return nil, err
+	cfg.ClientID = uuid.NewString()
+	var addrs []string
+	for _, broker := range c.Brokers {
+		addrs = append(addrs, broker.GetConnectionString())
 	}
-	consumer, err := master.ConsumePartition(topic.Name, partition, sarama.OffsetNewest)
+	client, err := sarama.NewConsumer(addrs, cfg)
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("sarama.NewConsumer: %w", err)
 	}
-	return &Consumer{
-		ClientID:  clientID,
-		Address:   address,
-		topic:     topic,
-		partition: partition,
-		Consumer:  consumer,
-	}, nil
+	consumer, err := client.ConsumePartition(c.Topic.Name, c.Partition, sarama.OffsetNewest)
+	if err != nil {
+		return fmt.Errorf("client.ConsumePartition: %w", err)
+	}
+	c.client = consumer
+	return nil
+}
+
+func (g *Consumer) Close(ctx context.Context) error {
+	return g.client.Close()
 }

@@ -2,8 +2,10 @@ package redis_client
 
 import (
 	"context"
+	"fmt"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/config"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/proto"
@@ -11,19 +13,36 @@ import (
 )
 
 type RedisClient struct {
-	Client  *redis.Client
-	Options *redis.Options
+	Client   *redis.Client
+	Database *config.Database
 
 	Logger *zap.Logger
 }
 
-func (c *RedisClient) Init(ctx context.Context) *RedisClient {
-	client := redis.NewClient(c.Options)
+func (c *RedisClient) Connect(ctx context.Context) error {
+	options := &redis.Options{
+		Addr:            c.Database.GetConnectionString(),
+		Username:        c.Database.UserName,
+		Password:        c.Database.Password,
+		MaxRetries:      5,
+		MinRetryBackoff: 8 * time.Millisecond,
+		MaxRetryBackoff: 512 * time.Millisecond,
+		DialTimeout:     5 * time.Second,
+		ReadTimeout:     5 * time.Second,
+		WriteTimeout:    5 * time.Second,
+		PoolFIFO:        false,
+		PoolSize:        c.Database.MaxConnection,
+	}
+	client := redis.NewClient(options)
 	if cmd := client.Ping(ctx); cmd.Err() != nil {
-		c.Logger.Panic("connect redis error: ", zap.Error(cmd.Err()))
+		return fmt.Errorf("connect redis error: %w", cmd.Err())
 	}
 	c.Client = client
-	return c
+	return nil
+}
+
+func (c *RedisClient) Stop(ctx context.Context) error {
+	return c.Client.Close()
 }
 
 type Options struct {

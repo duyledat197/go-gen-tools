@@ -1,4 +1,4 @@
-package ethclient
+package eth_client
 
 import (
 	"context"
@@ -22,12 +22,17 @@ type ETHClient struct {
 	Logger *zap.Logger
 }
 
-func (c *ETHClient) Init(ctx context.Context) error {
+func (c *ETHClient) Connect(ctx context.Context) error {
 	client, err := ethclient.DialContext(ctx, c.Address)
 	if err != nil {
 		return err
 	}
 	c.Client = client
+	return nil
+}
+
+func (c *ETHClient) Stop(ctx context.Context) error {
+	c.Client.Close()
 	return nil
 }
 

@@ -10,12 +10,16 @@ import (
 	"github.com/duyledat197/go-gen-tools/internal/repositories/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
+	"github.com/duyledat197/go-gen-tools/pkg/elastic_client"
+	"github.com/duyledat197/go-gen-tools/pkg/eth_client"
 	"github.com/duyledat197/go-gen-tools/pkg/grpc_client"
 	"github.com/duyledat197/go-gen-tools/pkg/grpc_server"
 	"github.com/duyledat197/go-gen-tools/pkg/http_server"
-	"github.com/duyledat197/go-gen-tools/pkg/kafka_utils"
+	"github.com/duyledat197/go-gen-tools/pkg/kafka"
 	"github.com/duyledat197/go-gen-tools/pkg/mongo_client"
 	"github.com/duyledat197/go-gen-tools/pkg/postgres_client"
+	"github.com/duyledat197/go-gen-tools/pkg/prometheus_server"
+	"github.com/duyledat197/go-gen-tools/pkg/redis_client"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 	"github.com/duyledat197/go-gen-tools/utils/authenticate"
@@ -53,11 +57,12 @@ type server struct {
 	teamClient *grpc_client.GrpcClient
 	hubClient  *grpc_client.GrpcClient
 
-	//* postgres info
+	//* databaeses
 	postgresClient *postgres_client.PostgresClient
-
-	//* mongo info
-	mongoClient *mongo_client.MongoClient
+	mongoClient    *mongo_client.MongoClient
+	elasticClient  *elastic_client.ElasticClient
+	ethClient      *eth_client.ETHClient
+	redisClient    *redis_client.RedisClient
 
 	//* config
 	config *config.Config
@@ -66,14 +71,15 @@ type server struct {
 	logger *zap.Logger
 
 	//* servers
-	grpcServer *grpc_server.GrpcServer
-	httpServer *http_server.HttpServer
+	grpcServer       *grpc_server.GrpcServer
+	httpServer       *http_server.HttpServer
+	prometheusServer *prometheus_server.PrometheusServer
 
 	//* third_party services
 	consul     *registry.ConsulClient
 	tracer     *tracing.TracerClient
-	publisher  *kafka_utils.Publisher
-	subscriber *kafka_utils.Subscriber
+	publisher  *kafka.Publisher
+	subscriber *kafka.Subscriber
 
 	processors []processor
 	databases  []database
@@ -91,33 +97,36 @@ type database interface {
 }
 
 func (s *server) loadDatabaseClients(ctx context.Context) error {
-	if err := srv.loadPostgresClient(ctx); err != nil {
-		return err
-	}
-
-	if err := srv.loadMongoClient(ctx); err != nil {
-		return err
-	}
-
-	s.databases = append(s.databases, s.postgresClient, s.mongoClient)
-	return nil
-}
-
-func (s *server) loadPostgresClient(ctx context.Context) error {
 	s.postgresClient = &postgres_client.PostgresClient{
 		Database: s.config.PostgresDB,
 		Logger:   s.logger,
 		Options:  &postgres_client.Options{},
 	}
-	return nil
-}
 
-func (s *server) loadMongoClient(ctx context.Context) error {
 	s.mongoClient = &mongo_client.MongoClient{
 		Database: s.config.MongoDB,
 		Logger:   s.logger,
 		Options:  &mongo_client.Options{},
 	}
+
+	s.elasticClient = &elastic_client.ElasticClient{
+		Logger:   s.logger,
+		Database: s.config.ElasticDB,
+		APIKey:   "",
+		Address:  "",
+	}
+
+	s.ethClient = &eth_client.ETHClient{
+		Address: "",
+		Logger:  s.logger,
+	}
+
+	s.redisClient = &redis_client.RedisClient{
+		Database: s.config.RedisDB,
+		Logger:   s.logger,
+	}
+
+	s.databases = append(s.databases, s.postgresClient, s.mongoClient, s.elasticClient, s.ethClient)
 	return nil
 }
 
@@ -126,12 +135,12 @@ func (s *server) loadLogger() error {
 	return nil
 }
 func (s *server) loadRepositories() error {
-	// with postgres
+	//* with postgres
 	s.userRepo = postgres.NewUserRepository(s.postgresClient.Pool)
 	s.teamRepo = postgres.NewTeamRepository(s.postgresClient.Pool)
 	s.hubRepo = postgres.NewHubRepository(s.postgresClient.Pool)
 
-	// with mongo
+	//* with mongo
 	s.searchRepo = mongo.NewSearchRepository(s.postgresClient.Pool)
 
 	return nil
@@ -160,6 +169,8 @@ func (s *server) loadConfig(ctx context.Context) error {
 }
 
 func (s *server) loadClients(ctx context.Context) error {
+	//* load grpc clients
+
 	defaultOptions := &grpc_client.Options{
 		IsEnableHystrix:            true,
 		IsEnableClientLoadBalancer: true,
@@ -169,7 +180,7 @@ func (s *server) loadClients(ctx context.Context) error {
 		IsEnableSecure:             false,
 		IsEnableValidator:          true,
 	}
-	//* load grpc clients
+
 	s.teamClient = &grpc_client.GrpcClient{
 		ServiceName: "Team",
 		Consul:      s.consul,
@@ -247,7 +258,12 @@ func (s *server) loadServers(ctx context.Context) error {
 		},
 	}
 
-	s.processors = append(s.processors, s.grpcServer, s.httpServer)
+	s.prometheusServer = &prometheus_server.PrometheusServer{
+		Address: s.config.Prometheus,
+		Logger:  s.logger,
+	}
+
+	s.processors = append(s.processors, s.grpcServer, s.httpServer, s.prometheusServer)
 
 	return nil
 }

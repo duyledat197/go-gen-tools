@@ -6,27 +6,56 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 
-	"github.com/elastic/go-elasticsearch/v7"
-	es7 "github.com/elastic/go-elasticsearch/v7"
-	"github.com/elastic/go-elasticsearch/v7/esapi"
+	"github.com/duyledat197/go-gen-tools/config"
+
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8"
+	es7 "github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"go.uber.org/zap"
 )
 
 type ElasticClient struct {
-	Client  *es7.Client
-	Configs elasticsearch.Config
-	Indexes []string
-	Logger  *zap.Logger
+	Client   *es7.Client
+	configs  elasticsearch.Config
+	Indexes  []string
+	Logger   *zap.Logger
+	Address  string
+	APIKey   string
+	Database *config.Database
 }
 
-func (c *ElasticClient) Init() *ElasticClient {
-	client, err := es7.NewClient(c.Configs)
+func (c *ElasticClient) Connect(ctx context.Context) error {
+	c.configs.Addresses = append(c.configs.Addresses, c.Address)
+	c.configs.APIKey = c.APIKey
+	c.configs.EnableDebugLogger = true
+	c.configs.Username = c.Database.UserName
+	c.configs.Password = c.Database.Password
+	c.configs.Logger = &elastictransport.ColorLogger{
+		Output:             os.Stdin,
+		EnableRequestBody:  true,
+		EnableResponseBody: true,
+	}
+
+	client, err := es7.NewClient(c.configs)
 	if err != nil {
-		c.Logger.Panic("connect elastic error: ", zap.Error(err))
+		return fmt.Errorf("connect elastic error: %w", err)
+	}
+	if _, err := c.Client.Ping(); err != nil {
+		return fmt.Errorf("ping elastic error: %w", err)
 	}
 	c.Client = client
-	return c
+	return nil
+}
+
+func (c *ElasticClient) Stop(ctx context.Context) error {
+	return nil
+}
+
+func NewClient() *ElasticClient {
+	return &ElasticClient{}
 }
 
 func (c *ElasticClient) CreateDocument(index string, content interface{}) error {

@@ -1,19 +1,23 @@
-package kafka_utils
+package kafka
 
 import (
+	"fmt"
 	"time"
 
+	"github.com/duyledat197/go-gen-tools/config"
+
 	"github.com/Shopify/sarama"
-	"github.com/pkg/errors"
+	"github.com/google/uuid"
 )
 
 type Producer struct {
 	ClientID string
-	Address  string
+	Address  *config.ConnectionAddr
 	Producer sarama.SyncProducer
 }
 
-func NewProducer(clientID, address string) (*Producer, error) {
+func NewProducer(address *config.ConnectionAddr) (*Producer, error) {
+	clientID := uuid.NewString()
 	config := sarama.NewConfig()
 
 	config.Producer.Retry.Max = 10
@@ -22,10 +26,11 @@ func NewProducer(clientID, address string) (*Producer, error) {
 	config.Metadata.Retry.Backoff = time.Second * 2
 	config.ClientID = clientID
 
-	producer, err := sarama.NewSyncProducer([]string{address}, config)
+	producer, err := sarama.NewSyncProducer([]string{address.GetConnectionString()}, config)
 	if err != nil {
-		return nil, errors.Wrap(err, "cannot create Kafka producer")
+		return nil, fmt.Errorf("cannot create Kafka producer: %w", err)
 	}
+
 	return &Producer{
 		ClientID: clientID,
 		Address:  address,

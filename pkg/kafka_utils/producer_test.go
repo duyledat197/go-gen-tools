@@ -1,4 +1,4 @@
-package kafka_utils
+package kafka
 
 // var (
 // 	msg   = &models.Message{}

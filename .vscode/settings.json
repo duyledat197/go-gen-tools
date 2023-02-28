@@ -34,7 +34,7 @@
   "go.inlayHints.compositeLiteralFields": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.guides.bracketPairs": "active",
-  "go.lintTool": "revive",
+  "go.lintTool": "staticcheck",
   "editor.inlayHints.padding": true,
   "editor.parameterHints.cycle": true,
   "editor.fontFamily": "'Fira Code'",

@@ -2,10 +2,8 @@ package grpc_server
 
 import (
 	"context"
-	"expvar"
 	"fmt"
 	"net"
-	"net/http"
 
 	"github.com/duyledat197/go-gen-tools/config"
 	"github.com/duyledat197/go-gen-tools/pkg/ratelimit"
@@ -21,7 +19,6 @@ import (
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -141,16 +138,7 @@ func (s *GrpcServer) Init(ctx context.Context) error {
 
 		if options.IsEnablePrometheusServer {
 			grpc_prometheus.Register(s.server)
-			mux := http.NewServeMux()
 
-			mux.Handle("/debug/vars", expvar.Handler())
-			mux.Handle("/metrics", promhttp.Handler())
-
-			go func() {
-				if err := http.ListenAndServe(fmt.Sprintf(":9090"), mux); err != nil {
-					s.Logger.Panic("start prometheus server error:", zap.Error(err))
-				}
-			}()
 		}
 
 		if options.IsEnableRateLimit {

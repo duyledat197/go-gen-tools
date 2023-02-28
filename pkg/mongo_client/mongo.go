@@ -26,7 +26,7 @@ type Options struct {
 
 type MongoClient struct {
 	Database      *config.Database
-	client        *mongo.Client
+	Client        *mongo.Client
 	clientOptions *options.ClientOptions
 
 	Logger     *zap.Logger
@@ -71,11 +71,11 @@ func (c *MongoClient) Connect(ctx context.Context) error {
 	if err := client.Ping(ctx, readpref.Primary()); err != nil {
 		return fmt.Errorf("connect mongo error: ping: %w", err)
 	}
-	c.client = client
+	c.Client = client
 	c.clientOptions = clientOpts
 	return nil
 }
 
 func (c *MongoClient) Stop(ctx context.Context) error {
-	return c.client.Disconnect(ctx)
+	return c.Client.Disconnect(ctx)
 }
