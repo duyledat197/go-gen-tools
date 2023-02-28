@@ -44,6 +44,14 @@ func load(ctx context.Context) error {
 		return err
 	}
 
+	if err := srv.loadPublishers(ctx); err != nil {
+		return err
+	}
+
+	if err := srv.loadSubscribers(ctx); err != nil {
+		return err
+	}
+
 	if err := srv.loadClients(ctx); err != nil {
 		return err
 	}

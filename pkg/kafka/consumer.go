@@ -11,19 +11,19 @@ import (
 	"github.com/google/uuid"
 )
 
-type Consumer struct {
+type consumer struct {
 	clientID  string
-	Brokers   []*config.ConnectionAddr
+	brokers   []*config.ConnectionAddr
 	client    sarama.PartitionConsumer
 	Partition int32
 	Topic     *pubsub.Topic
 }
 
-func (c *Consumer) Connect(ctx context.Context) error {
+func (c *consumer) connect(ctx context.Context) error {
 	cfg := sarama.NewConfig()
 	cfg.ClientID = uuid.NewString()
 	var addrs []string
-	for _, broker := range c.Brokers {
+	for _, broker := range c.brokers {
 		addrs = append(addrs, broker.GetConnectionString())
 	}
 	client, err := sarama.NewConsumer(addrs, cfg)
@@ -38,6 +38,6 @@ func (c *Consumer) Connect(ctx context.Context) error {
 	return nil
 }
 
-func (g *Consumer) Close(ctx context.Context) error {
+func (g *consumer) stop(ctx context.Context) error {
 	return g.client.Close()
 }

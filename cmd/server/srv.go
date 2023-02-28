@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"time"
 
 	"github.com/duyledat197/go-gen-tools/config"
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
@@ -19,6 +20,7 @@ import (
 	"github.com/duyledat197/go-gen-tools/pkg/mongo_client"
 	"github.com/duyledat197/go-gen-tools/pkg/postgres_client"
 	"github.com/duyledat197/go-gen-tools/pkg/prometheus_server"
+	"github.com/duyledat197/go-gen-tools/pkg/pubsub"
 	"github.com/duyledat197/go-gen-tools/pkg/redis_client"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
@@ -76,10 +78,14 @@ type server struct {
 	prometheusServer *prometheus_server.PrometheusServer
 
 	//* third_party services
-	consul     *registry.ConsulClient
-	tracer     *tracing.TracerClient
-	publisher  *kafka.Publisher
-	subscriber *kafka.Subscriber
+	consul *registry.ConsulClient
+	tracer *tracing.TracerClient
+
+	//* load publishers
+	notificationPublisher pubsub.Publisher
+
+	//* load subscribers
+	notificationSubscriber pubsub.Subscriber
 
 	processors []processor
 	databases  []database
@@ -282,5 +288,30 @@ func (s *server) loadThirdPartyClients(ctx context.Context) error {
 	}
 
 	s.databases = append(s.databases, s.consul, s.tracer)
+	return nil
+}
+
+func (s *server) loadPublishers(ctx context.Context) error {
+	//* kafka publishers
+	s.notificationPublisher = &kafka.Publisher{
+		Address: s.config.Kafka,
+		Topic:   &pubsub.Topic{},
+	}
+
+	s.databases = append(s.databases, s.notificationPublisher)
+	return nil
+}
+
+func (s *server) loadSubscribers(ctx context.Context) error {
+	//* kafka subscribers
+	s.notificationSubscriber = &kafka.Subscriber{
+		ServiceName: s.config.ServiceName,
+		Brokers:     []*config.ConnectionAddr{s.config.Kafka},
+		Logger:      s.logger,
+		Topics:      []*pubsub.Topic{},
+		Handler:     func(msg *pubsub.Message, eventTime time.Time) {},
+	}
+	s.processors = append(s.processors, s.notificationSubscriber)
+
 	return nil
 }

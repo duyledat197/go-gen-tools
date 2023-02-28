@@ -22,7 +22,7 @@ type ConsumerGroup struct {
 	handler     func(msg *pubsub.Message, eventTime time.Time)
 }
 
-func (g *ConsumerGroup) Connect(ctx context.Context) error {
+func (g *ConsumerGroup) start(ctx context.Context) error {
 	config := sarama.NewConfig()
 	config.Consumer.Group.Rebalance.Strategy = sarama.BalanceStrategyRoundRobin
 	config.Consumer.Offsets.Initial = sarama.OffsetOldest
@@ -38,15 +38,15 @@ func (g *ConsumerGroup) Connect(ctx context.Context) error {
 	}
 
 	g.client = client
-	g.Subscribe()
+	g.subscribe()
 	return nil
 }
 
-func (g *ConsumerGroup) Close(ctx context.Context) error {
+func (g *ConsumerGroup) stop(ctx context.Context) error {
 	return g.client.Close()
 }
 
-func (g *ConsumerGroup) Subscribe() {
+func (g *ConsumerGroup) subscribe() {
 	ctx := context.Background()
 	consumer := consumerGroupHandler{
 		ready:  make(chan bool),

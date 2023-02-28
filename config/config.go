@@ -61,4 +61,5 @@ type Config struct {
 	Consul     *ConnectionAddr
 	Tracer     *ConnectionAddr
 	Prometheus *ConnectionAddr
+	Kafka      *ConnectionAddr
 }

@@ -17,7 +17,7 @@ const (
 	ConsumerType_PARTITION
 )
 
-type subscriber struct {
+type Subscriber struct {
 	ServiceName string
 	Brokers     []*config.ConnectionAddr
 	consumer    *ConsumerGroup
@@ -27,7 +27,7 @@ type subscriber struct {
 	Handler func(msg *pubsub.Message, eventTime time.Time)
 }
 
-func (s *subscriber) Connect(ctx context.Context) error {
+func (s *Subscriber) Init(ctx context.Context) error {
 	s.consumer = &ConsumerGroup{
 		serviceName: s.ServiceName,
 		brokers:     s.Brokers,
@@ -35,10 +35,12 @@ func (s *subscriber) Connect(ctx context.Context) error {
 		logger:      s.Logger,
 		handler:     s.Handler,
 	}
-
-	return s.consumer.Connect(ctx)
+	return nil
+}
+func (s *Subscriber) Start(ctx context.Context) error {
+	return s.consumer.start(ctx)
 }
 
-func (s *subscriber) Close(ctx context.Context) error {
-	return s.consumer.Close(ctx)
+func (s *Subscriber) Stop(ctx context.Context) error {
+	return s.consumer.stop(ctx)
 }
