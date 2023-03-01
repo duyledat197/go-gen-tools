@@ -31,3 +31,4 @@ build:
 	go build ./cmd/srv/.
 #  --gofullmethods_out=. \
 # 	 --gofullmethods_opt=paths=source_relative
+	

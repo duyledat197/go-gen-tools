@@ -310,6 +310,16 @@ Run all test:
 
 </div>
 
+## Pprof:
+install graphviz:
+
+```
+$ go get -u github.com/google/pprof
+
+$ apt-get install graphviz gv // for linux/debian 
+$ brew install graphviz (mac)  // for mac
+```
+
 ## License:
 
 MIT

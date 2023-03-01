@@ -1,0 +1,60 @@
+consul:
+  host: consul.svc.cluster.local
+  port: 8500
+  username: ""
+  password: ""
+  api_key: ""
+jeager-all-in-one:
+  host: jeager-all-in-one.svc.cluster.local
+  port: 6831
+  username: ""
+  password: ""
+  api_key: ""
+postgres:
+  host: postgres.svc.cluster.local
+  port: 5432
+  username: ""
+  password: ""
+  api_key: ""
+mongo:
+  host: mongo.svc.cluster.local
+  port: 27017
+  username: ""
+  password: ""
+  api_key: ""
+elastic:
+  host: elastic.svc.cluster.local
+  port: 8585
+  username: ""
+  password: ""
+  api_key: ""
+prometheus:
+  host: prometheus.svc.cluster.local
+  port: 9090
+  username: ""
+  password: ""
+  api_key: ""
+minio:
+  host: minio.svc.cluster.local
+  port: 8500
+  username: ""
+  password: ""
+  api_key: ""
+kafka:
+  host: kafka.svc.cluster.local
+  port: 9092
+  username: ""
+  password: ""
+  api_key: ""
+nats:
+  host: nats.svc.cluster.local
+  port: 4222
+  username: ""
+  password: ""
+  api_key: ""
+ethereum:
+  host: ethereum.svc.cluster.local
+  port: 10001
+  username: ""
+  password: ""
+  api_key: ""
