@@ -18,7 +18,6 @@ func NewHubRepository(db models.DBTX) repositories.HubRepository {
 }
 
 func (r *hubRepository) Create(ctx context.Context, hub *models.Hub, opts ...repositories.Options) error {
-	// ToDo remove querier to arguments and make it isolative. Because we should'nt using a common model.querier
 	q := models.New(r.db)
 	return nil
 }

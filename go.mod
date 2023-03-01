@@ -14,6 +14,7 @@ require (
 	github.com/cucumber/godog v0.12.6
 	github.com/cucumber/messages-go/v16 v16.0.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/elastic/elastic-transport-go/v8 v8.0.0-20211216131617-bbee439d559c
 	github.com/elastic/go-elasticsearch/v8 v8.6.0
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/esurdam/go-swagger-ui v0.0.0-20221023084847-8beb5ba14803
@@ -35,21 +36,17 @@ require (
 	github.com/jltorresm/otpgo v0.3.0
 	github.com/lib/pq v1.10.2
 	github.com/manifoldco/promptui v0.9.0
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/nats-io/nats.go v1.19.0
 	github.com/nats-rpc/nrpc v0.0.0-20210122221438-e1db8d872eb1
 	github.com/o1egl/paseto v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.14.0
 	github.com/reddit/jwt-go v3.2.1+incompatible
-	github.com/sendgrid/rest v2.6.9+incompatible
-	github.com/sendgrid/sendgrid-go v3.12.0+incompatible
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
-	github.com/twilio/twilio-go v1.3.0
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
-	go.elastic.co/ecszap v1.0.1
 	go.mongodb.org/mongo-driver v1.11.1
 	go.uber.org/zap v1.24.0
 	golang.org/x/exp v0.0.0-20230206171751-46f607a40771
@@ -81,7 +78,6 @@ require (
 	github.com/eapache/go-resiliency v1.3.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
-	github.com/elastic/elastic-transport-go/v8 v8.0.0-20211216131617-bbee439d559c // indirect
 	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -90,7 +86,6 @@ require (
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
-	github.com/google/pprof v0.0.0-20230228050547-1710fef4ab10 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-hclog v1.2.1 // indirect
@@ -103,7 +98,6 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/serf v0.10.1 // indirect
-	github.com/ianlancetaylor/demangle v0.0.0-20220517205856-0058ec4f073c // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -117,12 +111,10 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
-	github.com/magefile/mage v1.9.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
-	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/nats-io/nats-server/v2 v2.9.11 // indirect
@@ -130,6 +122,7 @@ require (
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/pierrec/lz4/v4 v4.1.17 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.39.0 // indirect
