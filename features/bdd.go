@@ -16,6 +16,7 @@ func (s *Suite) GetSteps() map[string]interface{} {
 		`^a signed in "([^"]*)"$`: s.aSignedIn,
 		`^a background$`:          s.aBackground,
 
+		//! DO NOT REMOVE
 		/*generate_key*/
 	}
 }

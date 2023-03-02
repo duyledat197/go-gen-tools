@@ -30,6 +30,7 @@ install_kind() {
 #TODO: install tools
 install_tools() {
   go install github.com/spf13/cobra-cli@latest
+  go install github.com/google/pprof@latest
 }
 #TODO: helm repositories
 install_helm_repos() {
@@ -62,11 +63,11 @@ install_services() {
 
 main() {
   build
-  # install_kind
-  # install_tools
-  # install_helm_repos
-  # install_insfras
-  # install_services
+  install_kind
+  install_tools
+  install_helm_repos
+  install_insfras
+  install_services
 }
 
 main
