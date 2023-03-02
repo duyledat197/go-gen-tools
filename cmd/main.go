@@ -1,6 +1,14 @@
 package cmd
 
-import "context"
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+)
 
 var srv server
 
@@ -55,8 +63,8 @@ func load(ctx context.Context) error {
 func start(ctx context.Context) error {
 	errChan := make(chan error)
 
-	for _, database := range srv.factories {
-		if err := database.Connect(ctx); err != nil {
+	for _, f := range srv.factories {
+		if err := f.Connect(ctx); err != nil {
 			return err
 		}
 	}
@@ -87,5 +95,33 @@ func stop(ctx context.Context) error {
 			return err
 		}
 	}
+	return nil
+}
+
+func gracefulShutdown(ctx context.Context, fn func(context.Context) error) error {
+	// TODO: with graceful shutdown
+	timeWait := 15 * time.Second
+	signChan := make(chan os.Signal, 1)
+
+	if err := load(ctx); err != nil {
+		return err
+	}
+
+	if err := fn(ctx); err != nil {
+		return err
+	}
+	signal.Notify(signChan, os.Interrupt, syscall.SIGTERM)
+	<-signChan
+	log.Println("Shutting down")
+	ctx, cancel := context.WithTimeout(context.Background(), timeWait)
+	defer func() {
+		log.Println("Close another connection")
+		cancel()
+	}()
+	if err := stop(ctx); err == context.DeadlineExceeded {
+		return fmt.Errorf("Halted active connections")
+	}
+	close(signChan)
+	log.Printf("Server down Completed")
 	return nil
 }
