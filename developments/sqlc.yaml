@@ -15,19 +15,11 @@ sql:
         overrides:
           - db_type: "text"
             go_type:
-              import: "github.com/jackc/pgx/v5/pgtype"
-              type: "Text"
-          - db_type: "timestamptz"
-            go_type:
-              import: "github.com/jackc/pgx/v5/pgtype"
-              type: "Timestamptz"
-          - db_type: "text"
-            go_type:
-              import: "github.com/jackc/pgx/v5/pgtype"
-              type: "Text"
+              import: "github.com/usk81/generic"
+              type: "String"
             nullable: true
           - db_type: "timestamptz"
             go_type:
-              import: "github.com/jackc/pgx/v5/pgtype"
-              type: "Timestamptz"
+              import: "github.com/usk81/generic"
+              type: "Time"
             nullable: true

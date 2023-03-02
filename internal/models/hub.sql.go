@@ -18,9 +18,9 @@ Returning id, name, location_id, created_at, updated_at, deleted_at, json
 `
 
 type CreateHubParams struct {
-	ID         pgtype.Text `db:"id" json:"id"`
-	Name       pgtype.Text `db:"name" json:"name"`
-	LocationID pgtype.Text `db:"location_id" json:"location_id"`
+	ID         string `db:"id" json:"id"`
+	Name       string `db:"name" json:"name"`
+	LocationID string `db:"location_id" json:"location_id"`
 }
 
 func (q *Queries) CreateHub(ctx context.Context, arg CreateHubParams) (*Hub, error) {
@@ -43,7 +43,7 @@ DELETE from hubs where id = $1
 Returning id, name, location_id, created_at, updated_at, deleted_at, json
 `
 
-func (q *Queries) DeleteHub(ctx context.Context, id pgtype.Text) (*Hub, error) {
+func (q *Queries) DeleteHub(ctx context.Context, id string) (*Hub, error) {
 	row := q.db.QueryRow(ctx, deleteHub, id)
 	var i Hub
 	err := row.Scan(
@@ -63,7 +63,7 @@ SELECT id, name, location_id, created_at, updated_at, deleted_at, json FROM hubs
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) FindHubByID(ctx context.Context, id pgtype.Text) (*Hub, error) {
+func (q *Queries) FindHubByID(ctx context.Context, id string) (*Hub, error) {
 	row := q.db.QueryRow(ctx, findHubByID, id)
 	var i Hub
 	err := row.Scan(
@@ -156,8 +156,8 @@ Returning id, name, location_id, created_at, updated_at, deleted_at, json
 `
 
 type UpdateHubParams struct {
-	Name pgtype.Text `db:"name" json:"name"`
-	ID   pgtype.Text `db:"id" json:"id"`
+	Name string `db:"name" json:"name"`
+	ID   string `db:"id" json:"id"`
 }
 
 func (q *Queries) UpdateHub(ctx context.Context, arg UpdateHubParams) (*Hub, error) {

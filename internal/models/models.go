@@ -5,36 +5,36 @@
 package models
 
 import (
-	"github.com/jackc/pgx/v5/pgtype"
+	"github.com/usk81/generic"
 )
 
 type Hub struct {
-	ID         pgtype.Text        `db:"id" json:"id"`
-	Name       pgtype.Text        `db:"name" json:"name"`
-	LocationID pgtype.Text        `db:"location_id" json:"location_id"`
-	CreatedAt  pgtype.Timestamptz `db:"created_at" json:"created_at"`
-	UpdatedAt  pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
-	DeletedAt  pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
-	Json       []byte             `db:"json" json:"json"`
+	ID         string       `db:"id" json:"id"`
+	Name       string       `db:"name" json:"name"`
+	LocationID string       `db:"location_id" json:"location_id"`
+	CreatedAt  generic.Time `db:"created_at" json:"created_at"`
+	UpdatedAt  generic.Time `db:"updated_at" json:"updated_at"`
+	DeletedAt  generic.Time `db:"deleted_at" json:"deleted_at"`
+	Json       []byte       `db:"json" json:"json"`
 }
 
 type Team struct {
-	ID         pgtype.Text        `db:"id" json:"id"`
-	Name       pgtype.Text        `db:"name" json:"name"`
-	Type       pgtype.Text        `db:"type" json:"type"`
-	HubID      pgtype.Text        `db:"hub_id" json:"hub_id"`
-	LocationID pgtype.Text        `db:"location_id" json:"location_id"`
-	CreatedAt  pgtype.Timestamptz `db:"created_at" json:"created_at"`
-	UpdatedAt  pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
-	DeletedAt  pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
+	ID         string       `db:"id" json:"id"`
+	Name       string       `db:"name" json:"name"`
+	Type       string       `db:"type" json:"type"`
+	HubID      string       `db:"hub_id" json:"hub_id"`
+	LocationID string       `db:"location_id" json:"location_id"`
+	CreatedAt  generic.Time `db:"created_at" json:"created_at"`
+	UpdatedAt  generic.Time `db:"updated_at" json:"updated_at"`
+	DeletedAt  generic.Time `db:"deleted_at" json:"deleted_at"`
 }
 
 type User struct {
-	ID        pgtype.Text        `db:"id" json:"id"`
-	Name      pgtype.Text        `db:"name" json:"name"`
-	Type      pgtype.Text        `db:"type" json:"type"`
-	TeamID    pgtype.Text        `db:"team_id" json:"team_id"`
-	CreatedAt pgtype.Timestamptz `db:"created_at" json:"created_at"`
-	UpdatedAt pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
-	DeletedAt pgtype.Timestamptz `db:"deleted_at" json:"deleted_at"`
+	ID        string       `db:"id" json:"id"`
+	Name      string       `db:"name" json:"name"`
+	Type      string       `db:"type" json:"type"`
+	TeamID    string       `db:"team_id" json:"team_id"`
+	CreatedAt generic.Time `db:"created_at" json:"created_at"`
+	UpdatedAt generic.Time `db:"updated_at" json:"updated_at"`
+	DeletedAt generic.Time `db:"deleted_at" json:"deleted_at"`
 }

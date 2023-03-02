@@ -7,8 +7,6 @@ package models
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -18,10 +16,10 @@ Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
 type CreateUserParams struct {
-	ID     pgtype.Text `db:"id" json:"id"`
-	Name   pgtype.Text `db:"name" json:"name"`
-	Type   pgtype.Text `db:"type" json:"type"`
-	TeamID pgtype.Text `db:"team_id" json:"team_id"`
+	ID     string `db:"id" json:"id"`
+	Name   string `db:"name" json:"name"`
+	Type   string `db:"type" json:"type"`
+	TeamID string `db:"team_id" json:"team_id"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (*User, error) {
@@ -49,7 +47,7 @@ DELETE from users where id = $1
 Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
-func (q *Queries) DeleteUser(ctx context.Context, id pgtype.Text) (*User, error) {
+func (q *Queries) DeleteUser(ctx context.Context, id string) (*User, error) {
 	row := q.db.QueryRow(ctx, deleteUser, id)
 	var i User
 	err := row.Scan(
@@ -69,7 +67,7 @@ SELECT id, name, type, team_id, created_at, updated_at, deleted_at FROM users
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) FindUserByID(ctx context.Context, id pgtype.Text) (*User, error) {
+func (q *Queries) FindUserByID(ctx context.Context, id string) (*User, error) {
 	row := q.db.QueryRow(ctx, findUserByID, id)
 	var i User
 	err := row.Scan(
@@ -129,8 +127,8 @@ Returning id, name, type, team_id, created_at, updated_at, deleted_at
 `
 
 type UpdateUserParams struct {
-	Name pgtype.Text `db:"name" json:"name"`
-	ID   pgtype.Text `db:"id" json:"id"`
+	Name string `db:"name" json:"name"`
+	ID   string `db:"id" json:"id"`
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error) {

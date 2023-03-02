@@ -12,7 +12,7 @@ test:
 install:
 	@go install ./cmd/server/.
 gen-sql:
-	docker compose -f ${COMPOSE_FILE} up generate_sqlc
+	docker compose -f ${COMPOSE_FILE} up generate_sqlc --build
 gen-proto:
 	docker compose -f ${COMPOSE_FILE} up generate_pb_go --build
 start-postgres:

@@ -1,29 +1,44 @@
-package postgres
+package mongo
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type hubRepository struct {
-	db models.DBTX
+	coll *mongo.Collection
 }
 
-func NewHubRepository(db models.DBTX) repositories.HubRepository {
+func NewHubRepository(coll *mongo.Collection) repositories.HubRepository {
 	return &hubRepository{
-		db: db,
+		coll: coll,
 	}
 }
 
 func (r *hubRepository) Create(ctx context.Context, hub *models.Hub, opts ...repositories.Options) error {
-	q := models.New(r.db)
+	if _, err := r.coll.InsertOne(ctx, hub, &options.InsertOneOptions{}); err != nil {
+		return err
+	}
 	return nil
 }
 
-func (r *hubRepository) Update(ctx context.Context, id string, hub *models.Hub, opts ...repositories.Options) error {
-	q := models.New(r.db)
+func (r *hubRepository) Update(ctx context.Context, filter *models.Hub, hub *models.Hub, opts ...repositories.Options) error {
+	result, err := r.coll.UpdateMany(ctx, filter, primitive.M{
+		"set": hub,
+	}, &options.UpdateOptions{})
+	if err != nil {
+		return err
+	}
+	if result.MatchedCount == 0 {
+		return fmt.Errorf("update not effected")
+	}
 	return nil
 }
 

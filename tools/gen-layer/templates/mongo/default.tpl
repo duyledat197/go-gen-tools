@@ -6,15 +6,19 @@ import (
 
 	"{{.Module}}/internal/models"
     "{{.Module}}/internal/repositories"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type {{.CamelCase}}Repository struct {
-	db models.DBTX
+	coll *mongo.Collection
 }
 
-func New{{.PascalCase}}Repository(db models.DBTX) repositories.{{.PascalCase}}Repository {
+func New{{.PascalCase}}Repository(coll *mongo.Collection) repositories.{{.PascalCase}}Repository {
 	return &{{.CamelCase}}Repository{
-		db,
+		coll,
 	}
 }
 {{end}}

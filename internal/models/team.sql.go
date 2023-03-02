@@ -18,11 +18,11 @@ Returning id, name, type, hub_id, location_id, created_at, updated_at, deleted_a
 `
 
 type CreateTeamParams struct {
-	ID         pgtype.Text `db:"id" json:"id"`
-	Name       pgtype.Text `db:"name" json:"name"`
-	Type       pgtype.Text `db:"type" json:"type"`
-	LocationID pgtype.Text `db:"location_id" json:"location_id"`
-	HubID      pgtype.Text `db:"hub_id" json:"hub_id"`
+	ID         string `db:"id" json:"id"`
+	Name       string `db:"name" json:"name"`
+	Type       string `db:"type" json:"type"`
+	LocationID string `db:"location_id" json:"location_id"`
+	HubID      string `db:"hub_id" json:"hub_id"`
 }
 
 func (q *Queries) CreateTeam(ctx context.Context, arg CreateTeamParams) (*Team, error) {
@@ -52,7 +52,7 @@ DELETE from teams where id = $1
 Returning id, name, type, hub_id, location_id, created_at, updated_at, deleted_at
 `
 
-func (q *Queries) DeleteTeam(ctx context.Context, id pgtype.Text) (*Team, error) {
+func (q *Queries) DeleteTeam(ctx context.Context, id string) (*Team, error) {
 	row := q.db.QueryRow(ctx, deleteTeam, id)
 	var i Team
 	err := row.Scan(
@@ -73,7 +73,7 @@ SELECT id, name, type, hub_id, location_id, created_at, updated_at, deleted_at F
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) FindTeamByID(ctx context.Context, id pgtype.Text) (*Team, error) {
+func (q *Queries) FindTeamByID(ctx context.Context, id string) (*Team, error) {
 	row := q.db.QueryRow(ctx, findTeamByID, id)
 	var i Team
 	err := row.Scan(
@@ -169,8 +169,8 @@ Returning id, name, type, hub_id, location_id, created_at, updated_at, deleted_a
 `
 
 type UpdateTeamParams struct {
-	Name pgtype.Text `db:"name" json:"name"`
-	ID   pgtype.Text `db:"id" json:"id"`
+	Name string `db:"name" json:"name"`
+	ID   string `db:"id" json:"id"`
 }
 
 func (q *Queries) UpdateTeam(ctx context.Context, arg UpdateTeamParams) (*Team, error) {

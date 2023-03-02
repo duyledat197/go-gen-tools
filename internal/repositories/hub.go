@@ -10,6 +10,6 @@ type HubRepository interface {
 	Create(ctx context.Context, hub *models.Hub, opts ...Options) error
 	GetByID(ctx context.Context, id string, opts ...Options) (*models.Hub, error)
 	GetList(ctx context.Context, offset, limit int, opts ...Options) ([]*models.Hub, error)
-	Update(ctx context.Context, id string, hub *models.Hub, opts ...Options) error
+	Update(ctx context.Context, filter *models.Hub, hub *models.Hub, opts ...Options) error
 	Delete(ctx context.Context, id string, opts ...Options) error
 }
