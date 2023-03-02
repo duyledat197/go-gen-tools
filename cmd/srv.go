@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"context"
@@ -7,7 +7,6 @@ import (
 	"github.com/duyledat197/go-gen-tools/config"
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
-	"github.com/duyledat197/go-gen-tools/internal/repositories/mongo"
 	"github.com/duyledat197/go-gen-tools/internal/repositories/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/services"
 	"github.com/duyledat197/go-gen-tools/pb"
@@ -37,10 +36,10 @@ type server struct {
 	authenticator authenticate.Authenticator
 
 	//* reposities
-	userRepo   repositories.UserRepository
-	teamRepo   repositories.TeamRepository
-	hubRepo    repositories.HubRepository
-	searchRepo repositories.SearchRepository
+	userRepo repositories.UserRepository
+	teamRepo repositories.TeamRepository
+	hubRepo  repositories.HubRepository
+	// searchRepo repositories.SearchRepository
 
 	//* services
 	userSrv   services.UserService
@@ -59,7 +58,7 @@ type server struct {
 	teamClient *grpc_client.GrpcClient
 	hubClient  *grpc_client.GrpcClient
 
-	//* databases
+	//* factories
 	postgresClient *postgres_client.PostgresClient
 	mongoClient    *mongo_client.MongoClient
 	elasticClient  *elastic_client.ElasticClient
@@ -88,7 +87,7 @@ type server struct {
 	notificationSubscriber pubsub.Subscriber
 
 	processors []processor
-	databases  []database
+	factories  []factory
 }
 
 type processor interface {
@@ -97,7 +96,7 @@ type processor interface {
 	Stop(ctx context.Context) error
 }
 
-type database interface {
+type factory interface {
 	Connect(ctx context.Context) error
 	Stop(ctx context.Context) error
 }
@@ -132,7 +131,7 @@ func (s *server) loadDatabaseClients(ctx context.Context) error {
 		Logger:   s.logger,
 	}
 
-	s.databases = append(s.databases, s.postgresClient, s.mongoClient, s.elasticClient, s.ethClient)
+	s.factories = append(s.factories, s.postgresClient, s.mongoClient, s.elasticClient, s.ethClient)
 	return nil
 }
 
@@ -147,7 +146,7 @@ func (s *server) loadRepositories() error {
 	s.hubRepo = postgres.NewHubRepository(s.postgresClient.Pool)
 
 	//* with mongo
-	s.searchRepo = mongo.NewSearchRepository(s.postgresClient.Pool)
+	// s.searchRepo = mongo.NewSearchRepository(s.postgresClient.Pool)
 
 	//* with redis
 
@@ -162,7 +161,7 @@ func (s *server) loadServices() error {
 	s.userSrv = services.NewUserService(s.userRepo)
 	s.teamSrv = services.NewTeamService(s.teamRepo)
 	s.hubSrv = services.NewHubService(s.hubRepo)
-	s.searchSrv = services.NewSearchService(s.searchRepo)
+	// s.searchSrv = services.NewSearchService(s.searchRepo)
 
 	return nil
 }
@@ -216,7 +215,7 @@ func (s *server) loadClients(ctx context.Context) error {
 
 	//* load http clients
 
-	s.databases = append(s.databases, s.teamClient, s.userClient, s.hubClient)
+	s.factories = append(s.factories, s.teamClient, s.userClient, s.hubClient)
 
 	return nil
 }
@@ -293,7 +292,7 @@ func (s *server) loadThirdPartyClients(ctx context.Context) error {
 		Logger:      s.logger,
 	}
 
-	s.databases = append(s.databases, s.consul, s.tracer)
+	s.factories = append(s.factories, s.consul, s.tracer)
 	return nil
 }
 
@@ -304,7 +303,7 @@ func (s *server) loadPublishers(ctx context.Context) error {
 		Topic:   &pubsub.Topic{},
 	}
 
-	s.databases = append(s.databases, s.notificationPublisher)
+	s.factories = append(s.factories, s.notificationPublisher)
 	return nil
 }
 
