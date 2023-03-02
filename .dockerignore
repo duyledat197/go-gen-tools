@@ -1,0 +1,13 @@
+deployments
+developments
+docs
+proto
+tools
+mocks
+database
+.vscode
+integration_test.go
+LICENSE
+Makefile
+README.md
+.gitignore

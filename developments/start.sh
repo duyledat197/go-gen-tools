@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # TODO: variables
-INSFRAS=insfras
-SERVICES=services
+INSFRAS="insfras"
+SERVICES="services"
 insfras=(
   "bitnami/postgresql"
   "jaeger-all-in-one/jaeger-all-in-one"
@@ -19,6 +19,7 @@ srvs=(
   "inventory"
   "third_party"
 )
+REPO="duyledat197/go-gen-tools"
 
 #TODO: kind set up
 install_kind() {
@@ -44,8 +45,12 @@ install_helm_repos() {
 install_insfras() {
   for insfra in ${insfras[@]}; do
     name=$(echo ${insfra} | sed -r 's:.*/::')
-    helm upgrade --install ${name} ${insfra} --namespace ${INSFRAS} --create-namespace
+    helm upgrade --install ${name} ${insfra} --namespace ${INSFRAS} --create-namespace -f ./deployments/helms/configs/${INSFRAS}.yaml
   done
+}
+
+build() {
+  docker build -t ${REPO} . -f ./developments/Dockerfile
 }
 
 #TODO: install services
@@ -56,11 +61,12 @@ install_services() {
 }
 
 main() {
-  install_kind
-  install_tools
-  install_helm_repos
-  install_insfras
-  install_services
+  build
+  # install_kind
+  # install_tools
+  # install_helm_repos
+  # install_insfras
+  # install_services
 }
 
 main

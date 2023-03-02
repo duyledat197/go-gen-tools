@@ -38,11 +38,15 @@ func (p *Database) GetConnectionString() string {
 }
 
 type ConnectionAddr struct {
-	Host string
-	Port string
+	Host    string
+	Port    string
+	Address string
 }
 
 func (p *ConnectionAddr) GetConnectionString() string {
+	if p.Address != "" {
+		return p.Address
+	}
 	return fmt.Sprintf("%s:%s", p.Host, p.Port)
 }
 
