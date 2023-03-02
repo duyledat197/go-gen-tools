@@ -6,11 +6,9 @@ COMPOSE_FILE := ./developments/docker-compose.yml
 # build:
 # 	@go build -i -v $(PKG)/cmd/server
 run:
-	go run cmd/server/main.go
+	./developments/start.sh
 test:
 	go test ./...
-install:
-	@go install ./cmd/server/.
 gen-sql:
 	docker compose -f ${COMPOSE_FILE} up generate_sqlc --build
 gen-proto:

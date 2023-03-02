@@ -49,7 +49,6 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           args:
             - "go-gen-tools {{ .Chart.Name }}"
-            - "--kmsKeyPath={{ .Values.global.configs.kmsPath }}"
             - "--commonConfigPath=/configs/common.config.yaml"
             - "--configPath=/configs/{{ .Chart.Name }}.config.yaml"
             - "--secretsPath=/configs/{{ .Chart.Name }}.secrets.yaml.encrypted"

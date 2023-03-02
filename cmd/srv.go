@@ -35,7 +35,7 @@ type server struct {
 	//* authenticator
 	authenticator authenticate.Authenticator
 
-	//* reposities
+	//* repositories
 	userRepo repositories.UserRepository
 	teamRepo repositories.TeamRepository
 	hubRepo  repositories.HubRepository
