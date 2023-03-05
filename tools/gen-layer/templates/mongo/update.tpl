@@ -1,8 +1,9 @@
 {{define "update"}}
-func (r *{{.CamelCase}}Repository) Update(ctx context.Context, filter *models.{{.PascalCase}}, {{.CamelCase}} *models.{{.PascalCase}}, opts ...repositories.Options) error {
+func (r *{{.CamelCase}}Repository) Update(ctx context.Context, filter, {{.CamelCase}} *models.{{.PascalCase}}, opts ...repositories.Options) error {
+	opt := &options.UpdateOptions{}
 	result, err := r.coll.UpdateMany(ctx, filter, primitive.M{
 		"set": {{.CamelCase}},
-	}, &options.UpdateOptions{})
+	}, opt)
 	if err != nil {
 		return err
 	}

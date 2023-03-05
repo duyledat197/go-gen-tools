@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/duyledat197/go-gen-tools/config"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"

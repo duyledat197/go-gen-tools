@@ -1,11 +1,10 @@
-
 package postgres
 
 import (
 	"context"
 
 	"github.com/duyledat197/go-gen-tools/internal/models"
-    "github.com/duyledat197/go-gen-tools/internal/repositories"
+	"github.com/duyledat197/go-gen-tools/internal/repositories"
 )
 
 type teamRepository struct {

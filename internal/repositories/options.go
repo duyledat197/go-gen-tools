@@ -7,7 +7,7 @@ import (
 
 type Options struct {
 	// transaction for DBMS
-	Tx *pgx.Tx
+	Tx pgx.Tx
 
 	// transaction for mongodb
 	SessionContext mongo.SessionContext

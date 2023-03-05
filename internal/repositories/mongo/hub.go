@@ -23,16 +23,18 @@ func NewHubRepository(coll *mongo.Collection) repositories.HubRepository {
 }
 
 func (r *hubRepository) Create(ctx context.Context, hub *models.Hub, opts ...repositories.Options) error {
-	if _, err := r.coll.InsertOne(ctx, hub, &options.InsertOneOptions{}); err != nil {
+	opt := &options.InsertOneOptions{}
+	if _, err := r.coll.InsertOne(ctx, hub, opt); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *hubRepository) Update(ctx context.Context, filter *models.Hub, hub *models.Hub, opts ...repositories.Options) error {
+func (r *hubRepository) Update(ctx context.Context, filter, hub *models.Hub, opts ...repositories.Options) error {
+	opt := &options.UpdateOptions{}
 	result, err := r.coll.UpdateMany(ctx, filter, primitive.M{
 		"set": hub,
-	}, &options.UpdateOptions{})
+	}, opt)
 	if err != nil {
 		return err
 	}
@@ -42,17 +44,37 @@ func (r *hubRepository) Update(ctx context.Context, filter *models.Hub, hub *mod
 	return nil
 }
 
-func (r *hubRepository) Delete(ctx context.Context, id string, opts ...repositories.Options) error {
-	q := models.New(r.db)
+func (r *hubRepository) Delete(ctx context.Context, filter *models.Hub, opts ...repositories.Options) error {
+	opt := &options.DeleteOptions{}
+	result, err := r.coll.DeleteMany(ctx, filter, opt)
+	if err != nil {
+		return err
+	}
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("update not effected")
+	}
 	return nil
 }
 
-func (r *hubRepository) GetList(ctx context.Context, offset, limit int, opts ...repositories.Options) ([]*models.Hub, error) {
-	q := models.New(r.db)
-	return nil, nil
+func (r *hubRepository) GetList(ctx context.Context, filter *models.Hub, offset, limit int, opts ...repositories.Options) ([]*models.Hub, error) {
+	opt := &options.FindOptions{}
+	var result []*models.Hub
+	cur, err := r.coll.Find(ctx, filter, opt)
+	if err != nil {
+		return nil, err
+	}
+	if err := cur.All(ctx, &result); err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
 
 func (r *hubRepository) GetByID(ctx context.Context, id string, opts ...repositories.Options) (*models.Hub, error) {
-	q := models.New(r.db)
-	return nil, nil
+	opt := &options.FindOneOptions{}
+	result := &models.Hub{}
+	if err := r.coll.FindOne(ctx, &models.Hub{ID: id}, opt).Decode(result); err != nil {
+		return nil, err
+	}
+	return result, nil
 }

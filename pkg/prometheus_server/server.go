@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/duyledat197/go-gen-tools/config"
+
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 )
@@ -31,6 +32,7 @@ func (s *PrometheusServer) Init(ctx context.Context) error {
 }
 
 func (s *PrometheusServer) Start(ctx context.Context) error {
+	s.Logger.Sugar().Infof("prometheus server start in port: %w\n", s.Address.Port)
 	if err := s.server.ListenAndServe(); err != nil {
 		return fmt.Errorf("start prometheus server error: %w", err)
 	}
