@@ -6,24 +6,13 @@ on:
     types: [opened, reopened, ready_for_review]
 
 jobs:
-  check_link_with_issue:
+  check_linked_issues:
     runs-on: ubuntu-latest
     outputs:
       isConvert: ${{ steps.limit_pull_request.outputs.isConvert }}
     steps:
-      - name: Check link with issue
-        id: check_link_with_issue
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const result = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.number,
-            });
-            console.log(result);
-      - name: check linked issue
+      - name: check linked issues
         uses: nearform/github-action-check-linked-issues@v1
-        id: check-linked-issues
+        id: check_linked_issues
         with:
           exclude-branches: "release/**, dependabot/**"
