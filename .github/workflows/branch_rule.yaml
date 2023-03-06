@@ -23,4 +23,4 @@ jobs:
           TARGET_BRANCH: ${{ github.base_ref }}
         with:
           script: |
-            console.log(github);
+            console.log(context);
