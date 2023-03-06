@@ -14,6 +14,11 @@ protoc \
 	--fieldmask_out=lang=go:. \
 	--doc_out=:./docs/html --doc_opt=html,index.html
 
+#! create nat and cobra folder
+mkdir ./pb/natspb
+mkdir ./pb/cobra
+mkdir docs
+
 #* gen markdown and tranformer
 protoc \
 	./proto/*.proto \
@@ -21,10 +26,6 @@ protoc \
 	--proto_path=./proto \
 	--struct-transformer_out=package=transform,debug=true,goimports=true,helper-package=transformhelpers:. \
 	--doc_out=:./docs/markdown --doc_opt=markdown,docs.md
-
-#* create nat and cobra folder
-mkdir ./pb/natspb
-mkdir ./pb/cobra
 
 #* gen nrpc(nats)
 protoc \
