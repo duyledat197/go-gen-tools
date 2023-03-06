@@ -16,7 +16,7 @@ jobs:
         id: limit_pull_request
         uses: actions/github-script@v6
         env:
-          PR_LIMIT: 0
+          PR_LIMIT: 4
         with:
           script: |
             const { PR_LIMIT } = process.env;
