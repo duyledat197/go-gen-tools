@@ -1,10 +1,11 @@
 name: Go Package
 
-on: 
+on:
+  push:
   pull_request: 
     branches:
       - main
-    types: [closed]
+    types: [opened]
 
 jobs:
   build:
