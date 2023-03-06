@@ -1,6 +1,6 @@
 module github.com/duyledat197/go-gen-tools
 
-go 1.18
+go 1.20
 
 require (
 	github.com/NathanBaulch/protoc-gen-cobra v1.0.0

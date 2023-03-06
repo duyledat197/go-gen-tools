@@ -5,6 +5,8 @@
 package models
 
 import (
+	"time"
+
 	"github.com/usk81/generic"
 )
 
@@ -37,4 +39,11 @@ type User struct {
 	CreatedAt generic.Time `db:"created_at" json:"created_at"`
 	UpdatedAt generic.Time `db:"updated_at" json:"updated_at"`
 	DeletedAt generic.Time `db:"deleted_at" json:"deleted_at"`
+}
+
+
+type Bicycle struct {
+	ID        string    `json:"id,omitempty" bson:"id,omitempty" db:"id"`
+	Type      string    `json:"type,omitempty" bson:"type,omitempty" db:"type"`
+	CreatedAt time.Time `json:"created_at,omitempty" bson:"created_at,omitempty" db:"created_at"`
 }

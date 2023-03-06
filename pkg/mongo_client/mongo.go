@@ -33,6 +33,7 @@ type MongoClient struct {
 	Logger     *zap.Logger
 	TLSConfig  tls.Config
 	ReplicaSet string
+	DB         *mongo.Database
 
 	Options *Options
 }
@@ -72,6 +73,8 @@ func (c *MongoClient) Connect(ctx context.Context) error {
 	if err := client.Ping(ctx, readpref.Primary()); err != nil {
 		return fmt.Errorf("connect mongo error: ping: %w", err)
 	}
+
+	c.DB = c.Client.Database("test")
 	c.Client = client
 	c.clientOptions = clientOpts
 	return nil

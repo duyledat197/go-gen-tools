@@ -6,6 +6,7 @@ import (
 
 	"github.com/duyledat197/go-gen-tools/config"
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
+	"github.com/duyledat197/go-gen-tools/internal/mongo"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
 	"github.com/duyledat197/go-gen-tools/internal/repositories/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/services"
@@ -141,12 +142,12 @@ func (s *server) loadLogger() error {
 }
 func (s *server) loadRepositories() error {
 	//* with postgres
-	s.userRepo = postgres.NewUserRepository(s.postgresClient.Pool)
+	// s.userRepo = postgres.NewUserRepository(s.postgresClient.Pool)
 	s.teamRepo = postgres.NewTeamRepository(s.postgresClient.Pool)
 	s.hubRepo = postgres.NewHubRepository(s.postgresClient.Pool)
 
 	//* with mongo
-	// s.searchRepo = mongo.NewSearchRepository(s.postgresClient.Pool)
+	s.userRepo = mongo.NewUserRepository(s.mongoClient.DB.Collection("test"))
 
 	//* with redis
 
