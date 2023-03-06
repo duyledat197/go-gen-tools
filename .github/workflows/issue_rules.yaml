@@ -22,4 +22,8 @@ jobs:
               pull_number: context.payload.number,
             });
             console.log(result);
-           
+      - name: check linked issue
+        uses: nearform/github-action-check-linked-issues@v1
+        id: check-linked-issues
+        with:
+          exclude-branches: "release/**, dependabot/**"
