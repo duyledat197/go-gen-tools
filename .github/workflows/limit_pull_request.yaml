@@ -16,10 +16,10 @@ jobs:
         id: limit_pull_request
         uses: actions/github-script@v6
         env:
-          PR_LIMIT: 4
-      
+          PR_LIMIT: 0
         with:
           script: |
+            const { PR_LIMIT } = process.env;
             const result = await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -27,13 +27,13 @@ jobs:
               base: 'main',
             });
             const num = result.filter(pull => !pull.draft).length;
-            if(num <= ${SHA}) return;
-            console.log(context)
-            console.log(github)
+            if(num <= PR_LIMIT) return;
+            core.setOutput('isConvert', true);
 
       - name: Convert to draft
         uses: octokit/graphql-action@v2.x
         id: convert_pr_to_daft
+        if: ${{ steps.limit_pull_request.outputs.isConvert }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
