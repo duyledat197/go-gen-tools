@@ -1,0 +1,21 @@
+name: Issue rules
+on:
+  pull_request: 
+    branches:
+      - main
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  check_link_with_issue:
+    runs-on: ubuntu-latest
+    outputs:
+      isConvert: ${{ steps.limit_pull_request.outputs.isConvert }}
+    steps:
+      - name: Check link with issue
+        id: check_link_with_issue
+        uses: actions/checkout@v3
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        with:
+          run: |
+            echo "$GITHUB_CONTEXT"

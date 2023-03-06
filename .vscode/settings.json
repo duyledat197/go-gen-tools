@@ -45,5 +45,8 @@
     "editorInlayHint.background": "#0a61a8",
     "editorInlayHint.foreground": "#e6ae63"
   },
-  "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font"
+  "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font",
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///Users/leduydat/go-gen-tools/.github/workflows/branch_rule.yaml"
+  }
 }
