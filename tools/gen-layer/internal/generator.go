@@ -88,7 +88,7 @@ func Run() {
 		}
 		layerPath, ok := LayerMap[l]
 		if !ok {
-			layerPath = l
+			layerPath = "repositories/" + l
 		}
 		filePath := path.Join(baseDir, "internal", layerPath, strcase.ToKebab(name)+".go")
 		file, err := os.Create(filePath)

@@ -8,11 +8,11 @@ func (r *{{.CamelCase}}Repository) Update(ctx context.Context, filter, {{.CamelC
 	if err != nil {
 		return err
 	}
-	var params models.Create{{.PascalCase}}Params
+	var params models.Update{{.PascalCase}}Params
 	if err := json.Unmarshal(b, &params); err != nil {
 		return err
 	}
-	if _, err := q.Create{{.PascalCase}}(ctx, params); err != nil {
+	if _, err := q.Update{{.PascalCase}}(ctx, params); err != nil {
 		return err
 	}
 	return nil

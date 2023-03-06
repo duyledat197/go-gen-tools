@@ -49,20 +49,45 @@ func (r *hubRepository) Update(ctx context.Context, filter, hub *models.Hub, opt
 	return nil
 }
 
-func (r *hubRepository) Delete(ctx context.Context, id string, opts ...repositories.Options) error {
+func (r *hubRepository) Delete(ctx context.Context, filter *models.Hub, opts ...repositories.Options) error {
 	q := models.New(r.db)
 	if len(opts) > 0 && opts[0].Tx != nil {
 		q = q.WithTx(opts[0].Tx)
+	}
+	b, err := json.Marshal(filter)
+	if err != nil {
+		return err
+	}
+	var params models.DeleteHubParams
+	if err := json.Unmarshal(b, &params); err != nil {
+		return err
+	}
+	if _, err := q.DeleteHub(ctx, params); err != nil {
+		return err
 	}
 	return nil
 }
 
-func (r *hubRepository) GetList(ctx context.Context, offset, limit int, opts ...repositories.Options) ([]*models.Hub, error) {
+func (r *hubRepository) GetList(ctx context.Context, filter *models.Hub, offset, limit int, opts ...repositories.Options) ([]*models.Hub, error) {
 	q := models.New(r.db)
 	if len(opts) > 0 && opts[0].Tx != nil {
 		q = q.WithTx(opts[0].Tx)
 	}
-	return nil, nil
+
+	b, err := json.Marshal(filter)
+	if err != nil {
+		return nil, err
+	}
+	var params models.GetListHubParams
+	if err := json.Unmarshal(b, &params); err != nil {
+		return nil, err
+	}
+
+	result, err := q.GetListHub(ctx, params)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 func (r *hubRepository) GetByID(ctx context.Context, id string, opts ...repositories.Options) (*models.Hub, error) {
@@ -70,5 +95,9 @@ func (r *hubRepository) GetByID(ctx context.Context, id string, opts ...reposito
 	if len(opts) > 0 && opts[0].Tx != nil {
 		q = q.WithTx(opts[0].Tx)
 	}
-	return nil, nil
+	result, err := q.FindHubByID(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }

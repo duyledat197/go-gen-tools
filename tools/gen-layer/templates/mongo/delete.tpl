@@ -1,5 +1,5 @@
 {{define "delete"}}
-func (r *{{.CamelCase}}Repository) Delete(ctx context.Context, filter *models.{{.CamelCase}}, opts ...repositories.Options) error {
+func (r *{{.CamelCase}}Repository) Delete(ctx context.Context, filter *models.{{.PascalCase}}, opts ...repositories.Options) error {
 	opt := &options.DeleteOptions{}
 	result, err := r.coll.DeleteMany(ctx, filter, opt)
 	if err != nil {
