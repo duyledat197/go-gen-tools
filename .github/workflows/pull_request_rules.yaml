@@ -1,4 +1,4 @@
-name: Limit Pull request
+name: Pull request rules
 
 on:
   pull_request: 
@@ -12,7 +12,7 @@ jobs:
     outputs:
       isConvert: ${{ steps.limit_pull_request.outputs.isConvert }}
     steps:
-      - name: limit pull request 
+      - name: Limit pull request 
         id: limit_pull_request
         uses: actions/github-script@v6
         env:

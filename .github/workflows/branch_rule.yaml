@@ -1,0 +1,26 @@
+name: Branch rules
+
+on: 
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+      
+      - name: Base branch format
+        id: base_branch_format
+        uses: actions/github-script@v6
+        env:
+          TARGET_BRANCH: ${{ github.base_ref }}
+        with:
+          script: |
+            console.log(github);
