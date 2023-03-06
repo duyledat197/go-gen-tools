@@ -31,7 +31,7 @@ RUN mv $MOD/github.com/envoyproxy/protoc-gen-validate@v0.9.1/validate /usr/local
 RUN mv $MOD/github.com/googleapis/googleapis@v0.0.0-20221209211743-f7f499371afa/google/* /usr/local/include/google/
 
 WORKDIR /app
-COPY /.. /app
+COPY .. .
 
-RUN go install /app/tools/protoc-gen-custom/.
-RUN go install /app/tools/protoc-gen-nrpc/.
+RUN go install ./tools/protoc-gen-custom/.
+RUN go install ./tools/protoc-gen-nrpc/.
