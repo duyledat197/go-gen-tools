@@ -6,19 +6,11 @@ on:
     types: [opened, reopened, ready_for_review]
 
 jobs:
-  check_link_with_issue:
+  verify_linked_issue:
     runs-on: ubuntu-latest
-    outputs:
-      isConvert: ${{ steps.limit_pull_request.outputs.isConvert }}
     steps:
-      - name: Check link with issue
-        id: check_link_with_issue
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const result = await github.rest.issues.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.number,
-            });
-            console.log(result);
+      - name: Verify linked Issue
+        id: verify_linked_issue
+        uses: hattan/verify-linked-issue-action@v1.1.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
