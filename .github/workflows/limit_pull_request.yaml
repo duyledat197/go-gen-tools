@@ -26,8 +26,7 @@ jobs:
               state: 'open',
               base: 'main',
             });
-            console.log(result);
-            const num = result.filter(pull => !pull.draft).length;
+            const num = result.data.filter(pull => !pull.draft).length;
             if(num <= PR_LIMIT) return;
             core.setOutput('isConvert', true);
 
