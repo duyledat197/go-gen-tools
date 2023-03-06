@@ -6,7 +6,8 @@ on:
       - opened
       - reopened
       - ready_for_review
-
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,4 +24,5 @@ jobs:
           TARGET_BRANCH: ${{ github.base_ref }}
         with:
           script: |
-            console.log(context);
+            console.log(context.payload.pull_request.base);
+            console.log(context.payload.pull_request.head);
