@@ -13,9 +13,12 @@ jobs:
     steps:
       - name: Check link with issue
         id: check_link_with_issue
-        uses: actions/checkout@v3
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+        uses: actions/github-script@v6
         with:
-          run: |
-            echo "$GITHUB_CONTEXT"
+          script: |
+            const result = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.number,
+            });
+            console.log(result);
