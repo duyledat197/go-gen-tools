@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nrpc;
 
-option go_package = "pb/;pb";
+option go_package = ".;nats_pb";
 
 import "google/protobuf/descriptor.proto";
 

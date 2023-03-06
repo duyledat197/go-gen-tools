@@ -34,8 +34,9 @@ protoc \
 	./proto/nats/*.proto \
 	-I=/usr/local/include \
 	--proto_path=./proto/nats \
-	--go_out=:. \
-	--nrpc_out=:./pb/nats_pb
+	--go_out=:./pb/nats_pb \
+	\
+	--nrpc_out=:./pb/nats_pb # --go-grpc_out=:./pb/nats_pb \
 
 #* gen cobra(cmd)
 protoc \

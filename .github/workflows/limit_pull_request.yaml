@@ -1,0 +1,45 @@
+name: Limit Pull request
+
+on:
+  pull_request: 
+    branches:
+      - main
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      isConvert: ${{ steps.limit_pull_request.outputs.isConvert }}
+    steps:
+      - name: limit pull request 
+        id: limit_pull_request
+        uses: actions/github-script@v6
+        env:
+          PR_LIMIT: 4
+      
+        with:
+          script: |
+            const result = await github.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              base: 'main',
+            });
+            const num = result.filter(pull => !pull.draft).length;
+            if(num <= ${SHA}) return;
+            console.log(context)
+            console.log(github)
+
+      - name: Convert to draft
+        uses: octokit/graphql-action@v2.x
+        id: convert_pr_to_daft
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            mutation ConvertToDraft {
+              convertPullRequestToDraft(input: {clientMutationId: "github-action", pullRequestId: "${{ github.event.pull_request.node_id }}"}) {
+                __typename
+              }
+            }
