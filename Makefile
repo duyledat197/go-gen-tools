@@ -10,11 +10,11 @@ run:
 test:
 	go test ./...
 gen-sql:
-	docker compose -f ${COMPOSE_FILE} up generate_sqlc --build
+	docker compose -f ${COMPOSE_FILE} up generate_sqlc
 gen-proto:
-	docker compose -f ${COMPOSE_FILE} up generate_pb_go --build
+	docker compose -f ${COMPOSE_FILE} up generate_pb_go
 gen-contract:
-	docker compose -f ${COMPOSE_FILE} up generate_contract --build
+	docker compose -f ${COMPOSE_FILE} up generate_contract 
 start-postgres:
 	docker compose -f ${COMPOSE_FILE} up postgres -d
 migrate:
