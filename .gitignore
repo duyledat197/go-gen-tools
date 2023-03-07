@@ -1,4 +1,5 @@
 docs
-pb
+idl/pb
+idl/abi
 transform
 mocks

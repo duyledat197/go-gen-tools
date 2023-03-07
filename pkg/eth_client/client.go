@@ -2,24 +2,21 @@ package eth_client
 
 import (
 	"context"
-	"crypto/ecdsa"
-	"fmt"
-	"math"
-	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"go.uber.org/zap"
 )
 
 type ETHClient struct {
 	Address string
-	Client  *ethclient.Client
-	// abi       abi.ABI
-	// contract  ethereum.Address
-	Logger *zap.Logger
+	client  *ethclient.Client
+	abi     abi.ABI
+	// contract ethereum.Address
+	Logger      *zap.Logger
+	KeyStoreDir string
+	keyStore    *keystore.KeyStore
 }
 
 func (c *ETHClient) Connect(ctx context.Context) error {
@@ -27,59 +24,13 @@ func (c *ETHClient) Connect(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	c.Client = client
+	c.keyStore = keystore.NewKeyStore(c.KeyStoreDir, keystore.StandardScryptN, keystore.StandardScryptP)
+
+	c.client = client
 	return nil
 }
 
 func (c *ETHClient) Stop(ctx context.Context) error {
-	c.Client.Close()
+	c.client.Close()
 	return nil
-}
-
-func (c *ETHClient) CreateWallet() (*EthereumWallet, error) {
-	privateKey, err := crypto.GenerateKey()
-	if err != nil {
-		return nil, fmt.Errorf("crypto.GenerateKey: %w", err)
-	}
-
-	privateKeyBytes := crypto.FromECDSA(privateKey)
-	privKeyStr := hexutil.Encode(privateKeyBytes)[2:]
-
-	publicKey := privateKey.Public()
-	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
-	if !ok {
-		return nil, fmt.Errorf("error casting public key to ECDSA")
-	}
-
-	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
-	pubKeyStr := hexutil.Encode(publicKeyBytes)[4:]
-
-	address := crypto.PubkeyToAddress(*publicKeyECDSA).Hex()
-
-	return &EthereumWallet{
-		PrivateKey:       privateKey,
-		PrivateKeyString: privKeyStr,
-		PublicKey:        publicKeyECDSA,
-		PublicKeyString:  pubKeyStr,
-		Address:          address,
-	}, nil
-}
-
-func (c *ETHClient) GetBalance(ctx context.Context, address string) (*Balance, error) {
-	blockNumber, err := c.Client.BlockNumber(ctx)
-	if err != nil {
-		return nil, err
-	}
-	balance, err := c.Client.BalanceAt(ctx, common.HexToAddress(address), nil)
-
-	fBalance, ok := new(big.Float).SetString(balance.String())
-	if !ok {
-		return nil, fmt.Errorf("unable to set balance to float")
-	}
-
-	val := fBalance.Quo(fBalance, big.NewFloat(math.Pow10(18)))
-	return &Balance{
-		BlockNumber: blockNumber,
-		Value:       val,
-	}, nil
 }

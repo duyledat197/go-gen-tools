@@ -9,7 +9,7 @@ services:
       dockerfile: ./developments/proto.Dockerfile
     volumes:
       - "../:/app/"
-    entrypoint: /app/developments/gen-go.sh
+    entrypoint: /app/developments/gen-proto.sh
 
   generate_sqlc:
     image: kjconroy/sqlc:latest
@@ -27,6 +27,15 @@ services:
 
     command: [ "--all", "--dir", "internal","--case", "underscore"]
 
+  generate_contract:
+    image: gen-contract
+    build:
+      context: ../
+      target: abi_gen_contract
+      dockerfile: ./developments/abi.Dockerfile
+    volumes:
+      - "../:/app/"
+    entrypoint: /app/developments/gen-abi.sh
 
   postgres:
     container_name: postgres_container

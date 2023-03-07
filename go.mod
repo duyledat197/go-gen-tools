@@ -51,8 +51,8 @@ require (
 	go.mongodb.org/mongo-driver v1.11.1
 	go.uber.org/zap v1.24.0
 	golang.org/x/exp v0.0.0-20230206171751-46f607a40771
-	golang.org/x/mod v0.7.0
-	golang.org/x/text v0.7.0
+	golang.org/x/mod v0.8.0
+	golang.org/x/text v0.8.0
 	golang.org/x/time v0.1.0
 	google.golang.org/genproto v0.0.0-20230209215440-0dfe4f8abfcc
 	google.golang.org/grpc v1.53.0
@@ -149,10 +149,10 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/net v0.6.0 // indirect
+	golang.org/x/crypto v0.7.0 // indirect
+	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
