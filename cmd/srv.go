@@ -23,6 +23,7 @@ import (
 	"github.com/duyledat197/go-gen-tools/pkg/pubsub"
 	"github.com/duyledat197/go-gen-tools/pkg/redis_client"
 	"github.com/duyledat197/go-gen-tools/pkg/registry"
+	"github.com/duyledat197/go-gen-tools/pkg/swagger_server"
 	"github.com/duyledat197/go-gen-tools/pkg/tracing"
 	"github.com/duyledat197/go-gen-tools/utils/authenticate"
 	"github.com/duyledat197/go-gen-tools/utils/logger"
@@ -76,6 +77,7 @@ type server struct {
 	grpcServer       *grpc_server.GrpcServer
 	httpServer       *http_server.HttpServer
 	prometheusServer *prometheus_server.PrometheusServer
+	swaggerServer    *swagger_server.SwaggerServer
 
 	//* third_party services
 	consul *registry.ConsulClient
@@ -275,6 +277,10 @@ func (s *server) loadServers(ctx context.Context) error {
 		Logger:  s.logger,
 	}
 
+	s.swaggerServer = &swagger_server.SwaggerServer{
+		Address: s.config.Swagger,
+		Logger:  s.logger,
+	}
 	s.processors = append(s.processors, s.grpcServer, s.httpServer, s.prometheusServer)
 
 	return nil

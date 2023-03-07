@@ -50,6 +50,14 @@ func (p *ConnectionAddr) GetConnectionString() string {
 	return fmt.Sprintf("%s:%s", p.Host, p.Port)
 }
 
+type Storage struct {
+	Region    string
+	AccessKey string
+	SecretKey string
+	Endpoint  string
+	Token     string
+}
+
 type Config struct {
 	ServiceName string
 	// database
@@ -66,4 +74,5 @@ type Config struct {
 	Tracer     *ConnectionAddr
 	Prometheus *ConnectionAddr
 	Kafka      *ConnectionAddr
+	Swagger    *ConnectionAddr
 }

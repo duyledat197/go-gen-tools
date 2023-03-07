@@ -3,14 +3,11 @@ package http_server
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"net/http"
-	"path/filepath"
 
 	"github.com/duyledat197/go-gen-tools/config"
 	"github.com/duyledat197/go-gen-tools/utils/authenticate"
 
-	swaggerui "github.com/esurdam/go-swagger-ui"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -39,17 +36,10 @@ func (s *HttpServer) Init(ctx context.Context) error {
 	if err := s.Handlers(ctx, mux); err != nil {
 		return err
 	}
-	muxh := swaggerui.NewServeMuxWithRoot(func(str string) ([]byte, error) {
-		file, err := ioutil.ReadFile(filepath.Join(fmt.Sprintf("../../%s/%s", s.DocFileRoot, str)))
-		if err != nil {
-			return nil, err
-		}
-		return file, nil
-	}, s.DocFileName, s.DocFileRoot)
-	muxh.Handle("/", AllowCORS(mux))
+
 	s.server = &http.Server{
 		Addr:    fmt.Sprintf(":%s", s.Address.Port),
-		Handler: muxh,
+		Handler: AllowCORS(mux),
 	}
 	return nil
 }
