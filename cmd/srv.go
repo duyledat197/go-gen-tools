@@ -5,12 +5,12 @@ import (
 	"time"
 
 	"github.com/duyledat197/go-gen-tools/config"
+	"github.com/duyledat197/go-gen-tools/idl/pb"
 	deliveries "github.com/duyledat197/go-gen-tools/internal/deliveries/grpc"
 	"github.com/duyledat197/go-gen-tools/internal/mongo"
 	"github.com/duyledat197/go-gen-tools/internal/repositories"
 	"github.com/duyledat197/go-gen-tools/internal/repositories/postgres"
 	"github.com/duyledat197/go-gen-tools/internal/services"
-	"github.com/duyledat197/go-gen-tools/pb"
 	"github.com/duyledat197/go-gen-tools/pkg/elastic_client"
 	"github.com/duyledat197/go-gen-tools/pkg/eth_client"
 	"github.com/duyledat197/go-gen-tools/pkg/grpc_client"

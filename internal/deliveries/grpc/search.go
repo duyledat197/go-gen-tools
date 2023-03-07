@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/duyledat197/go-gen-tools/idl/pb"
 	"github.com/duyledat197/go-gen-tools/internal/services"
-	"github.com/duyledat197/go-gen-tools/pb"
 	"github.com/duyledat197/go-gen-tools/transform"
 
 	"google.golang.org/grpc/codes"
