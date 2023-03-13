@@ -60,78 +60,82 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Go Gen Tools is a code generation tool that can automate repetitive tasks during application development. It provides a simple command-line interface that you can use to generate code files from templates or schema definitions.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+This section list any major frameworks/libraries used to bootstrap project.
+* ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+* ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+* ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
+* ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white) 
+* ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) 
+* ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white) 
+* ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) 
+* ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+* ![ElasticSearch](https://img.shields.io/badge/-ElasticSearch-005571?style=for-the-badge&logo=elasticsearch) 
+* ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Prerequisites
+Before you start using Go Gen Tools, make sure that you have the following software installed on your computer:
+
+* Go programming language (version 1.19 or later)
+* Git version control system
+* A text editor or integrated development environment (IDE) for writing code
+* Docker
+* Kubernetes
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+To install Go Gen Tools, you need to run the following command in your terminal or command prompt:
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
+```
+go get github.com/duyledat197/go-gen-tools@v0.0.1
+```
 <!-- USAGE EXAMPLES -->
 ## Usage
+Generate sql:
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-sql</a></i></pre>
+</h2>
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Generate proto:
+
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-proto</a></i></pre>
+</h2>
+
+Generate constract:
+
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-contract</a></i></pre>
+</h2>
+
+
+Generate layer by DDD (delivery, service, repository):
+
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-layer</a></i></pre>
+</h2>
+
+Generate mock:
+
+<h2 align="center">
+<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-mock</a></i></pre>
+</h2>
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -173,182 +177,346 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ```sh
 .
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── api
+│   ├── contracts
+│   │   └── store.sol
+│   └── proto
+│       ├── cobra
+│       │   └── example.proto
+│       ├── enum.proto
+│       ├── hub.proto
+│       ├── nats
+│       │   ├── example.proto
+│       │   ├── example_test.proto
+│       │   └── nrpc.proto
+│       ├── options
+│       │   ├── annotations.pb.go
+│       │   ├── annotations.proto
+│       │   └── doc.go
+│       ├── search.proto
+│       ├── team.proto
+│       └── user.proto
 ├── cmd
-│   └── server
-│       └── main.go
+│   ├── cmd.go
+│   ├── gateway.go
+│   ├── inventory.go
+│   ├── order.go
+│   ├── root.go
+│   ├── srv
+│   │   └── main.go
+│   ├── srv.go
+│   └── thirdParty.go
 ├── config
-│   └── config.go
+│   └── config.go
 ├── database
-│   ├── migrations
-│   │   ├── 0001_migrate.up.sql
-│   │   ├── 0002_migrate.up.sql
-│   │   └── 0003_migrate.up.sql
-│   └── queries
-│       ├── hub.sql
-│       ├── team.sql
-│       └── user.sql
+│   ├── migrations
+│   │   ├── 0001_migrate.up.sql
+│   │   ├── 0002_migrate.up.sql
+│   │   └── 0003_migrate.up.sql
+│   └── queries
+│       ├── hub.sql
+│       ├── team.sql
+│       └── user.sql
+├── deployments
+│   └── helms
+│       ├── common.config.yaml
+│       ├── configs
+│       │   └── insfras.yaml
+│       ├── gateway
+│       │   ├── Chart.yaml
+│       │   ├── charts
+│       │   ├── templates
+│       │   │   ├── NOTES.txt
+│       │   │   ├── _helpers.tpl
+│       │   │   ├── configmap.yaml
+│       │   │   ├── deployment.yaml
+│       │   │   ├── hpa.yaml
+│       │   │   ├── ingress.yaml
+│       │   │   ├── secrets.yaml
+│       │   │   ├── service.yaml
+│       │   │   ├── serviceaccount.yaml
+│       │   │   └── tests
+│       │   │       └── test-connection.yaml
+│       │   └── values.yaml
+│       ├── inventory
+│       │   ├── Chart.yaml
+│       │   ├── charts
+│       │   ├── templates
+│       │   │   ├── NOTES.txt
+│       │   │   ├── _helpers.tpl
+│       │   │   ├── deployment.yaml
+│       │   │   ├── hpa.yaml
+│       │   │   ├── ingress.yaml
+│       │   │   ├── service.yaml
+│       │   │   ├── serviceaccount.yaml
+│       │   │   └── tests
+│       │   │       └── test-connection.yaml
+│       │   └── values.yaml
+│       ├── order
+│       │   ├── Chart.yaml
+│       │   ├── charts
+│       │   ├── templates
+│       │   │   ├── NOTES.txt
+│       │   │   ├── _helpers.tpl
+│       │   │   ├── deployment.yaml
+│       │   │   ├── hpa.yaml
+│       │   │   ├── ingress.yaml
+│       │   │   ├── service.yaml
+│       │   │   ├── serviceaccount.yaml
+│       │   │   └── tests
+│       │   │       └── test-connection.yaml
+│       │   └── values.yaml
+│       └── third_party
+│           ├── Chart.yaml
+│           ├── charts
+│           ├── templates
+│           │   ├── NOTES.txt
+│           │   ├── _helpers.tpl
+│           │   ├── deployment.yaml
+│           │   ├── hpa.yaml
+│           │   ├── ingress.yaml
+│           │   ├── service.yaml
+│           │   ├── serviceaccount.yaml
+│           │   └── tests
+│           │       └── test-connection.yaml
+│           └── values.yaml
 ├── developments
-│   ├── bdd_test.Dockerfile
-│   ├── docker-compose.yml
-│   ├── gen-go.sh
-│   ├── groonga-build.sh
-│   ├── postgres.Dockerfile
-│   ├── proto.Dockerfile
-│   └── sqlc.yaml
+│   ├── Dockerfile
+│   ├── abi.Dockerfile
+│   ├── bdd_test.Dockerfile
+│   ├── docker-compose.yml
+│   ├── gen-abi.sh
+│   ├── gen-proto.sh
+│   ├── proto.Dockerfile
+│   ├── sqlc.yaml
+│   └── start.sh
 ├── docs
-│   ├── html
-│   │   └── index.html
-│   └── swagger
-│       └── ...
+│   ├── html
+│   │   └── index.html
+│   ├── markdown
+│   │   └── docs.md
+│   └── swagger
+│       └── *.swagger.json
 ├── features
-│   └── bdd.go
+│   └── bdd.go
 ├── go.mod
 ├── go.sum
+├── idl
+│   ├── abi
+│   │   ├── *.abi
+│   │   └── *.go
+│   └── pb
+│       ├── cobra_pb
+│       │   └── ...
+│       ├── nats_pb
+│       │   └── ...
+│       └── ...
 ├── intergration_test.go
 ├── internal
-│   ├── deliveries
-│   │   ├── grpc
-│   │   │   └── ...
-│   │   └── http
-│   │       ├── http.go
-│   │       └── ...
-│   ├── middleware
-│   │   └── authentication.go
-│   ├── models
-│   │   ├── db.go
-│   │   ├── hub.sql.go
-│   │   ├── models.go
-│   │   ├── querier.go
-│   │   └── ...
-│   ├── mongo
-│   ├── postgres
-│   ├── repositories
-│   │   └── ...
-│   └── services
-│       └── ...
-├── Makefile
-├── mocks
-│   ├── dbtx.go
-│   ├── querier.go
-│   └── ...
-├── pb
-│   └── ...
+│   ├── deliveries
+│   │   ├── grpc
+│   │   │   ├── hub.go
+│   │   │   ├── search.go
+│   │   │   ├── team.go
+│   │   │   └── user.go
+│   │   ├── http
+│   │   └── ws
+│   │       ├── client.go
+│   │       ├── hub.go
+│   │       └── ws.go
+│   ├── models
+│   │   ├── db.go
+│   │   ├── hub.sql.go
+│   │   ├── models.go
+│   │   ├── querier.go
+│   │   ├── team.sql.go
+│   │   └── user.sql.go
+│   ├── mongo
+│   │   └── user.go
+│   ├── repositories
+│   │   ├── hub.go
+│   │   ├── mongo
+│   │   │   ├── hub.go
+│   │   │   ├── team.go
+│   │   │   └── user.go
+│   │   ├── options.go
+│   │   ├── postgres
+│   │   │   ├── hub.go
+│   │   │   ├── team.go
+│   │   │   └── user.go
+│   │   ├── team.go
+│   │   └── user.go
+│   └── services
+│       ├── hub.go
+│       ├── hub_test.go
+│       ├── search.go
+│       ├── team.go
+│       └── user.go
 ├── pkg
-│   ├── grpc_client
-│   │   ├── grpc.go
-│   │   └── option.go
-│   ├── grpc_server
-│   │   ├── grpc.go
-│   │   ├── health_check.go
-│   │   └── middleware.go
-│   ├── http_server
-│   │   ├── http.go
-│   │   ├── middleware.go
-│   │   └── middleware_test.go
-│   ├── hystrix
-│   │   └── config.go
-│   ├── registry
-│   │   ├── consul.go
-│   │   └── consul_test.go
-│   └── tracing
-│       └── open_tracing.go
-├── proto
-│   ├── enum.proto
-│   ├── hub.proto
-│   ├── options
-│   │   ├── annotations.pb.go
-│   │   ├── annotations.proto
-│   │   └── doc.go
-│   ├── search.proto
-│   ├── team.proto
-│   └── user.proto
-├── README.md
+│   ├── elastic_client
+│   │   └── elastic.go
+│   ├── eth_client
+│   │   ├── balance.go
+│   │   ├── client.go
+│   │   ├── keystore.go
+│   │   ├── transaction.go
+│   │   └── wallet.go
+│   ├── grpc_client
+│   │   ├── grpc.go
+│   │   └── option.go
+│   ├── grpc_server
+│   │   ├── grpc.go
+│   │   ├── health_check.go
+│   │   └── middleware.go
+│   ├── http_server
+│   │   ├── http.go
+│   │   ├── middleware.go
+│   │   └── middleware_test.go
+│   ├── hystrix
+│   │   └── config.go
+│   ├── kafka
+│   │   ├── consumer.go
+│   │   ├── consumer_group.go
+│   │   ├── producer.go
+│   │   ├── producer_test.go
+│   │   ├── publisher.go
+│   │   └── subscriber.go
+│   ├── mongo_client
+│   │   └── mongo.go
+│   ├── nrpc
+│   │   ├── nrpc.go
+│   │   └── nrpc.pb.go
+│   ├── postgres_client
+│   │   └── postgres.go
+│   ├── prometheus_server
+│   │   └── server.go
+│   ├── pubsub
+│   │   ├── model.go
+│   │   ├── publisher.go
+│   │   └── subscriber.go
+│   ├── ratelimit
+│   │   └── ratelimit.go
+│   ├── redis_client
+│   │   └── redis.go
+│   ├── registry
+│   │   ├── client.go
+│   │   └── register.go
+│   ├── swagger_server
+│   │   └── server.go
+│   └── tracing
+│       └── client.go
 ├── third_party
-│   ├── sendgrid
-│   │   └── email.go
-│   └── twilio
-│       ├── messaging.go
-│       └── twilio.go
+│   ├── aws
+│   │   ├── aws.go
+│   │   └── s3.go
+│   ├── email
+│   │   └── email.go
+│   ├── marketing
+│   │   └── marketing.go
+│   └── sms
+│       └── sms.go
 ├── tools
-│   ├── gen-layer
-│   │   ├── internal
-│   │   │   ├── generator.go
-│   │   │   └── step.go
-│   │   ├── main.go
-│   │   ├── models
-│   │   │   ├── cli_step.go
-│   │   │   ├── feature.go
-│   │   │   └── template.go
-│   │   ├── protoc-gen-custom
-│   │   │   └── internal
-│   │   ├── templates
-│   │   │   ├── cucumber
-│   │   │   │   ├── create.tpl
-│   │   │   │   ├── delete.tpl
-│   │   │   │   ├── list.tpl
-│   │   │   │   ├── retrieve.tpl
-│   │   │   │   └── update.tpl
-│   │   │   ├── delivery
-│   │   │   │   ├── create.tpl
-│   │   │   │   ├── default.tpl
-│   │   │   │   ├── delete.tpl
-│   │   │   │   ├── list.tpl
-│   │   │   │   ├── retrieve.tpl
-│   │   │   │   └── update.tpl
-│   │   │   ├── godog
-│   │   │   │   ├── create.tpl
-│   │   │   │   ├── delete.tpl
-│   │   │   │   ├── list.tpl
-│   │   │   │   ├── retrieve.tpl
-│   │   │   │   └── update.tpl
-│   │   │   ├── postgres
-│   │   │   │   ├── create.tpl
-│   │   │   │   ├── default.tpl
-│   │   │   │   ├── delete.tpl
-│   │   │   │   ├── list.tpl
-│   │   │   │   ├── retrieve.tpl
-│   │   │   │   └── update.tpl
-│   │   │   ├── repository
-│   │   │   │   └── default.tpl
-│   │   │   └── service
-│   │   │       ├── create.tpl
-│   │   │       ├── default.tpl
-│   │   │       ├── delete.tpl
-│   │   │       ├── list.tpl
-│   │   │       ├── retrieve.tpl
-│   │   │       └── update.tpl
-│   │   └── utils
-│   │       ├── parser
-│   │       │   └── parser.go
-│   │       └── steps.go
-│   └── protoc-gen-custom
-│       ├── internal
-│       │   └── generator.go
-│       └── main.go
+│   ├── gen-layer
+│   │   ├── internal
+│   │   │   ├── generator.go
+│   │   │   └── step.go
+│   │   ├── main.go
+│   │   ├── models
+│   │   │   ├── cli_step.go
+│   │   │   ├── feature.go
+│   │   │   └── template.go
+│   │   ├── templates
+│   │   │   ├── cucumber
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── delivery
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── default.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── godog
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── default.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── function.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── mongo
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── default.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── postgres
+│   │   │   │   ├── create.tpl
+│   │   │   │   ├── default.tpl
+│   │   │   │   ├── delete.tpl
+│   │   │   │   ├── list.tpl
+│   │   │   │   ├── retrieve.tpl
+│   │   │   │   └── update.tpl
+│   │   │   ├── repository
+│   │   │   │   └── default.tpl
+│   │   │   └── service
+│   │   │       ├── create.tpl
+│   │   │       ├── default.tpl
+│   │   │       ├── delete.tpl
+│   │   │       ├── list.tpl
+│   │   │       ├── retrieve.tpl
+│   │   │       └── update.tpl
+│   │   └── utils
+│   │       ├── parser
+│   │       │   └── parser.go
+│   │       └── steps.go
+│   ├── gen-service
+│   ├── protoc-gen-custom
+│   │   ├── internal
+│   │   │   └── generator.go
+│   │   └── main.go
+│   └── protoc-gen-nrpc
+│       ├── internal
+│       │   └── genrator.go
+│       ├── main.go
+│       └── templates
+│           └── nrpc.tpl
 ├── transform
-│   └── ...
+│   └── ...
 └── utils
     ├── authenticate
-    │   ├── authenticator.go
-    │   ├── jwt.go
-    │   ├── jwt_test.go
-    │   ├── paseto.go
-    │   ├── paseto_test.go
-    │   ├── payload.go
-    │   └── token.go
+    │   ├── authenticator.go
+    │   ├── jwt.go
+    │   ├── jwt_test.go
+    │   ├── paseto.go
+    │   ├── paseto_test.go
+    │   ├── payload.go
+    │   └── token.go
     ├── crypto
-    │   ├── sha256.go
-    │   └── sha256_test.go
+    │   ├── sha256.go
+    │   └── sha256_test.go
     ├── helper
-    │   ├── validation.go
-    │   └── validation_test.go
+    │   ├── validation.go
+    │   └── validation_test.go
     ├── ip.go
     ├── logger
-    │   └── zap.go
+    │   └── zap.go
     ├── metadata
-    │   └── metadata.go
+    │   └── metadata.go
+    ├── otp
+    │   ├── hotp.go
+    │   ├── otp.go
+    │   └── totp.go
     ├── pathutils
-    │   └── path.go
+    │   └── path.go
     ├── string.go
     ├── token.go
     └── transformhelpers
@@ -408,33 +576,8 @@ Start server with docker:
 <pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make docker-start</a></i></pre>
 </h2>
 
-## Tools:
-
-Generate sql:
-
-<h2 align="center">
-<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-sql</a></i></pre>
-</h2>
-
-Generate proto:
-
-<h2 align="center">
-<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-proto</a></i></pre>
-</h2>
-
-Generate layer by DDD (delivery, service, repository):
-
-<h2 align="center">
-<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-layer</a></i></pre>
-</h2>
 
 ## Unit test:
-
-Generate mock:
-
-<h2 align="center">
-<pre><i><a href="https://rednafi.github.io/reflections" target="_blank">make gen-mock</a></i></pre>
-</h2>
 
 Run all test:
 
@@ -444,7 +587,9 @@ Run all test:
 
 </div>
 
-## Pprof:
+## For using pprof:
+
+###
 install graphviz:
 
 ```
