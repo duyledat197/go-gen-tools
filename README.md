@@ -90,7 +90,7 @@ This section list any major frameworks/libraries used to bootstrap project.
 Prerequisites
 Before you start using Go Gen Tools, make sure that you have the following software installed on your computer:
 
-* Go programming language (version 1.19 or later)
+* Go programming language (version 1.20 or later)
 * Git version control system
 * A text editor or integrated development environment (IDE) for writing code
 * Docker
