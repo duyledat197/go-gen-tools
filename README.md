@@ -1,3 +1,4 @@
+This repository is no longer supported, so please don't use this template for production.
 <a name="readme-top"></a>
 <div align="center">
 
